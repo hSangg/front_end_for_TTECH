@@ -6,13 +6,8 @@ import {
   useScroll,
 } from "framer-motion";
 import { useState } from "react";
-import {
-  RiAccountCircleLine,
-  RiContactsLine,
-  RiFileList2Line,
-  RiHomeLine,
-  RiPercentLine,
-} from "react-icons/ri";
+
+import { CiChat2, CiPercent, CiShop, CiUser } from "react-icons/ci";
 
 const Navigator = () => {
   const { scrollY } = useScroll();
@@ -28,40 +23,49 @@ const Navigator = () => {
   });
 
   return (
-    <motion.nav
-      variants={{
-        visible: { y: 0 },
-        hidden: { y: "100%" },
-      }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.15, ease: easeInOut }}
-      className="md:hidden z-10 fixed bottom-0 left-0 right-0 bg-white p-2 flex justify-around"
-    >
-      <div className="flex flex-col gap-1 justify-center items-center">
-        <RiHomeLine size={30} />
-        <div className="text-[1.3rem]">Trang chủ</div>
-      </div>
+    <>
+      <motion.ul
+        variants={{
+          visible: { y: 0 },
+          hidden: { y: "100%" },
+        }}
+        animate={hidden ? "hidden" : "visible"}
+        transition={{ duration: 0.15, ease: easeInOut }}
+        className="md:hidden z-20 fixed bottom-0 left-0 right-0 bg-white/20 backdrop-blur-xl p-2 flex justify-around"
+      >
+        <motion.li
+          whileHover={{ color: "#0284c7" }}
+          className="flex flex-col bg-transparent gap-1 w-[200px] justify-center items-center"
+        >
+          <CiShop size={23} />
+          <div className="text-[1.1rem]">Trang chủ</div>
+        </motion.li>
 
-      <div className="flex flex-col gap-1 justify-center items-center">
-        <RiFileList2Line size={30} />
-        <div className="text-[1.3rem]">Danh mục</div>
-      </div>
+        <motion.li
+          whileHover={{ color: "#0284c7" }}
+          className="flex flex-col bg-transparent gap-1 w-[200px] justify-center items-center"
+        >
+          <CiPercent size={23} />
+          <div className="text-[1.1rem]">Khuyến mãi</div>
+        </motion.li>
 
-      <div className="flex flex-col gap-1 justify-center items-center">
-        <RiPercentLine size={30} />
-        <div className="text-[1.3rem]">Khuyến mãi</div>
-      </div>
+        <motion.li
+          whileHover={{ color: "#0284c7" }}
+          className="flex flex-col bg-transparent gap-1 w-[200px] justify-center items-center"
+        >
+          <CiChat2 size={23} />
+          <div className="text-[1.1rem]">Tư vấn</div>
+        </motion.li>
 
-      <div className="flex flex-col gap-1 justify-center items-center">
-        <RiContactsLine size={30} />
-        <div className="text-[1.3rem]">Tư vấn</div>
-      </div>
-
-      <div className="flex flex-col gap-1 justify-center items-center">
-        <RiAccountCircleLine size={30} />
-        <div className="text-[1.3rem]">Tài khoản</div>
-      </div>
-    </motion.nav>
+        <motion.li
+          whileHover={{ color: "#0284c7" }}
+          className="flex flex-col bg-transparent gap-1 w-[200px] justify-center items-center"
+        >
+          <CiUser size={23} />
+          <div className="text-[1.1rem]">Tài khoản</div>
+        </motion.li>
+      </motion.ul>
+    </>
   );
 };
 

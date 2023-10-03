@@ -16,3 +16,8 @@ html {
 ::-webkit-scrollbar {
   display: none;
 }
+
+/* -------------- */
+.item-category {
+  @apply flex items-center gap-2 cursor-pointer;
+}

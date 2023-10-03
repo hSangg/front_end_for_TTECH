@@ -1,34 +1,55 @@
 "use client";
 
-import { useRef } from "react";
-import { RiSearch2Line } from "react-icons/ri";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { CiMinimize1, CiSearch } from "react-icons/ci";
 
 const SearchBar = () => {
-  const clickPoint = useRef();
-  const handleFocus = () => {
-    clickPoint.current.style.display = "none";
-  };
-
-  const handleBlur = () => {
-    clickPoint.current.style.display = "block";
-  };
-
+  const [showSearchPage, setShowSearchPage] = useState(false);
   return (
-    <div className="items-center w-full flex justify-center">
-      <div className="relative mr-3 w-full">
-        <div
-          className="absolute top-1/2 -translate-y-1/2 ml-3 items-center"
-          ref={clickPoint}
+    <div>
+      <AnimatePresence>
+        {showSearchPage && (
+          <motion.div
+            initial={{ y: "-100%", scaleY: 0, opacity: 0 }}
+            animate={{ y: 0, scaleY: 1, opacity: 1 }}
+            exit={{ y: "-100%", scaleY: 0, opacity: 0 }}
+            className="fixed inset-0 z-30 bg-white text-black origin-top"
+            transition={{ type: "tween" }}
+          >
+            <motion.div
+              whileInView={{ scaleY: [0, 1] }}
+              transition={{ delay: 0.1 }}
+              className="flex justify-evenly mt-[10%] items-center origin-top"
+            >
+              <motion.form className="flex items-center gap-2 justify-start">
+                <CiSearch size={20} />
+                <motion.input
+                  placeholder="Tìm Kiếm"
+                  type="text"
+                  className="outline-none text-[2rem] font-semibold "
+                />
+              </motion.form>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                onClick={() => setShowSearchPage(false)}
+              >
+                <CiMinimize1 size={20} />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="items-center w-full flex justify-end">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          onClick={() => {
+            setShowSearchPage((pre) => !pre);
+          }}
         >
-          <RiSearch2Line size={22} />
-        </div>
-        <input
-          type="text"
-          className="block text-[1.5rem] p-2 pl-16 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:pl-3"
-          placeholder="Search Here..."
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        />
+          <CiSearch size={22} />
+        </motion.div>
       </div>
     </div>
   );

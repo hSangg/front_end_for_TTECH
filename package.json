@@ -13,7 +13,8 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-icons": "^4.11.0"
+    "react-icons": "^4.11.0",
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "autoprefixer": "latest",

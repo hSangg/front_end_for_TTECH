@@ -11,6 +11,34 @@ export default function Document() {
           rel="stylesheet"
         />
         <link rel="icon" type="image/x-icon" href="/icon.webp" />
+
+        <title>Tech Products</title>
+        <meta name="title" content="Tech Products" />
+        <meta name="description" content="E-comerce" />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://tech-product-front-end.vercel.app/"
+        />
+        <meta property="og:title" content="Tech Products" />
+        <meta property="og:description" content="E-comerce" />
+        <meta
+          property="og:image"
+          content="https://metatags.io/images/meta-tags.png"
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+          property="twitter:url"
+          content="https://tech-product-front-end.vercel.app/"
+        />
+        <meta property="twitter:title" content="Tech Products" />
+        <meta property="twitter:description" content="E-comerce" />
+        <meta
+          property="twitter:image"
+          content="https://metatags.io/images/meta-tags.png"
+        />
       </Head>
       <body>
         <Main />

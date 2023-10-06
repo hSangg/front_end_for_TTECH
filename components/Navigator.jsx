@@ -61,7 +61,7 @@ const Navigator = () => {
 
         <motion.li
           onClick={() => {
-            const route = user ? "account" : "user";
+            const route = user ? "account" : "login";
             router.push(route);
           }}
           whileHover={{ color: "red" }}

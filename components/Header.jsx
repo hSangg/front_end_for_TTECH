@@ -39,7 +39,7 @@ const Header = () => {
             ))}
           </div>
 
-          <div className="grow-[1]">
+          <div className="grow-[1] ">
             <SearchBar />
           </div>
           <div className=" p-2 ">

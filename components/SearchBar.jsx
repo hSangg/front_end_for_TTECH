@@ -1,5 +1,8 @@
 "use client";
 
+import useDebounce from "@/customHook/useDeboune";
+import { productNameExample } from "@/data";
+import { convert_vi_to_en } from "@/utils/until";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { CiMinimize1, CiSearch } from "react-icons/ci";
@@ -7,6 +10,21 @@ import { CiMinimize1, CiSearch } from "react-icons/ci";
 const SearchBar = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [value, setValue] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const debouncedValue = useDebounce(value, 500);
+
+  useEffect(() => {
+    // call API here
+    const filteredResults = productNameExample.filter((name) =>
+      convert_vi_to_en(name.toLowerCase()).includes(
+        convert_vi_to_en(debouncedValue.toLowerCase())
+      )
+    );
+    // call API here
+
+    setFilteredProducts(filteredResults);
+  }, [debouncedValue]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -33,20 +51,21 @@ const SearchBar = () => {
             className=" absolute h-[100vh]  inset-0 backdrop-blur-2xl text-black origin-top"
             transition={{ type: "tween" }}
           >
-            <div className="absolute z-40 inset-x-0 top-0 bottom-0 md:bottom-[90px] bg-[#efeff1]">
+            <div className="absolute z-40  inset-x-0 top-0 bottom-0 md:bottom-[90px] bg-[#efeff1]">
               <motion.div
                 whileInView={{ scaleY: [0, 1] }}
                 transition={{ delay: 0.1 }}
-                className="flex flex-col  mt-[10%] items-center origin-top"
+                className="flex flex-col w-[60%] mt-[10%] mx-auto items-center origin-top"
               >
-                <div className="flex items-center w-[30%] gap-2 justify-evenly">
-                  <motion.form className="flex items-center w-[30%] gap-2 justify-start">
+                <div className="flex items-center gap-2 justify-between  w-full">
+                  <motion.form className="flex items-center w-full gap-2 justify-start">
                     <CiSearch size={20} />
                     <motion.input
                       autoFocus
                       placeholder="Tìm Kiếm"
                       value={value}
                       onChange={(e) => {
+                        e.preventDefault();
                         setValue(e.target.value);
                       }}
                       type="text"
@@ -62,30 +81,39 @@ const SearchBar = () => {
                   </motion.div>
                 </div>
 
-                <div className="items-center mx-auto flex flex-col justify-start w-[30%]">
-                  {["result 1", "result 2", "result 3"].map((x, i) => (
-                    <h1 key={i} className="text-black font-[700]">
+                <div
+                  className="w-full mt-10 
+                flex flex-col justify-start items-start"
+                >
+                  {filteredProducts.slice(0, 6).map((x, i) => (
+                    <motion.h1
+                      whileHover={{ color: "#dc2626" }}
+                      key={i}
+                      className="text-black text-[2rem] font-[700] cursor-pointer"
+                    >
                       {x}
-                    </h1>
+                    </motion.h1>
                   ))}
                 </div>
               </motion.div>
             </div>
 
-            <div
+            <motion.div
+              whileInView={{ opacity: [0, 1] }}
               onClick={() => setShowSearchPage(false)}
               className="absolute inset-0 bg-black/50 backdrop-blur-3xl"
-            ></div>
+            ></motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
       <div className="items-center w-full flex justify-end">
         <motion.div
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.1, color: "#dc2626" }}
           onClick={() => {
             setShowSearchPage((pre) => !pre);
           }}
+          className="cursor-pointer"
         >
           <CiSearch size={22} />
         </motion.div>

@@ -41,6 +41,7 @@ const ImageSlide = () => {
               <Image
                 src={"/images/image_slide/" + image}
                 width={0}
+                alt=""
                 height={0}
                 sizes="100vw"
                 style={{ width: "100%", height: "auto", objectFit: "contain" }} // optional

@@ -1,6 +1,8 @@
 import Navigator from "@/components/Navigator";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import Header from "@/components/Header";
+import { AuthContextProvider } from "@/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,13 +17,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div>
-          <Navigator />
-        </div>
+      <AuthContextProvider>
+        <body className={inter.className}>
+          <div className="h-[70px]"></div>
 
-        {children}
-      </body>
+          <div>
+            <Header />
+          </div>
+          <div>
+            <Navigator />
+          </div>
+
+          {children}
+        </body>
+      </AuthContextProvider>
     </html>
   );
 }

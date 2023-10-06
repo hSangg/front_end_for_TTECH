@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const BestSaleProduct = () => {
   return (
-    <div className="w-[100vw] p-2 bg-slate-500/50 overflow-hidden rounded-[25px] mt-4">
+    <div className="w-full bg-slate-500/20 rounded-[25px] mt-4">
       <div className="overflow-x-scroll flex flex-nowrap gap-2">
         {saleProductList.map((item, index) => (
           <div

@@ -16,8 +16,6 @@ const Navigator = () => {
   useMotionValueEvent(scrollY, "change", (lastest) => {
     const previous = scrollY.getPrevious();
 
-    console.log("lastest:", lastest);
-    console.log("previous:", previous);
     if (lastest > previous && lastest > 150) setHidden(true);
     else setHidden(false);
   });
@@ -31,35 +29,35 @@ const Navigator = () => {
         }}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.15, ease: easeInOut }}
-        className="md:hidden z-20 fixed bottom-0 left-0 right-0 bg-white/20 backdrop-blur-xl p-2 flex justify-around"
+        className="md:hidden font-[300] z-20 fixed bottom-0 left-0 right-0 bg-white/20 backdrop-blur-xl p-2 flex justify-around"
       >
         <motion.li
-          whileHover={{ color: "#0284c7" }}
-          className="flex flex-col bg-transparent gap-1 w-[200px] justify-center items-center"
+          whileHover={{ color: "red" }}
+          className="flex flex-col bg-transparent cursor-pointer gap-1 w-[200px] justify-center items-center"
         >
           <CiShop size={23} />
           <div className="text-[1.1rem]">Trang chủ</div>
         </motion.li>
 
         <motion.li
-          whileHover={{ color: "#0284c7" }}
-          className="flex flex-col bg-transparent gap-1 w-[200px] justify-center items-center"
+          whileHover={{ color: "red" }}
+          className="flex flex-col bg-transparent cursor-pointer gap-1 w-[200px] justify-center items-center"
         >
           <CiPercent size={23} />
           <div className="text-[1.1rem]">Khuyến mãi</div>
         </motion.li>
 
         <motion.li
-          whileHover={{ color: "#0284c7" }}
-          className="flex flex-col bg-transparent gap-1 w-[200px] justify-center items-center"
+          whileHover={{ color: "red" }}
+          className="flex flex-col bg-transparent cursor-pointer gap-1 w-[200px] justify-center items-center"
         >
           <CiChat2 size={23} />
           <div className="text-[1.1rem]">Tư vấn</div>
         </motion.li>
 
         <motion.li
-          whileHover={{ color: "#0284c7" }}
-          className="flex flex-col bg-transparent gap-1 w-[200px] justify-center items-center"
+          whileHover={{ color: "red" }}
+          className="flex flex-col bg-transparent cursor-pointer gap-1 w-[200px] justify-center items-center"
         >
           <CiUser size={23} />
           <div className="text-[1.1rem]">Tài khoản</div>

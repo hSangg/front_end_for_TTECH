@@ -14,7 +14,7 @@ const SearchBar = () => {
             initial={{ y: "-100%", scaleY: 0, opacity: 0 }}
             animate={{ y: 0, scaleY: 1, opacity: 1 }}
             exit={{ y: "-100%", scaleY: 0, opacity: 0 }}
-            className="fixed inset-0 z-30 bg-white text-black origin-top"
+            className=" absolute h-[100vh] inset-0 bg-[#EFEFF1] text-black origin-top"
             transition={{ type: "tween" }}
           >
             <motion.div
@@ -27,7 +27,7 @@ const SearchBar = () => {
                 <motion.input
                   placeholder="Tìm Kiếm"
                   type="text"
-                  className="outline-none text-[2rem] font-semibold "
+                  className="outline-none bg-[#efeff1] text-[2rem] font-semibold "
                 />
               </motion.form>
               <motion.div

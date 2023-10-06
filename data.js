@@ -15,6 +15,30 @@ export const saleProductList = [
   },
 ];
 
+export const productListAbs = [
+  {
+    title:
+      "<div class='text-[2rem] leading-[22px]'><strong>To rõ</strong>, <strong>trầm ấm</strong> & <strong>trong trẻo</strong> </br> Tai nghe nhẹ nhàng khẳng định chất âm </div>",
+
+    imageHref: "/images/product_images/headphone-review.png",
+    styleForImage: undefined,
+    productList: [],
+  },
+
+  {
+    title:
+      "<div class='text-[2rem] leading-[22px] mx-auto'>Hiệu năng <strong>không tưởng</strong>, </br> <strong>không cần lo lắp đặt</strong> với đội ngũ tư vấn linh kiện </div>",
+
+    imageHref: "/images/product_images/pccase-review.png",
+    styleForImage: {
+      scale: 1.5,
+      marginTop: "50px",
+    },
+
+    productList: [],
+  },
+];
+
 const caterogyDataExample = [
   { id: 0, name: "All" },
   {

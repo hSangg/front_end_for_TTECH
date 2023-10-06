@@ -95,7 +95,7 @@ const ProductSlide = ({
           onClick={handlePreClick}
           className=" absolute top-1/2 -translate-y-1/2 
           hidden md:inline-flex -translate-x-1/2  text-5xl
-           bg-black/10 backdrop-blur-lg z-30  items-center
+           bg-black/10 backdrop-blur-lg z-20  items-center
             justify-center p-3 rounded-full"
         >
           <GoChevronLeft size={25} />
@@ -164,7 +164,7 @@ const ProductSlide = ({
         onClick={handleNextClick}
         className="absolute text-5xl hidden md:flex
          -translate-x-5  top-1/2 right-0 -translate-y-1/2
-          bg-black/10 backdrop-blur-lg z-30  items-center 
+          bg-black/10 backdrop-blur-lg z-20  items-center 
           justify-center p-3 rounded-full"
       >
         <GoChevronRight size={25} />

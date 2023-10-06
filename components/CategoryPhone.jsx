@@ -20,7 +20,7 @@ const CategoryPhone = () => {
             animate={{ y: 0, scaleY: 1, opacity: 1 }}
             exit={{ y: "-100%", scaleY: 0, opacity: 0 }}
             transition={{ type: "tween" }}
-            className="absolute font-[300] h-[100vh] z-30 inset-0 p-10 bg-[#EFEFF1]"
+            className="absolute font-[300] h-[100vh] z-40 inset-0 p-10 bg-[#EFEFF1]"
           >
             <motion.div
               whileInView={{ scaleY: [0, 1] }}

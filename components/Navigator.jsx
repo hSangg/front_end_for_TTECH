@@ -1,10 +1,12 @@
 "use client";
+import { UserAuth } from "@/context/AuthContext";
 import {
   easeInOut,
   motion,
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { CiChat2, CiPercent, CiShop, CiUser } from "react-icons/ci";
@@ -12,6 +14,8 @@ import { CiChat2, CiPercent, CiShop, CiUser } from "react-icons/ci";
 const Navigator = () => {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
+  const router = useRouter();
+  const { user } = UserAuth();
 
   useMotionValueEvent(scrollY, "change", (lastest) => {
     const previous = scrollY.getPrevious();
@@ -56,6 +60,10 @@ const Navigator = () => {
         </motion.li>
 
         <motion.li
+          onClick={() => {
+            const route = user ? "account" : "user";
+            router.push(route);
+          }}
           whileHover={{ color: "red" }}
           className="flex flex-col bg-transparent cursor-pointer gap-1 w-[200px] justify-center items-center"
         >

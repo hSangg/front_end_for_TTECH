@@ -28,7 +28,7 @@ const ImageSlide = () => {
   }
 
   return (
-    <div className="flex items-center relative">
+    <div className="flex items-center relative md:p-10">
       <div className="flex-grow overflow-hidden">
         <div
           className="flex transition-transform duration-500 ease-in-out"
@@ -44,20 +44,16 @@ const ImageSlide = () => {
                 alt=""
                 height={0}
                 sizes="100vw"
-                style={{ width: "100%", height: "auto", objectFit: "contain" }} // optional
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "20px",
+                  objectFit: "contain",
+                }} // optional
               />
             </div>
           ))}
         </div>
-        {/* <div className="absolute inset-x-0 bottom-3 z-10 gap-3 flex justify-center font-bold">
-          {array_list_number.map((x, i) => (
-            <span
-              className="block text-white backdrop-blur-lg cursor-pointer px-4 py-1 bg-slate-200/25 rounded-full"
-              key={i}
-              onClick={() => setCurrent(i)}
-            ></span>
-          ))}
-        </div> */}
       </div>
     </div>
   );

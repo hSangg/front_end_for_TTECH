@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import useDebounce from "@/customHook/useDeboune";
 import { UserAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+import { CiGlobe } from "react-icons/ci";
+import PopupRegister from "./PopupRegister";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -21,9 +24,9 @@ const LoginForm = () => {
   const debouncedData = useDebounce(data, 1000);
 
   return (
-    <div className=" absolute inset-y-0 inset-x-0 p-[30px]  bg-white">
+    <div className="p-[30px] bg-white">
       <div className="flex gap-4 justify-center">
-        <h1 className="text-[3rem] font-[700] capitalize tracking-wide">
+        <h1 className="text-[3rem] pt-[10px] font-[700] capitalize tracking-wide">
           Đăng nhập tài khoản{" "}
         </h1>
         <div className="relative w-[120px]">
@@ -39,6 +42,7 @@ const LoginForm = () => {
       <form className="flex flex-col gap-2">
         {["email", "password"].map((x, i) => (
           <motion.input
+            required
             key={i}
             whileFocus={{ scale: 1.05, borderColor: "#3b82f6" }}
             value={data[x]}
@@ -59,18 +63,22 @@ const LoginForm = () => {
           Login
         </motion.button>
       </form>
-
+      <PopupRegister />
       <div className="uppercase text-center text-[1.4em] font-[700] my-6">
         hoặc
       </div>
 
       <button
+        className="w-full bg-slate-400 text-[1.8rem] relative p-2 rounded-3xl flex  justify-center items-center text-white"
         onClick={() => {
           googleSignIn();
           setIsLogin(true);
         }}
       >
-        Google login
+        <div className="bg-white rounded-[16px] p-2 w-[28px] h-[28px]  flex items-center justify-center absolute left-2 ">
+          <FcGoogle size={22} />
+        </div>
+        <h1>Đăng nhập bằng Google</h1>
       </button>
     </div>
   );

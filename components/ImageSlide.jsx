@@ -28,7 +28,7 @@ const ImageSlide = () => {
   }
 
   return (
-    <div className="flex items-center relative md:p-10">
+    <div className="flex items-center relative md:p-10 image-slide">
       <div className="flex-grow overflow-hidden">
         <div
           className="flex transition-transform duration-500 ease-in-out"

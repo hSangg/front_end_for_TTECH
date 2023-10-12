@@ -4,15 +4,19 @@ import useDebounce from "@/customHook/useDeboune";
 import { productNameExample } from "@/data";
 import { convert_vi_to_en } from "@/utils/until";
 import { AnimatePresence, motion } from "framer-motion";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CiMinimize1, CiSearch } from "react-icons/ci";
 
 const SearchBar = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [value, setValue] = useState("");
+  const router = useRouter();
+
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const debouncedValue = useDebounce(value, 500);
+  const debouncedValue = useDebounce(value, 300);
+  //
 
   useEffect(() => {
     // call API here
@@ -25,6 +29,13 @@ const SearchBar = () => {
 
     setFilteredProducts(filteredResults);
   }, [debouncedValue]);
+
+  const handleKeyPressEnter = (e) => {
+    if (e.key === "Enter") {
+      router.push(`/search?query=${value}`);
+      setShowSearchPage(false);
+    }
+  };
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -58,14 +69,17 @@ const SearchBar = () => {
                 className="flex flex-col w-[60%] mt-[10%] mx-auto items-center origin-top"
               >
                 <div className="flex items-center gap-2 justify-between  w-full">
-                  <motion.form className="flex items-center w-full gap-2 justify-start">
+                  <motion.form
+                    onSubmit={(e) => e.preventDefault()}
+                    className="flex items-center w-full gap-2 justify-start"
+                  >
                     <CiSearch size={20} />
                     <motion.input
                       autoFocus
                       placeholder="Tìm Kiếm"
                       value={value}
+                      onKeyPress={handleKeyPressEnter}
                       onChange={(e) => {
-                        e.preventDefault();
                         setValue(e.target.value);
                       }}
                       type="text"
@@ -123,3 +137,13 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+
+/**
+ * % ĐÓNG GÓP
+ * + (NỘP DEADLINE ĐÚNG HẠNG) (- ĐIỂM ĐÓNG GÓP, TRỄ 1H -> 10H)
+ * + ĐỘ UY TÍN, PHẦN LÀM CÓ PHẢI LÀ CHO CÓ ĐỐI PHÓ
+ * +
+ * + TIẾN ĐỘ TỪNG THÀNH VIÊN, GÓP Ý -> SỬA, NỘI QUY CHUNG NHÓM.
+ *
+ *
+ */

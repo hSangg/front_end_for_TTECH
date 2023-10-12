@@ -1,0 +1,4 @@
+GET https://localhost:7176/api/products
+Content-Type: application/json
+
+###

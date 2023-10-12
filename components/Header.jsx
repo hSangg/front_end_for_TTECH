@@ -27,17 +27,17 @@ const Header = () => {
             />
           </div>
 
-          <div className="hidden md:flex overflow-x-scroll flex-nowrap noneScrollBar my-2">
+          <ul className="hidden md:flex overflow-x-scroll flex-nowrap noneScrollBar my-2">
             {caterogyDataExample.map((category, index) => (
-              <motion.div
+              <motion.li
                 whileHover={{ color: "red" }}
                 key={index}
                 className="text-[1.3rem] md:text-[1.5rem] font-[400] capitalize mx-2 cursor-pointer whitespace-nowrap	"
               >
                 {category.name}
-              </motion.div>
+              </motion.li>
             ))}
-          </div>
+          </ul>
 
           <div className="grow-[1] ">
             <SearchBar />
@@ -52,7 +52,7 @@ const Header = () => {
               router.push(route);
             }}
             whileHover={{ color: "#dc2626" }}
-            className="hidden md:block cursor-pointer"
+            className="md:block cursor-pointer"
           >
             <CiUser size={25} />
           </motion.div>

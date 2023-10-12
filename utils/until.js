@@ -2,7 +2,7 @@ export const openNewWindow = (link) => {
   window.open(link, "_blank");
 };
 
-export const smoothScrollTo = (
+export const smoothScrollHorizotal = (
   element,
   currentScroll,
   targetScroll,
@@ -24,6 +24,34 @@ export const smoothScrollTo = (
       requestAnimationFrame(animateScroll);
     } else {
       element.scrollLeft = targetScroll;
+    }
+  };
+
+  requestAnimationFrame(animateScroll);
+};
+
+export const smoothScrollVertical = (
+  element,
+  currentScroll,
+  targetScroll,
+  duration
+) => {
+  const startTime = performance.now();
+
+  const animateScroll = (currentTime) => {
+    const elapsedTime = currentTime - startTime;
+    const easeInOutCubic = easeInOutCubicFunction(
+      elapsedTime,
+      currentScroll,
+      targetScroll - currentScroll,
+      duration
+    );
+    element.scrollTop = easeInOutCubic; // Sử dụng scrollTop thay vì scrollLeft
+
+    if (elapsedTime < duration) {
+      requestAnimationFrame(animateScroll);
+    } else {
+      element.scrollTop = targetScroll;
     }
   };
 
@@ -59,3 +87,42 @@ export const convert_vi_to_en = (str) => {
   str = str.replace(/  +/g, " ");
   return str;
 };
+
+export const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+export function isValidPhoneNumber(phoneNumber) {
+  const phoneRegex = /^\d{10,11}$/;
+  return phoneRegex.test(phoneNumber);
+}
+
+export const convertToVND = (money) => {
+  return money.toLocaleString("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
+};
+
+export function getCurrentDate(separator = "") {
+  let daysOfWeek = [
+    "Chủ Nhật",
+    "Thứ Hai",
+    "Thứ Ba",
+    "Thứ Tư",
+    "Thứ Năm",
+    "Thứ Sáu",
+    "Thứ Bảy",
+  ];
+
+  let newDate = new Date();
+  let dayOfWeek = daysOfWeek[newDate.getDay()];
+  let date = newDate.getDate();
+  let month = newDate.getMonth() + 1;
+  let year = newDate.getFullYear();
+
+  return `${dayOfWeek} ${date}${separator}${
+    month < 10 ? `0${month}` : `${month}`
+  }${separator}${year}`;
+}

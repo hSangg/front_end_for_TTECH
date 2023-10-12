@@ -13,6 +13,16 @@ export const saleProductList = [
     imageRef: "/images/product_images/pro_3.png",
     urlOnClick: "",
   },
+
+  {
+    imageRef: "/images/product_images/pro_4.png",
+    urlOnClick: "",
+  },
+
+  {
+    imageRef: "/images/product_images/pro_5.png",
+    urlOnClick: "",
+  },
 ];
 
 export const productListAbs = [

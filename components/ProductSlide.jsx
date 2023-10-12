@@ -1,6 +1,6 @@
 "use client";
 
-import { openNewWindow, smoothScrollTo } from "@/utils/until";
+import { openNewWindow, smoothScrollHorizotal } from "@/utils/until";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,14 +53,24 @@ const ProductSlide = ({
     const itemWidth = itemRef.current.offsetWidth * 1.5;
     const scrollLeft = containerRef.current.scrollLeft;
     const targetScrollLeft = scrollLeft + itemWidth;
-    smoothScrollTo(containerRef.current, scrollLeft, targetScrollLeft, 300);
+    smoothScrollHorizotal(
+      containerRef.current,
+      scrollLeft,
+      targetScrollLeft,
+      300
+    );
   };
 
   const handlePreClick = () => {
     const itemWidth = itemRef.current.offsetWidth;
     const scrollLeft = containerRef.current.scrollLeft;
     const targetScrollLeft = scrollLeft - itemWidth;
-    smoothScrollTo(containerRef.current, scrollLeft, targetScrollLeft, 300);
+    smoothScrollHorizotal(
+      containerRef.current,
+      scrollLeft,
+      targetScrollLeft,
+      300
+    );
   };
 
   return (
@@ -76,7 +86,7 @@ const ProductSlide = ({
              items-center underline underline-offset-2 mb-4"
             href={""}
           >
-            Tìm hiểu thêm <GoChevronRight scale={25} />
+            <div> Tìm hiểu thêm</div> <GoChevronRight scale={25} />
           </Link>
 
           <div className="relative w-[200px] h-[200px]">

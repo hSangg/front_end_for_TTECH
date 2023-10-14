@@ -23,6 +23,8 @@ html {
 }
 
 .customScrollBar::-webkit-scrollbar {
+  display: block;
+  width: 4px;
   height: 7px;
   border-radius: 100%;
   background: rgba(0, 0, 0, 0.547);
@@ -30,7 +32,7 @@ html {
 }
 
 .customScrollBar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.547);
+  background: rgba(0, 0, 0, 0.3);
   background: #f1f1f1;
 }
 

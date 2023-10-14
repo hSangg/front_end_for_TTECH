@@ -1,30 +1,24 @@
-"use client";
 import { convertToVND, getCurrentDate } from "@/utils/until";
-import { useEffect, useState } from "react";
 import { CiBookmark, CiChat1 } from "react-icons/ci";
 
-export default function Page({ params }) {
-  const [product, setProduct] = useState({
-    id: 1,
-    name: "AirPods Max",
-    category: "tai nghe",
-    price: 10_000_000,
-  });
+export async function getProductById(id) {
+  return await (
+    await fetch("https://jsonplaceholder.typicode.com/posts/" + id)
+  ).json();
+}
 
-  useEffect(() => {
-    //fetch product following id
-  }, []);
-
+export default async function Page({ params }) {
+  const product = await getProductById(params.id);
   return (
     <div className="container mx-auto pb-[100px]">
       <div className="mx-auto w-4/5">
         <div className="text-[1.9rem] capitalize font-[600] cursor-pointer">
-          {product.category}
+          Tai nghe
         </div>
         <hr className="bg-black/10 h-[2px]"></hr>
         <div>
-          <div className="title mt-2">{product.name}</div>
-          <div className="text-[1.6rem]">{convertToVND(product.price)}</div>
+          <div className="title mt-2">AirPods Max</div>
+          <div className="text-[1.6rem]">{convertToVND(1212123)}</div>
           <div className="my-24">
             <span className="text-[1.4rem]">Giao hàng ngay trong hôm nay </span>{" "}
             <br></br>
@@ -64,4 +58,8 @@ export default function Page({ params }) {
       </div>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  return [1, 2, 3, 4, 5, 6].map((x) => ({ id: x.toString() }));
 }

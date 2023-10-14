@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.1.0",
+    "chart.js": "^4.4.0",
     "firebase": "^10.4.0",
     "framer-motion": "^10.16.4",
     "next": "latest",
     "react": "latest",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "latest",
     "react-icons": "^4.11.0",
     "sharp": "^0.32.6"

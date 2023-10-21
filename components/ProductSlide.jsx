@@ -1,6 +1,6 @@
 "use client";
 
-import { openNewWindow, smoothScrollHorizotal } from "@/utils/until";
+import { openNewWindow, smoothScrollHorizotal } from "../utils/until";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";

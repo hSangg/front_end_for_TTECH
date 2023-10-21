@@ -1,6 +1,6 @@
 "use client";
-import { saleProductList } from "@/data";
-import { smoothScrollVertical } from "@/utils/until";
+import { saleProductList } from "../data";
+import { smoothScrollVertical } from "../utils/until";
 import Image from "next/image";
 import { useRef } from "react";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";

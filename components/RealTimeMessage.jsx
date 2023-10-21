@@ -1,7 +1,6 @@
 "use client";
 
-import { UserAuth } from "@/context/AuthContext";
-import { db } from "@/firebaseConfig";
+import { db } from "../firebaseConfig";
 import {
   addDoc,
   collection,
@@ -106,6 +105,7 @@ const RealTimeMessage = () => {
                       src={"/images/0.5x/Asset_9@0.5x.png"}
                       width={25}
                       height={25}
+                      alt=""
                       style={{ objectFit: "contain" }}
                     />
                   </div>

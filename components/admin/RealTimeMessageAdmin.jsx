@@ -43,7 +43,7 @@ const RealTimeMessageAdmin = () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [messagesRef]);
 
   const handleSubmit = async (e) => {
     if (newMessage === "") return;

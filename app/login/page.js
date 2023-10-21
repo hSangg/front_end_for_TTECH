@@ -1,11 +1,11 @@
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/LoginForm"
 
 const page = () => {
-  return (
-    <div className="w-full mt-[20px] bg-black/30">
-      <LoginForm />
-    </div>
-  );
-};
+	return (
+		<div className='w-full mt-[20px] bg-white'>
+			<LoginForm />
+		</div>
+	)
+}
 
-export default page;
+export default page

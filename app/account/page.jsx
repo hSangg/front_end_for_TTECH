@@ -1,9 +1,20 @@
 "use client";
 
-import UserDataForm from "@/components/UserDataForm";
-import { UserAuth } from "@/context/AuthContext";
+import UserDataForm from "../../components/UserDataForm";
+import { UserAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
 const page = () => {
+  const textAnimate = {
+    offscreen: { opacity: 0 },
+    onscreen: {
+      opacity: 1,
+      transition: {
+        type: "spring",
+        bounce: 0.4,
+        duration: 1,
+      },
+    },
+  };
   const { user } = UserAuth();
   return (
     <div className="container mx-auto">
@@ -27,15 +38,3 @@ const page = () => {
 };
 
 export default page;
-
-export const textAnimate = {
-  offscreen: { opacity: 0 },
-  onscreen: {
-    opacity: 1,
-    transition: {
-      type: "spring",
-      bounce: 0.4,
-      duration: 1,
-    },
-  },
-};

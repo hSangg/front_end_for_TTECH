@@ -1,8 +1,8 @@
 "use client";
 
-import useDebounce from "@/customHook/useDeboune";
-import { productNameExample } from "@/data";
-import { convert_vi_to_en } from "@/utils/until";
+import useDebounce from "../customHook/useDeboune";
+import { productNameExample } from "../data";
+import { convert_vi_to_en } from "../utils/until";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";

@@ -2,13 +2,12 @@ import { convertToVND, getCurrentDate } from "@/utils/until";
 import { CiBookmark, CiChat1 } from "react-icons/ci";
 
 export async function getProductById(id) {
-  return await (
-    await fetch("https://jsonplaceholder.typicode.com/posts/" + id)
-  ).json();
+  const res = (await fetch("https://dummyjson.com/products/" + id)).json();
+
+  return res;
 }
 
-export default async function Page({ params }) {
-  const product = await getProductById(params.id);
+export default function Page({ params }) {
   return (
     <div className="container mx-auto pb-[100px]">
       <div className="mx-auto w-4/5">
@@ -61,5 +60,7 @@ export default async function Page({ params }) {
 }
 
 export async function generateStaticParams() {
-  return [1, 2, 3, 4, 5, 6].map((x) => ({ id: x.toString() }));
+  return [1, 2, 3, 4, 5].map((x) => ({
+    id: x.toString(),
+  }));
 }

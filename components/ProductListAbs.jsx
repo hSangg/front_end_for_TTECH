@@ -1,4 +1,4 @@
-import { productListAbs } from "@/data";
+import { productListAbs } from "../data";
 import ProductSlide from "./ProductSlide";
 
 const ProductListAbs = () => {

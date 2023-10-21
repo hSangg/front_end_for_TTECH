@@ -1,4 +1,13 @@
 import Image from "next/image";
+import AdminInformation from "./AdminInformation";
+
+export const adminRouteNavigator = [
+  "dashboard",
+  "product",
+  "order",
+  "customer",
+  "voucher",
+];
 
 const AdminNavigator = ({ route, onRouteChange }) => {
   return (
@@ -8,26 +17,29 @@ const AdminNavigator = ({ route, onRouteChange }) => {
           <Image
             src={"/images/0.5x/Asset_9@0.5x.png"}
             width={30}
+            alt=""
             height={30}
             style={{ objectFit: "contain" }}
           />
           <h1 className="text-[1.7rem] font-[800]">T-TECH</h1>
         </div>
-        <ul className=" flex capitalize text-[1.4rem] gap-3 items-center">
-          {["dashboard", "product", "order"].map((x, i) => (
+        <ul className=" flex capitalize text-[1.4rem] gap-5 items-center">
+          {adminRouteNavigator.map((x, i) => (
             <li
+              key={i}
               style={{ color: route === x ? "#db2777" : "black" }}
               onClick={() => {
                 onRouteChange(x);
               }}
               className="cursor-pointer"
-              key={i}
             >
               {x}
             </li>
           ))}
         </ul>
-        <div>information</div>
+        <div>
+          <AdminInformation />
+        </div>
       </div>
     </div>
   );

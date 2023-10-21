@@ -1,13 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
-import { UserAuth } from "@/context/AuthContext";
-import { isValidEmail, isValidPhoneNumber } from "@/utils/until";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { isValidEmail, isValidPhoneNumber } from "../utils/until";
 
 const UserDataForm = () => {
-  const { user, logOut } = UserAuth();
-  const router = useRouter();
   const buttonRef = useRef();
 
   const [formData, setFormData] = useState({

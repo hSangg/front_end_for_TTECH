@@ -126,3 +126,30 @@ export function getCurrentDate(separator = "") {
     month < 10 ? `0${month}` : `${month}`
   }${separator}${year}`;
 }
+
+export function getCurrentMonth() {
+  // Tạo một đối tượng Date
+  var ngayHienTai = new Date();
+
+  // Lấy tháng từ đối tượng Date (lưu ý tháng bắt đầu từ 0)
+  var thang = ngayHienTai.getMonth() + 1; // Cộng thêm 1 để hiển thị tháng từ 1 đến 12
+
+  return thang;
+}
+
+export function getPreCurrentMonth() {
+  // Tạo một đối tượng Date
+  var ngayHienTai = new Date();
+
+  // Lấy tháng từ đối tượng Date (lưu ý tháng bắt đầu từ 0)
+  var thang = ngayHienTai.getMonth(); // Lấy tháng hiện tại
+
+  // Nếu là tháng 1, trả về tháng 12, ngược lại trả về tháng trước đó
+  if (thang === 0) {
+    thang = 12;
+  } else {
+    thang = thang;
+  }
+
+  return thang;
+}

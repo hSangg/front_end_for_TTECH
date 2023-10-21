@@ -1,9 +1,6 @@
-import Navigator from "@/components/Navigator";
-import "./globals.css";
 import { Inter } from "next/font/google";
-import Header from "@/components/Header";
-import { AuthContextProvider } from "@/context/AuthContext";
-import RealTimeMessage from "@/components/RealTimeMessage";
+import "./globals.css";
+import { AuthContextProvider } from "../context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,18 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AuthContextProvider>
-        <body className={inter.className}>
-          {/* <div className="h-[70px]"></div>
-          
-          <div>
-            <Header />
-          </div>
-          <div>
-            <Navigator />
-          </div> */}
-
-          {children}
-        </body>
+        <body className={inter.className}>{children}</body>
       </AuthContextProvider>
     </html>
   );

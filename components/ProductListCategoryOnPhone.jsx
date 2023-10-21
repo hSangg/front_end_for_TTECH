@@ -1,4 +1,4 @@
-import caterogyDataExample from "@/data";
+import caterogyDataExample from "../data";
 
 const ProductListCategoryOnPhone = () => {
   return (

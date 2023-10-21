@@ -1,9 +1,9 @@
 "use client";
 
-import AdminDashboard from "@/components/admin/AdminDashboard";
-import AdminNavigator from "@/components/admin/AdminNavigator";
-import AdminOrderManagement from "@/components/admin/AdminOrderManagement";
-import AdminProductManagement from "@/components/admin/AdminProductManagement";
+import AdminDashboard from "../../../components/admin/AdminDashboard";
+import AdminNavigator from "../../../components/admin/AdminNavigator";
+import AdminOrderManagement from "../../../components/admin/AdminOrderManagement";
+import AdminProductManagement from "../../../components/admin/AdminProductManagement";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 

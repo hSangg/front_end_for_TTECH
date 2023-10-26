@@ -19,6 +19,7 @@ const ProductItem = ({
 				<Image
 					src={img_href}
 					fill
+					alt=''
 					style={{
 						objectFit: "contain",
 						borderRadius: "20px",

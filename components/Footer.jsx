@@ -112,6 +112,7 @@ const Footer = () => {
 
 				<div className='my-5'>
 					<Image
+						alt=''
 						src={"/images/0.5x/Asset1@0.5x.png"}
 						width={150}
 						height={40}

@@ -1,18 +1,35 @@
-import caterogyDataExample from "../data";
+import { handleCategory } from "@/app/api/handleCategory"
+import caterogyDataExample from "../data"
+import { useEffect, useState } from "react"
 
 const ProductListCategoryOnPhone = () => {
-  return (
-    <div className="flex flex-col ml-3 gap-3 text-[1.8rem] w-full">
-      {caterogyDataExample.map((x, i) => (
-        <div
-          key={i}
-          className="text-[2.5rem] font-[600] tracking-[0.007em]	capitalize"
-        >
-          {x.name}
-        </div>
-      ))}
-    </div>
-  );
-};
+	const [categoryList, setCategoryList] = useState(
+		caterogyDataExample
+	)
 
-export default ProductListCategoryOnPhone;
+	const getAllCategories = async () => {
+		const result =
+			await handleCategory.getAllCategories()
+
+		setCategoryList(result)
+	}
+
+	useEffect(() => {
+		getAllCategories()
+	}, [])
+
+	return (
+		<div className='flex flex-col ml-3 gap-3 text-[1.8rem] w-full'>
+			{categoryList.map((x, i) => (
+				<div
+					key={i}
+					className='text-[2.5rem] font-[600] tracking-[0.007em]	capitalize'
+				>
+					{x.category_name}
+				</div>
+			))}
+		</div>
+	)
+}
+
+export default ProductListCategoryOnPhone

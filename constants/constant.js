@@ -1,2 +1,4 @@
 export const BASE_URL =
-	"https://jsonplaceholder.typicode.com"
+	"https://localhost:7067/api"
+
+// c#

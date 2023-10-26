@@ -1,11 +1,14 @@
+"use client"
 import Link from "next/link"
 import DropDown from "./DropDown"
+import { motion } from "framer-motion"
 import Image from "next/image"
 const style = {
 	footer_links: "flex flex-col",
-	footer_links_header: "font-bold text-[2rem]",
+	footer_links_header:
+		"font-[600] text-[1.7rem] text-black/90",
 	footer_links_item:
-		"text-[1.5rem] text-black/90 font-[300]",
+		"text-[1.5rem] text-black/90 font-[300] cursor-pointer",
 }
 
 const Footer = () => {
@@ -21,12 +24,18 @@ const Footer = () => {
 							</h4>
 							<div>
 								{footer.links.map((link, j) => (
-									<h1
+									<motion.h1
 										key={j}
 										className={style.footer_links_item}
 									>
-										{link.text}
-									</h1>
+										<motion.span
+											whileHover={{
+												borderBottom: "1px solid black",
+											}}
+										>
+											{link.text}
+										</motion.span>
+									</motion.h1>
 								))}
 							</div>
 						</div>

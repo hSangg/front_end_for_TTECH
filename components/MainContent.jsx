@@ -1,14 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import BestSaleCategory from "./BestSaleCategory"
 import BestSaleProduct from "./BestSaleProduct"
-import FakePage from "./FakePage"
 import ImageSlide from "./ImageSlide"
 import ProductListAbs from "./ProductListAbs"
 import RealTimeMessage from "./RealTimeMessage"
-import BestSaleCategory from "./BestSaleCategory"
 import AdvertisementShipping from "./advertisement/AdvertisementShipping"
-import Advertisement from "./Advertisement"
 
 const MainContent = () => {
 	const [imageSlideHeight, setImageSlideHeight] =

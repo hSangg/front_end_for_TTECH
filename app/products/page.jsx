@@ -2,41 +2,34 @@
 import { useSearchParams } from "next/navigation"
 import { handlePost } from "../api/handlePost"
 import { useEffect, useState } from "react"
+import ProductItem from "@/components/ProductItem"
 
 export default function Page() {
 	const params = useSearchParams()
-	const [list, setList] = useState([])
-	console.log(list)
-	const isPromotion = params.get("promotion")
-		? true
-		: false
-	const caterogy = params.get("category")
-
-	const get = async () => {
-		const data = await getAllPost()
-		setList(data)
-	}
-
 	useEffect(() => {
-		get()
+		console.log(productListExample)
 	}, [])
+	const [list, setList] = useState(
+		productListExample
+	)
 
 	return (
-		<div className='container mt-20 mx-auto'>
-			<h1 className='text-center font-bold text-[5rem]'>
-				Product Route
-			</h1>
-			{caterogy && (
-				<button className='bg-gradient-to-tl text-2xl text-white from-blue-300 to-blue-700 p-3 rounded-2xl'>
-					{caterogy}
-				</button>
-			)}
-
-			{isPromotion && (
-				<button className='bg-gradient-to-bl text-2xl text-white from-red-300 to-red-700 p-3 rounded-2xl'>
-					Khuyến mại cực sốc
-				</button>
-			)}
+		<div className='mt-20 flex justify-center'>
+			<div className='grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
+				{productListExample.map((x, i) => (
+					<ProductItem
+						product_id={x.product_id}
+						category_id={x.category_id}
+						name_pr={x.name_pr}
+						name_serial={x.name_serial}
+						detail={x.detail}
+						price={x.price}
+						quantity_pr={x.quantity_pr}
+						img_href={x.img_src}
+						guarantee_period={x.guarantee_period}
+					/>
+				))}
+			</div>
 		</div>
 	)
 }
@@ -44,3 +37,20 @@ export default function Page() {
 export async function getAllPost() {
 	return await handlePost.getPosts("/posts")
 }
+const productExample = {
+	product_id: 1,
+	category_id: 1,
+	name_pr: "I-False XX",
+	name_serial: "A12345",
+	detail:
+		"I-False XX is a powerful smartphone with a extremely incredibly utterly Super Retina display, Face ID, and A11 Bionic chip.",
+	price: 999,
+	quantity_pr: 50,
+	img_src:
+		"/images/product_images/oldpc-preview.png",
+	guarantee_period: 12,
+}
+
+const productListExample = new Array(100)
+	.fill(null)
+	.map(() => ({ ...productExample }))

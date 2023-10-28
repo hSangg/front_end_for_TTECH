@@ -88,38 +88,38 @@ export const productNameExample = [
 ]
 
 const caterogyDataExample = [
-	{ id: 0, name: "All" },
+	{ id: 0, category_name: "All" },
 	{
 		id: 1,
-		name: "Laptop",
+		category_name: "Laptop",
 	},
 	{
 		id: 2,
-		name: "Điện thoại di động",
+		category_name: "Điện thoại di động",
 	},
 	{
 		id: 3,
-		name: "Tablet",
+		category_name: "Tablet",
 	},
 	{
 		id: 4,
-		name: "Đồ điện tử gia dụng",
+		category_name: "Đồ điện tử gia dụng",
 	},
 	{
 		id: 5,
-		name: "Phụ kiện công nghệ",
+		category_name: "Phụ kiện công nghệ",
 	},
 	{
 		id: 6,
-		name: "Máy tính đồng bộ",
+		category_name: "Máy tính đồng bộ",
 	},
 	{
 		id: 7,
-		name: "Gaming Gear",
+		category_name: "Gaming Gear",
 	},
 	{
 		id: 8,
-		name: "Thiết bị mạng",
+		category_name: "Thiết bị mạng",
 	},
 ]
 

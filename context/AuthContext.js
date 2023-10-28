@@ -29,9 +29,15 @@ export const AuthContextProvider = ({
 	const [user, setUser] = useState(null)
 	const router = useRouter()
 
-	const login = async () => {
-		const token = await loginWithPhone()
-		setUser
+	const handleUserWhenLogInByGoogle = (
+		currentUser
+	) => {
+		//call API check user is exit (search by uid) on database
+		// if exit => get this user on database
+		// if not exit => register user (add to USER table on database)
+		// return USER => save user
+
+		setUser(currentUser)
 	}
 
 	const googleSignIn = () => {
@@ -49,7 +55,7 @@ export const AuthContextProvider = ({
 		const unsubscribe = onAuthStateChanged(
 			auth,
 			(currentUser) => {
-				setUser(currentUser)
+				handleUserWhenLogInByGoogle(currentUser)
 			}
 		)
 		return () => unsubscribe()

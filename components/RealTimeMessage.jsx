@@ -1,6 +1,5 @@
 "use client"
 
-import { db } from "../firebaseConfig"
 import {
 	addDoc,
 	collection,
@@ -11,6 +10,10 @@ import {
 	serverTimestamp,
 	where,
 } from "firebase/firestore"
+import {
+	AnimatePresence,
+	motion,
+} from "framer-motion"
 import Image from "next/image"
 import {
 	useEffect,
@@ -18,22 +21,17 @@ import {
 	useRef,
 	useState,
 } from "react"
+import { BiMessageSquare } from "react-icons/bi"
 import {
 	CiMinimize1,
 	CiPaperplane,
-	CiText,
 } from "react-icons/ci"
-import { BiMessageSquare } from "react-icons/bi"
-import {
-	AnimatePresence,
-	useScroll,
-} from "framer-motion"
-import { motion } from "framer-motion"
+import { db } from "../firebaseConfig"
 
 const ADMIN_ID =
 	"day_la_admin_934857lkghjo834kjasg34958hrg"
 const USER_ID =
-	"day_la_user_934857lkghjo834kjasg34958hrg"
+	"day_la_user_934857lkghjo834kjasg34958hrddg"
 
 const RealTimeMessage = () => {
 	const [showBox, setShowBox] = useState(false)
@@ -49,10 +47,7 @@ const RealTimeMessage = () => {
 	useEffect(() => {
 		const queryMessages = query(
 			messagesRef,
-			or(
-				where("userId", "==", USER_ID),
-				where("userId", "==", ADMIN_ID)
-			),
+			where("roomId", "==", USER_ID),
 			orderBy("createdAt")
 		)
 
@@ -83,8 +78,9 @@ const RealTimeMessage = () => {
 		if (newMessage === "") return
 
 		await addDoc(messagesRef, {
-			message: newMessage,
+			text: newMessage,
 			userId: USER_ID,
+			roomId: USER_ID,
 			createdAt: serverTimestamp(),
 		})
 
@@ -167,7 +163,7 @@ const RealTimeMessage = () => {
 												x.userId == USER_ID ? "end" : "start",
 										}}
 									>
-										{x?.message}
+										{x?.text}
 									</h1>
 								))}
 								<div ref={ref}></div>

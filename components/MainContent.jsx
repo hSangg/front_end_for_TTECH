@@ -7,10 +7,16 @@ import ImageSlide from "./ImageSlide"
 import ProductListAbs from "./ProductListAbs"
 import RealTimeMessage from "./RealTimeMessage"
 import AdvertisementShipping from "./advertisement/AdvertisementShipping"
+import { UserAuth } from "@/context/AuthContext"
+import Advertisement from "./Advertisement"
 
 const MainContent = () => {
 	const [imageSlideHeight, setImageSlideHeight] =
 		useState("auto")
+
+	const { user } = UserAuth()
+
+	console.log(user)
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -52,7 +58,8 @@ const MainContent = () => {
 					<BestSaleProduct height={imageSlideHeight} />
 				</div>
 				<BestSaleCategory />
-				<AdvertisementShipping />
+				<AdvertisementShipping />\
+				<Advertisement />
 				<ProductListAbs />
 			</div>
 		</div>

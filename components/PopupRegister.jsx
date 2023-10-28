@@ -1,5 +1,6 @@
 "use client"
 import useDebounce from "../customHook/useDeboune"
+import { v4 as uuidv4 } from "uuid"
 import { isValidEmail } from "../utils/until"
 import {
 	AnimatePresence,
@@ -13,16 +14,16 @@ const PopupRegister = () => {
 	const [data, setData] = useState({
 		["username"]: "",
 		email: "",
-		password: "",
 		phone: "",
+		password: "",
 		["confirm password"]: "",
 	})
 
 	const [verifyInput, setVerifyInput] = useState({
 		["username"]: "",
 		email: "",
-		password: "",
 		phone: "",
+		password: "",
 		["confirm password"]: "",
 	})
 
@@ -40,6 +41,13 @@ const PopupRegister = () => {
 			)
 		)
 	}, [verifyInput, data])
+
+	console.log(uuidv4())
+
+	const handleRegister = (e) => {
+		e.preventDefault()
+		const userId = uuidv4()
+	}
 
 	const handleInputChange = (e) => {
 		const { value, id } = e.target
@@ -119,8 +127,8 @@ const PopupRegister = () => {
 									{[
 										"username",
 										"email",
-										"password",
 										"phone",
+										"password",
 										"confirm password",
 									].map((x, i) => (
 										<>
@@ -144,6 +152,7 @@ const PopupRegister = () => {
 									))}
 
 									<motion.button
+										onClick={handleRegister}
 										disabled={!isValidFormData}
 										animate={{
 											backgroundColor: isValidFormData

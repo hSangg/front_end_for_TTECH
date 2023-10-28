@@ -41,7 +41,7 @@ const Header = () => {
 									key={index}
 									className='text-[1.3rem] md:text-[1.5rem] font-[400] capitalize mx-2 cursor-pointer whitespace-nowrap	'
 								>
-									{category.name}
+									{category.category_name}
 								</motion.li>
 							)
 						)}

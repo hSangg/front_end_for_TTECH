@@ -1,44 +1,46 @@
 "use client"
-import { AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 const Advertisement = () => {
-	const [show, setShow] = useState(true)
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setShow(false)
-		}, 5000)
-
-		return () => {
-			clearTimeout(timer)
-		}
-	}, [])
+	const router = useRouter()
 	return (
-		<>
-			<AnimatePresence>
-				{show && (
-					<motion.div
-						exit={{ opacity: 0 }}
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						className='fixed inset-0 flex z-[99] items-center justify-center bg-black/50 backdrop-blur-md'
-					>
-						<div className='relative w-[400px] h-[400px] '>
-							<Image
-								src={"/images/ads_images/ifalsexx.png"}
-								fill
-								style={{
-									objectFit: "contain",
-									borderRadius: "20px",
-								}}
-							/>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</>
+		<div className='container mx-auto'>
+			<div className='grid grid-cols-1 sm:grid-cols-2 gap-10 my-10'>
+				{advertisementList.map((x, i) => (
+					<Image
+						onClick={() => {
+							router.push(x.onClickLink)
+						}}
+						key={i}
+						src={x.imgSrc}
+						width={0}
+						height={0}
+						sizes='100vw'
+						style={{
+							cursor: "pointer",
+							width: "100%",
+							height: "100%",
+							objectFit: "cover",
+						}}
+					/>
+				))}
+			</div>
+		</div>
 	)
 }
 
 export default Advertisement
+
+const advertisementList = [
+	{
+		id: 1,
+		imgSrc: "/images/ads_images/ifalsexx.png",
+		onClickLink: "/upcomming",
+	},
+
+	{
+		id: 2,
+		imgSrc: "/images/ads_images/nhieucach.png",
+		onClickLink: "upcomming",
+	},
+]

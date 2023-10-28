@@ -11,7 +11,7 @@ const ProductListCategoryOnPhone = () => {
 		const result =
 			await handleCategory.getAllCategories()
 
-		setCategoryList(result)
+		setCategoryList(result || caterogyDataExample)
 	}
 
 	useEffect(() => {

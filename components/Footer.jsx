@@ -1,8 +1,8 @@
 "use client"
-import Link from "next/link"
-import DropDown from "./DropDown"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
+import DropDown from "./DropDown"
 const style = {
 	footer_links: "flex flex-col",
 	footer_links_header:

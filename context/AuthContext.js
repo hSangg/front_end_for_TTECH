@@ -14,19 +14,16 @@ import {
 } from "firebase/auth"
 import { auth } from "../firebaseConfig"
 import { useRouter } from "next/navigation"
+import { useRecoilState } from "recoil"
+import { userState } from "@/atoms/user"
 
 const AuthContext = createContext()
-
-export async function loginWithPhone() {
-	// call api
-	const token = "aoih8324okagnroy89324"
-	return token
-}
 
 export const AuthContextProvider = ({
 	children,
 }) => {
-	const [user, setUser] = useState(null)
+	const [user, setUser] = useRecoilState(userState)
+
 	const router = useRouter()
 
 	const handleUserWhenLogInByGoogle = (
@@ -63,7 +60,12 @@ export const AuthContextProvider = ({
 
 	return (
 		<AuthContext.Provider
-			value={{ user, googleSignIn, logOutGoogle }}
+			value={{
+				user,
+				setUser,
+				googleSignIn,
+				logOutGoogle,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

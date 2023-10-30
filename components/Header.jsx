@@ -1,17 +1,35 @@
 "use client"
-import caterogyDataExample from "../data"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import {
 	CiShoppingCart,
 	CiUser,
 } from "react-icons/ci"
+import caterogyDataExample from "../data"
 import CategoryPhone from "./CategoryPhone"
 import SearchBar from "./SearchBar"
-import { useRouter } from "next/navigation"
-import { UserAuth } from "@/context/AuthContext"
+import { useState } from "react"
+import { handleCategory } from "@/app/api/handleCategory"
+import { useEffect } from "react"
 const Header = () => {
-	const { user } = UserAuth()
+	const [category, setCategory] = useState([])
+	const user = JSON.parse(
+		window.localStorage.getItem("user")
+	)
+
+	const getAllCategory = async () => {
+		try {
+			const result =
+				await handleCategory.getAllCategories()
+			setCategory(result)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	useEffect(() => {
+		getAllCategory()
+	}, [])
 	const router = useRouter()
 
 	return (
@@ -34,17 +52,15 @@ const Header = () => {
 					</div>
 
 					<ul className='hidden md:flex overflow-x-scroll flex-nowrap noneScrollBar my-2'>
-						{caterogyDataExample.map(
-							(category, index) => (
-								<motion.li
-									whileHover={{ color: "red" }}
-									key={index}
-									className='text-[1.3rem] md:text-[1.5rem] font-[400] capitalize mx-2 cursor-pointer whitespace-nowrap	'
-								>
-									{category.category_name}
-								</motion.li>
-							)
-						)}
+						{category?.map((category, index) => (
+							<motion.li
+								whileHover={{ color: "red" }}
+								key={index}
+								className='text-[1.3rem] md:text-[1.5rem] font-[400] capitalize mx-2 cursor-pointer whitespace-nowrap	'
+							>
+								{category.category_name}
+							</motion.li>
+						))}
 					</ul>
 
 					<motion.div className='grow-[1] '>

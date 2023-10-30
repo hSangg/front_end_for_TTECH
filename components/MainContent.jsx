@@ -1,22 +1,23 @@
 "use client"
 
+import { userState } from "@/atoms/user"
 import { useEffect, useState } from "react"
+import { useRecoilState } from "recoil"
+import Advertisement from "./Advertisement"
 import BestSaleCategory from "./BestSaleCategory"
 import BestSaleProduct from "./BestSaleProduct"
 import ImageSlide from "./ImageSlide"
 import ProductListAbs from "./ProductListAbs"
 import RealTimeMessage from "./RealTimeMessage"
 import AdvertisementShipping from "./advertisement/AdvertisementShipping"
-import { UserAuth } from "@/context/AuthContext"
-import Advertisement from "./Advertisement"
 
 const MainContent = () => {
 	const [imageSlideHeight, setImageSlideHeight] =
 		useState("auto")
 
-	const { user } = UserAuth()
+	const user = useRecoilState(userState)
 
-	console.log(user)
+	useEffect(() => {}, [])
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -42,7 +43,7 @@ const MainContent = () => {
 				handleResize
 			)
 		}
-	})
+	}, [imageSlideHeight])
 
 	return (
 		<div>

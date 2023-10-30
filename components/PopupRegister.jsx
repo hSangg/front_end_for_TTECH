@@ -1,15 +1,24 @@
 "use client"
-import useDebounce from "../customHook/useDeboune"
-import { v4 as uuidv4 } from "uuid"
-import { isValidEmail } from "../utils/until"
+import { handleAuth } from "@/app/api/handleAuth"
+import { userState } from "@/atoms/user"
 import {
 	AnimatePresence,
 	motion,
 } from "framer-motion"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { CiGlobe } from "react-icons/ci"
+import { useRecoilState } from "recoil"
+import { v4 as uuidv4 } from "uuid"
+import useDebounce from "../customHook/useDeboune"
+import {
+	isValidEmail,
+	saveUserTokenToLocalStogare,
+} from "../utils/until"
 const PopupRegister = () => {
 	const [showPopup, setShowPopup] = useState(false)
+	const [user, setUser] = useRecoilState(userState)
+	const router = useRouter()
 
 	const [data, setData] = useState({
 		["username"]: "",
@@ -42,12 +51,40 @@ const PopupRegister = () => {
 		)
 	}, [verifyInput, data])
 
-	console.log(uuidv4())
-
-	const handleRegister = (e) => {
+	const handleRegister = async (e) => {
 		e.preventDefault()
-		const userId = uuidv4()
+		const formData = {
+			user_id: uuidv4(),
+			name: data.username,
+			phone: data.phone,
+			email: data.email,
+			password: data.password,
+			isAdmin: "0",
+		}
+
+		try {
+			const result = await handleAuth.register(
+				formData
+			)
+			const { user, token } = result
+			saveUserTokenToLocalStogare(user, token)
+			setUser(user)
+			router.push("/")
+		} catch (error) {
+			console.log(error)
+		}
 	}
+
+	/**
+ * "user_id": "string",
+  "name": "string",
+  "email": "string",
+  "phone": "string",
+  "password": "string",
+  "isAdmin": "s",
+  "create_at": "2023-10-28T09:48:38.559Z"
+ *  
+ */
 
 	const handleInputChange = (e) => {
 		const { value, id } = e.target
@@ -131,7 +168,7 @@ const PopupRegister = () => {
 										"password",
 										"confirm password",
 									].map((x, i) => (
-										<>
+										<div key={i}>
 											<motion.input
 												id={x}
 												required
@@ -148,7 +185,7 @@ const PopupRegister = () => {
 											<h2 className='text-red-500 text-[1.2rem] '>
 												{verifyInput[x]}
 											</h2>
-										</>
+										</div>
 									))}
 
 									<motion.button

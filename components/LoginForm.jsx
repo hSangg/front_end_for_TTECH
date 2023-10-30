@@ -1,27 +1,42 @@
 "use client"
 
-import { UserAuth } from "../context/AuthContext"
-import useDebounce from "../customHook/useDeboune"
+import { handleAuth } from "@/app/api/handleAuth"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { FcGoogle } from "react-icons/fc"
+import { UserAuth } from "../context/AuthContext"
 import PopupRegister from "./PopupRegister"
+import { saveUserTokenToLocalStogare } from "@/utils/until"
+import { useRecoilState } from "recoil"
+import { userState } from "@/atoms/user"
+import CircleLoader from "./CircleLoader"
 
 const LoginForm = () => {
 	const router = useRouter()
-	const [isLogin, setIsLogin] = useState(false)
+	const [user, setUser] = useRecoilState(userState)
+	const [loading, setLoading] = useState(false)
 
 	const [data, setData] = useState({
-		email: "",
+		phone: "",
 		password: "",
 	})
 
-	const { user, googleSignIn, signOut } =
-		UserAuth()
+	const { googleSignIn, signOut } = UserAuth()
 
-	const debouncedData = useDebounce(data, 1000)
+	const handleLogin = async () => {
+		try {
+			setLoading(true)
+			const res = await handleAuth.login(data)
+			const { user, token } = res
+			setUser(user)
+			saveUserTokenToLocalStogare(user, token)
+			router.push("/")
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
 	return (
 		<div className='p-[30px] w-[500px] mx-auto'>
@@ -39,10 +54,14 @@ const LoginForm = () => {
 				</div>
 			</div>
 
-			<form className='flex flex-col mt-2 gap-2'>
-				{["email", "password"].map((x, i) => (
+			<form
+				onSubmit={(e) => e.preventDefault()}
+				className='flex flex-col mt-2 gap-2'
+			>
+				{["phone", "password"].map((x, i) => (
 					<motion.input
 						required
+						type={x}
 						key={i}
 						whileFocus={{
 							scale: 1.05,
@@ -65,15 +84,16 @@ const LoginForm = () => {
 				</h1>
 
 				<motion.button
+					onClick={handleLogin}
 					initial={{
 						backgroundColor: "#60a5fa",
 						color: "white",
 					}}
 					whileHover={{ backgroundColor: "#2563eb" }}
 					transition={{ type: "spring" }}
-					className='w-full uppercase font-[600] mt-2  p-3 rounded-3xl text-[1.8rem]'
+					className='w-full flex items-center justify-center uppercase font-[600] mt-2  p-3 rounded-3xl text-[1.8rem]'
 				>
-					Login
+					{loading ? <CircleLoader /> : "Đăng nhập"}
 				</motion.button>
 			</form>
 			<PopupRegister />
@@ -85,7 +105,6 @@ const LoginForm = () => {
 				className='w-full bg-slate-400 text-[1.8rem] relative p-2 rounded-3xl flex  justify-center items-center text-white'
 				onClick={() => {
 					googleSignIn()
-					setIsLogin(true)
 				}}
 			>
 				<div className='bg-white rounded-[16px] p-2 w-[28px] h-[28px]  flex items-center justify-center absolute left-2 '>

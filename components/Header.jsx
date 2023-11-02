@@ -1,27 +1,31 @@
 "use client"
+
+import { handleCategory } from "@/app/api/handleCategory"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import {
+	useEffect,
+	useRef,
+	useState,
+} from "react"
+import {
 	CiShoppingCart,
 	CiUser,
 } from "react-icons/ci"
-import caterogyDataExample from "../data"
 import CategoryPhone from "./CategoryPhone"
 import SearchBar from "./SearchBar"
-import { useState } from "react"
-import { handleCategory } from "@/app/api/handleCategory"
-import { useEffect } from "react"
+import { UserAuth } from "@/context/AuthContext"
 const Header = () => {
 	const [category, setCategory] = useState([])
-	const user = JSON.parse(
-		window.localStorage.getItem("user")
-	)
+	const { user, setUser } = UserAuth()
 
 	const getAllCategory = async () => {
 		try {
 			const result =
 				await handleCategory.getAllCategories()
+
+			console.log("result: ", result)
 			setCategory(result)
 		} catch (error) {
 			console.log(error)
@@ -29,6 +33,9 @@ const Header = () => {
 	}
 	useEffect(() => {
 		getAllCategory()
+		setUser(
+			JSON.parse(localStorage.getItem("user"))
+		)
 	}, [])
 	const router = useRouter()
 
@@ -69,7 +76,9 @@ const Header = () => {
 					<motion.div
 						whileHover={{ color: "red", scale: 1.05 }}
 						onClick={() => {
-							router.push("/products")
+							router.push(
+								"/products/?pageNumber=1&pageSize=15"
+							)
 						}}
 						className=' p-2 '
 					>
@@ -78,7 +87,9 @@ const Header = () => {
 
 					<motion.div
 						onClick={() => {
-							const route = user ? "account" : "login"
+							const route = user?.name
+								? "account"
+								: "login"
 							router.push(route)
 						}}
 						whileHover={{ color: "#dc2626" }}

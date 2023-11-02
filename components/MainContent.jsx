@@ -1,8 +1,6 @@
 "use client"
 
-import { userState } from "@/atoms/user"
 import { useEffect, useState } from "react"
-import { useRecoilState } from "recoil"
 import Advertisement from "./Advertisement"
 import BestSaleCategory from "./BestSaleCategory"
 import BestSaleProduct from "./BestSaleProduct"
@@ -10,12 +8,14 @@ import ImageSlide from "./ImageSlide"
 import ProductListAbs from "./ProductListAbs"
 import RealTimeMessage from "./RealTimeMessage"
 import AdvertisementShipping from "./advertisement/AdvertisementShipping"
+import { CiStar } from "react-icons/ci"
+import { useRouter } from "next/navigation"
 
 const MainContent = () => {
 	const [imageSlideHeight, setImageSlideHeight] =
 		useState("auto")
 
-	const user = useRecoilState(userState)
+	const router = useRouter()
 
 	useEffect(() => {}, [])
 
@@ -59,6 +59,22 @@ const MainContent = () => {
 					<BestSaleProduct height={imageSlideHeight} />
 				</div>
 				<BestSaleCategory />
+				<div className='text-center'>
+					<div className='text-3xl'>
+						Bạn chưa tìm được sản phẩm ưng ý?
+					</div>
+					<div className='flex gap-2 items-center justify-center text-2xl'>
+						<CiStar size={30} /> Xem toàn bộ sản phẩm{" "}
+						<span
+							onClick={() => {
+								router.push("/products")
+							}}
+							className='text-blue-500 cursor-pointer underline'
+						>
+							tại đây
+						</span>
+					</div>
+				</div>
 				<AdvertisementShipping />\
 				<Advertisement />
 				<ProductListAbs />

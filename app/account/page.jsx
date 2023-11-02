@@ -1,21 +1,24 @@
 "use client"
 
+import { UserAuth } from "@/context/AuthContext"
 import { motion } from "framer-motion"
-import UserDataForm from "../../components/UserDataForm"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+import UserDataForm from "../../components/UserDataForm"
 const Page = () => {
-	const router = useRouter()
-	const user = JSON.parse(
-		window.localStorage.getItem("user")
-	)
+	const { token, user } = UserAuth()
 
-	if (!user) {
-		router.push("/login")
-		return
-	}
+	useEffect(() => {
+		console.log(user)
+	}, [])
 
 	return (
-		<div className='container mx-auto'>
+		<div
+			onClick={() => {
+				console.log(token)
+			}}
+			className='container mx-auto'
+		>
 			<motion.div className='text-[5rem] font-[300] uppercase h-[60px] leading-[60px]'>
 				<motion.div
 					initial='offscreen'

@@ -1,28 +1,27 @@
 "use client"
 
 import {
-	useContext,
-	createContext,
-	useState,
-	useEffect,
-} from "react"
-import {
+	GoogleAuthProvider,
+	onAuthStateChanged,
 	signInWithPopup,
 	signOut,
-	onAuthStateChanged,
-	GoogleAuthProvider,
 } from "firebase/auth"
-import { auth } from "../firebaseConfig"
 import { useRouter } from "next/navigation"
-import { useRecoilState } from "recoil"
-import { userState } from "@/atoms/user"
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from "react"
+import { auth } from "../firebaseConfig"
 
 const AuthContext = createContext()
 
 export const AuthContextProvider = ({
 	children,
 }) => {
-	const [user, setUser] = useRecoilState(userState)
+	const [user, setUser] = useState({})
+	const [token, setToken] = useState()
 
 	const router = useRouter()
 
@@ -48,15 +47,26 @@ export const AuthContextProvider = ({
 		signOut(auth)
 	}
 
+	// useEffect(() => {
+	// 	const unsubscribe = onAuthStateChanged(
+	// 		auth,
+	// 		(currentUser) => {
+	// 			handleUserWhenLogInByGoogle(currentUser)
+	// 		}
+	// 	)
+	// 	return () => unsubscribe()
+	// }, [user])
+
 	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(
-			auth,
-			(currentUser) => {
-				handleUserWhenLogInByGoogle(currentUser)
-			}
+		localStorage.setItem(
+			"user",
+			JSON.stringify(user)
 		)
-		return () => unsubscribe()
-	}, [user])
+		localStorage.setItem(
+			"token",
+			JSON.stringify(token)
+		)
+	}, [user, token])
 
 	return (
 		<AuthContext.Provider
@@ -65,6 +75,8 @@ export const AuthContextProvider = ({
 				setUser,
 				googleSignIn,
 				logOutGoogle,
+				setToken,
+				token,
 			}}
 		>
 			{children}

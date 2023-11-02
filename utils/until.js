@@ -166,12 +166,8 @@ export function getPreCurrentMonth() {
 	return thang
 }
 
-export const saveUserTokenToLocalStogare = (
-	user,
-	token
-) => {
-	window.localStorage.setItem("token", token)
-	window.localStorage.setItem(
+export const saveUserToLocalStogare = (user) => {
+	localStorage.setItem(
 		"user",
 		JSON.stringify(user)
 	)

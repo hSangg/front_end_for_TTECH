@@ -1,7 +1,9 @@
-import RecoilContext from "@/context/RecoilContext"
 import { Inter } from "next/font/google"
 import { AuthContextProvider } from "../context/AuthContext"
 import "./globals.css"
+import https from "https"
+
+https.globalAgent.options.rejectUnauthorized = false
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -16,13 +18,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
-			<RecoilContext>
-				<AuthContextProvider>
-					<body className={inter.className}>
-						{children}
-					</body>
-				</AuthContextProvider>
-			</RecoilContext>
+			<AuthContextProvider>
+				<body className={inter.className}>
+					{children}
+				</body>
+			</AuthContextProvider>
 		</html>
 	)
 }

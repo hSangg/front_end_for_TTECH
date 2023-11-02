@@ -1,14 +1,19 @@
 const { default: axios } = require("axios")
+import { BASE_URL } from "@/constants/constant"
+import https from "https"
 
-export const axiosClient = axios.create()
-
-const token = window.localStorage.getItem("token")
+const agent = new https.Agent({
+	rejectUnauthorized: false,
+})
+export const axiosClient = axios.create({
+	baseURL: BASE_URL,
+	httpsAgent: agent,
+})
 
 axiosClient.interceptors.request.use(
 	async (config) => {
 		;(config.headers = {
 			"Content-Type": "application/json",
-			Authorization: `Bearer ${token}`,
 			"Access-Control-Allow-Origin": "*",
 			"Access-Control-Allow-Credentials": "true",
 			"Access-Control-Max-Age": "1800",

@@ -1,6 +1,5 @@
 "use client"
 import { handleAuth } from "@/app/api/handleAuth"
-import { userState } from "@/atoms/user"
 import {
 	AnimatePresence,
 	motion,
@@ -8,16 +7,11 @@ import {
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { CiGlobe } from "react-icons/ci"
-import { useRecoilState } from "recoil"
 import { v4 as uuidv4 } from "uuid"
 import useDebounce from "../customHook/useDeboune"
-import {
-	isValidEmail,
-	saveUserTokenToLocalStogare,
-} from "../utils/until"
+import { isValidEmail } from "../utils/until"
 const PopupRegister = () => {
 	const [showPopup, setShowPopup] = useState(false)
-	const [user, setUser] = useRecoilState(userState)
 	const router = useRouter()
 
 	const [data, setData] = useState({
@@ -67,7 +61,6 @@ const PopupRegister = () => {
 				formData
 			)
 			const { user, token } = result
-			saveUserTokenToLocalStogare(user, token)
 			setUser(user)
 			router.push("/")
 		} catch (error) {

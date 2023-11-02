@@ -9,12 +9,19 @@ import {
 	isValidEmail,
 	isValidPhoneNumber,
 } from "../utils/until"
+import { UserAuth } from "@/context/AuthContext"
 
 const UserDataForm = () => {
 	const buttonRef = useRef()
-	const user = JSON.parse(
-		window.localStorage.getItem("user")
-	)
+	const { user, setUser } = UserAuth()
+
+	useEffect(() => {
+		setUser(
+			JSON.parse(localStorage.getItem("user"))
+		)
+
+		console.log(user)
+	}, [])
 
 	const [formData, setFormData] = useState({
 		name: user.name,

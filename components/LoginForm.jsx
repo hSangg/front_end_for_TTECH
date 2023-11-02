@@ -7,15 +7,11 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { FcGoogle } from "react-icons/fc"
 import { UserAuth } from "../context/AuthContext"
-import PopupRegister from "./PopupRegister"
-import { saveUserTokenToLocalStogare } from "@/utils/until"
-import { useRecoilState } from "recoil"
-import { userState } from "@/atoms/user"
 import CircleLoader from "./CircleLoader"
+import PopupRegister from "./PopupRegister"
 
 const LoginForm = () => {
 	const router = useRouter()
-	const [user, setUser] = useRecoilState(userState)
 	const [loading, setLoading] = useState(false)
 
 	const [data, setData] = useState({
@@ -23,7 +19,14 @@ const LoginForm = () => {
 		password: "",
 	})
 
-	const { googleSignIn, signOut } = UserAuth()
+	const {
+		googleSignIn,
+		signOut,
+		user,
+		setUser,
+		setToken,
+		token,
+	} = UserAuth()
 
 	const handleLogin = async () => {
 		try {
@@ -31,7 +34,7 @@ const LoginForm = () => {
 			const res = await handleAuth.login(data)
 			const { user, token } = res
 			setUser(user)
-			saveUserTokenToLocalStogare(user, token)
+			setToken(token)
 			router.push("/")
 		} catch (error) {
 			console.log(error)

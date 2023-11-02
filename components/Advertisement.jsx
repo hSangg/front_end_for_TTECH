@@ -13,6 +13,7 @@ const Advertisement = () => {
 						}}
 						key={i}
 						src={x.imgSrc}
+						alt=''
 						width={0}
 						height={0}
 						sizes='100vw'

@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from "framer-motion"
 import Image from "next/image"
 
@@ -5,7 +7,6 @@ const ProductItem = ({
 	product_id,
 	category_id,
 	name_pr,
-	name_serial,
 	detail,
 	price,
 	quantity_pr,
@@ -13,16 +14,11 @@ const ProductItem = ({
 	guarantee_period,
 }) => {
 	return (
-		<div className='flex flex-col items-center mb-10'>
-			<div className='relative w-[200px] h-[200px]'>
-				<Image
+		<div className='flex flex-col bg-white p-4 items-center mb-10'>
+			<div className='relative w-[200px] h-[200px] rounded-3xl'>
+				<img
 					src={img_href}
-					fill
-					alt=''
-					style={{
-						objectFit: "contain",
-						borderRadius: "20px",
-					}}
+					className='rounded-[30px]'
 				/>
 			</div>
 			<h1 className='text-[1.8rem] font-[700] mt-5'>

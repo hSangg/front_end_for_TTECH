@@ -1,5 +1,6 @@
 "use client"
 
+import { handleProduct } from "@/app/api/handleProduct"
 import useDebounce from "../customHook/useDeboune"
 import { productNameExample } from "../data"
 import { convert_vi_to_en } from "../utils/until"
@@ -27,22 +28,29 @@ const SearchBar = () => {
 	const [filteredProducts, setFilteredProducts] =
 		useState([])
 
-	const debouncedValue = useDebounce(value, 300)
+	const debouncedValue = useDebounce(value, 500)
 	//
+
+	const getProductBySearchParam = async () => {
+		const result =
+			await handleProduct.getProductBySearchParam(
+				debouncedValue
+			)
+		setFilteredProducts(result)
+	}
 
 	useEffect(() => {
 		// call API here
-		const filteredResults =
-			productNameExample.filter((name) =>
-				convert_vi_to_en(name.toLowerCase()).includes(
-					convert_vi_to_en(
-						debouncedValue.toLowerCase()
-					)
-				)
-			)
+		// const filteredResults =
+		// 	productNameExample.filter((name) =>
+		// 		convert_vi_to_en(name.toLowerCase()).includes(
+		// 			convert_vi_to_en(
+		// 				debouncedValue.toLowerCase()
+		// 			)
+		// 		)
+		// 	)
+		getProductBySearchParam()
 		// call API here
-
-		setFilteredProducts(filteredResults)
 	}, [debouncedValue])
 
 	const handleKeyPressEnter = (e) => {
@@ -125,14 +133,14 @@ const SearchBar = () => {
                 flex flex-col justify-start items-start'
 								>
 									{filteredProducts
-										.slice(0, 6)
-										.map((x, i) => (
+										?.slice(0, 6)
+										?.map((x, i) => (
 											<motion.h1
 												whileHover={{ color: "#dc2626" }}
 												key={i}
 												className='text-black text-[2rem] font-[700] cursor-pointer'
 											>
-												{x}
+												{x?.name_pr}
 											</motion.h1>
 										))}
 								</div>

@@ -16,6 +16,7 @@ import {
 import CategoryPhone from "./CategoryPhone"
 import SearchBar from "./SearchBar"
 import { UserAuth } from "@/context/AuthContext"
+import Cart from "./Cart"
 const Header = () => {
 	const [category, setCategory] = useState([])
 	const { user, setUser } = UserAuth()
@@ -25,7 +26,6 @@ const Header = () => {
 			const result =
 				await handleCategory.getAllCategories()
 
-			console.log("result: ", result)
 			setCategory(result)
 		} catch (error) {
 			console.log(error)
@@ -33,9 +33,6 @@ const Header = () => {
 	}
 	useEffect(() => {
 		getAllCategory()
-		setUser(
-			JSON.parse(localStorage.getItem("user"))
-		)
 	}, [])
 	const router = useRouter()
 
@@ -73,16 +70,8 @@ const Header = () => {
 					<motion.div className='grow-[1] '>
 						<SearchBar />
 					</motion.div>
-					<motion.div
-						whileHover={{ color: "red", scale: 1.05 }}
-						onClick={() => {
-							router.push(
-								"/products/?pageNumber=1&pageSize=15"
-							)
-						}}
-						className=' p-2 '
-					>
-						<CiShoppingCart size={25} />
+					<motion.div className=' p-2 '>
+						<Cart />
 					</motion.div>
 
 					<motion.div

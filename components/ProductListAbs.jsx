@@ -7,9 +7,9 @@ const ProductListAbs = () => {
 				<ProductSlide
 					key={index}
 					title={product.title}
+					categoryId={product.categoryId}
 					imageHref={product.imageHref}
 					styleForImage={product.styleForImage}
-					//   productList={product.productList}
 				/>
 			))}
 		</>
@@ -26,7 +26,7 @@ export const productListAbs = [
 		imageHref:
 			"/images/product_images/headphone-review.png",
 		styleForImage: undefined,
-		productList: [],
+		categoryId: "4dEfG6zIjvp7oP8q",
 	},
 
 	{
@@ -39,8 +39,7 @@ export const productListAbs = [
 			scale: 1.2,
 			marginTop: "50px",
 		},
-
-		productList: [],
+		categoryId: "9dEfGhIjKp6mN7oP",
 	},
 
 	{
@@ -54,7 +53,7 @@ export const productListAbs = [
 			marginTop: "80px",
 		},
 
-		productList: [],
+		categoryId: "0PbC1aL2mN3oPqRs",
 	},
 
 	{
@@ -68,6 +67,6 @@ export const productListAbs = [
 			marginTop: "40px",
 		},
 
-		productList: [],
+		categoryId: "4d2fG9zIjv37oP8q",
 	},
 ]

@@ -85,9 +85,7 @@ const UserDataForm = () => {
 		}))
 	}
 
-	const showInforCustomer = () => {
-		console.log(formData)
-	}
+	const showInforCustomer = () => {}
 
 	useEffect(() => {
 		setIsValidFormData(

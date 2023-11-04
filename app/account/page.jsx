@@ -8,15 +8,9 @@ import UserDataForm from "../../components/UserDataForm"
 const Page = () => {
 	const { token, user } = UserAuth()
 
-	useEffect(() => {
-		console.log(user)
-	}, [])
-
 	return (
 		<div
-			onClick={() => {
-				console.log(token)
-			}}
+			onClick={() => {}}
 			className='container mx-auto'
 		>
 			<motion.div className='text-[5rem] font-[300] uppercase h-[60px] leading-[60px]'>

@@ -33,7 +33,6 @@ const CustomerMessage = () => {
 		const allMessage = await getDocs(queryMessages)
 
 		allMessage.forEach((doc) => {
-			console.log(doc.data())
 			rooms.push(doc.data().roomId)
 		})
 		setRoom([...new Set(rooms)])

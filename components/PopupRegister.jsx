@@ -10,8 +10,14 @@ import { CiGlobe } from "react-icons/ci"
 import { v4 as uuidv4 } from "uuid"
 import useDebounce from "../customHook/useDeboune"
 import { isValidEmail } from "../utils/until"
+import { UserAuth } from "@/context/AuthContext"
+import CircleLoader from "./CircleLoader"
 const PopupRegister = () => {
 	const [showPopup, setShowPopup] = useState(false)
+	const { user, setUser, token, setToken } =
+		UserAuth()
+	const [loading, setLoading] = useState(false)
+
 	const router = useRouter()
 
 	const [data, setData] = useState({
@@ -47,6 +53,7 @@ const PopupRegister = () => {
 
 	const handleRegister = async (e) => {
 		e.preventDefault()
+		setLoading(true)
 		const formData = {
 			user_id: uuidv4(),
 			name: data.username,
@@ -62,10 +69,12 @@ const PopupRegister = () => {
 			)
 			const { user, token } = result
 			setUser(user)
+			setToken(token)
 			router.push("/")
 		} catch (error) {
 			console.log(error)
 		}
+		setLoading(false)
 	}
 
 	/**
@@ -146,9 +155,7 @@ const PopupRegister = () => {
 						>
 							<div className='p-10'>
 								<div
-									onClick={() => {
-										console.log(data)
-									}}
+									onClick={() => {}}
 									className='text-[3rem] mb-6 font-[600]'
 								>
 									Tạo tài khoản mới
@@ -189,9 +196,13 @@ const PopupRegister = () => {
 												? "#0284c7"
 												: "#78716c",
 										}}
-										className='w-full py-2 font-[700] text-white rounded-2xl text-[1.6rem] text-center'
+										className='w-full py-2 font-[700] text-white rounded-2xl text-[1.6rem] flex justify-center items-center'
 									>
-										Đăng kí
+										{loading ? (
+											<CircleLoader />
+										) : (
+											"Đăng nhập"
+										)}
 									</motion.button>
 								</form>
 							</div>

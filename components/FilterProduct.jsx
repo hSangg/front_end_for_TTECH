@@ -13,11 +13,10 @@ const FilterProduct = ({ onFilterChange }) => {
 	const [current, setCurrent] = useState({})
 
 	useEffect(() => {
-		console.log(current)
-
 		onFilterChange((pre) => {
 			const { id, ...rest } = current
-			return { ...rest }
+
+			return { ...pre, ...rest }
 		})
 	}, [current])
 
@@ -43,7 +42,7 @@ const FilterProduct = ({ onFilterChange }) => {
 
 	return (
 		<div>
-			<div className='flex gap-5 items-center justify-center'>
+			<div className='flex gap-5 mt-24 mb-10 items-center justify-center'>
 				<div
 					onClick={() => {
 						setShow(true)

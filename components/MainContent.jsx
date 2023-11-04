@@ -17,8 +17,6 @@ const MainContent = () => {
 
 	const router = useRouter()
 
-	useEffect(() => {}, [])
-
 	useEffect(() => {
 		const handleResize = () => {
 			if (window.innerWidth >= 768) {

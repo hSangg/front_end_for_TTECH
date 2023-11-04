@@ -155,9 +155,7 @@ const RealTimeMessage = () => {
 												? messagesEndRef
 												: null
 										}
-										onClick={() => {
-											console.log(x)
-										}}
+										onClick={() => {}}
 										style={{
 											textAlign:
 												x.userId == USER_ID ? "end" : "start",

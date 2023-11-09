@@ -10,36 +10,46 @@ import { useRouter } from "next/navigation"
 export default function Page({ searchParams }) {
 	const [filter, setFilter] = useState({
 		...searchParams,
-		IsDescending:
-			!!searchParams.IsDescending || false,
-		pageNumber:
-			Number.parseInt(searchParams.pageNumber) || 1,
+		IsDescending: !!searchParams.IsDescending || false,
+		pageNumber: Number.parseInt(searchParams.pageNumber) || 1,
 		pageSize: 12,
 	})
+
+	const [loading, setLoading] = useState(true)
 
 	const router = useRouter()
 	const [currentPage, setCurrentPage] = useState(
 		searchParams.pageNumber
 	)
 	const [totalPages, setTotalPages] = useState(1)
-	const [list, setList] = useState([])
+	const [list, setList] = useState([
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+	])
 
 	const getProduct = async () => {
-		const result = await handleProduct.getProduct(
-			filter
-		)
-		const { products, ...rest } = result
-		setCurrentPage(rest.pageNumber)
-		setTotalPages(rest.totalPages)
+		const newFilter = {
+			...searchParams,
+			IsDescending:
+				searchParams.IsDescending === "true" ? true : false,
+		}
+		console.log("filter: ", newFilter)
+		const result = await handleProduct.getProduct(newFilter)
+		const products = result?.products
+		const totalPages = result?.totalPages
+		const pageNumber = result?.pageNumber
+		setCurrentPage(pageNumber)
+		setTotalPages(totalPages)
+		console.log("product is", products)
 		setList(products)
+
+		setLoading(false)
 	}
 
 	useEffect(() => {
 		const { priceIdentify, ...rest } = filter
 		const queryString = Object.entries(rest)
 			.map(
-				([key, value]) =>
-					`${key}=${encodeURIComponent(value)}`
+				([key, value]) => `${key}=${encodeURIComponent(value)}`
 			)
 			.join("&")
 		router.push("/products?" + queryString)
@@ -47,32 +57,26 @@ export default function Page({ searchParams }) {
 
 	useEffect(() => {
 		getProduct()
-	}, [filter])
+	}, [filter, searchParams])
 
 	return (
-		<div
-			className='mt-20'
-			suppressHydrationWarning={true}
-		>
+		<div className='mt-20' suppressHydrationWarning={true}>
 			<FilterProduct onFilterChange={setFilter} />
 			<div className='flex justify-center'>
 				<div className='grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
 					{list?.map((x, i) => (
 						<ProductItem
+							loading={loading}
 							key={i}
 							product_id={x?.product?.product_id}
 							category_id={x?.product?.category_id}
 							name_pr={x?.product?.name_pr}
 							name_serial={x?.product?.name_serial}
 							detail={x?.product?.detail}
-							price={x?.product?.price}
+							price={x?.product?.price || 0}
 							quantity_pr={x?.product?.quantity_pr}
-							img_href={
-								x?.image?.image_href || undefined
-							}
-							guarantee_period={
-								x?.products?.guarantee_period
-							}
+							img_href={x?.image?.image_href || undefined}
+							guarantee_period={x?.products?.guarantee_period}
 						/>
 					))}
 				</div>
@@ -81,8 +85,20 @@ export default function Page({ searchParams }) {
 				currentPage={currentPage}
 				totalPages={totalPages}
 				onPageChange={(pageNumber) => {
-					setCurrentPage(pageNumber)
-					setFilter({ ...filter, pageNumber })
+					const categoryId = searchParams.categoryId
+
+					if (categoryId) {
+						setFilter({
+							...filter,
+							pageNumber,
+							categoryId,
+						})
+					} else {
+						setFilter({
+							...filter,
+							pageNumber,
+						})
+					}
 				}}
 			/>
 		</div>

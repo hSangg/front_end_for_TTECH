@@ -2,10 +2,7 @@ import { axiosClient } from "./axiosClient"
 
 export const handleProduct = {
 	getProduct: async (filter) =>
-		await axiosClient.post(
-			"/Product/GetProduct",
-			filter
-		),
+		await axiosClient.post("/Product/GetProduct", filter),
 	getProductBySearchParam: async (searchParam) =>
 		await axiosClient.post(
 			"/Product/GetProductBySearchQuery",
@@ -17,19 +14,15 @@ export const handleProduct = {
 			}
 		),
 	getProducctById: async (id) =>
-		await axiosClient.post(
-			"/Product/getProductById",
-			id,
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		),
+		await axiosClient.post("/Product/getProductById", id, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}),
 
 	getAllImageOfProduct: async (id) =>
 		await axiosClient.post(
-			"Product/GetAllImageOfProduct",
+			"/Product/GetAllImageOfProduct",
 			id,
 			{
 				headers: {

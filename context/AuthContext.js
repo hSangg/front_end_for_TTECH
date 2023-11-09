@@ -47,15 +47,24 @@ export const AuthContextProvider = ({
 		signOut(auth)
 	}
 
-	// useEffect(() => {
-	// 	const unsubscribe = onAuthStateChanged(
-	// 		auth,
-	// 		(currentUser) => {
-	// 			handleUserWhenLogInByGoogle(currentUser)
-	// 		}
-	// 	)
-	// 	return () => unsubscribe()
-	// }, [user])
+	useEffect(() => {
+		try {
+			if (!user && localStorage.getItem("user")) {
+				const reloadUser = JSON.parse(
+					localStorage.getItem("user")
+				)
+				setUser(reloadUser)
+			}
+			if (!token && localStorage.getItem("token")) {
+				const reloadToken = JSON.parse(
+					localStorage.getItem("token")
+				)
+				setToken(reloadToken)
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}, [])
 
 	useEffect(() => {
 		if (user?.user_id) {

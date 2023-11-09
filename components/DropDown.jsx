@@ -9,11 +9,11 @@ import { CiCircleChevRight } from "react-icons/ci"
 const DropDown = ({ title, links }) => {
 	const [show, setShow] = useState(false)
 	return (
-		<motion.div
-			onClick={() => setShow((pre) => !pre)}
-			className='py-2'
-		>
-			<div className='flex items-center justify-between'>
+		<motion.div className='py-2 cursor-pointer'>
+			<div
+				onClick={() => setShow((pre) => !pre)}
+				className='flex items-center justify-between'
+			>
 				<h4 className=' text-[1.5rem]'>{title}</h4>
 				<motion.div
 					animate={{ rotate: show ? 90 : 0 }}

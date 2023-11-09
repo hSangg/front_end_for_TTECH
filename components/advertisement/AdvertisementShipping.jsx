@@ -6,8 +6,7 @@ import {
 } from "react-icons/ci"
 
 const AdvertisementShippingItem =
-	"text-[3rem] lg:text-[3.5rem] mt-20\
-  md:mt-0 lg:min-h-[160px] shrink-0 font-[700]"
+	"text-[3rem] lg:text-[3.5rem] lg:min-h-[160px] shrink-0 font-[700]"
 
 const AdvertisementShipping = () => {
 	return (

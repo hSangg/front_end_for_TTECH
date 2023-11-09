@@ -20,7 +20,7 @@ const BestSaleCategory = () => {
 				<motion.div
 					onClick={() => {
 						router.push(
-							"/products?" + "category=" + x.name
+							"/products?" + "categoryId=" + x.categoryId
 						)
 					}}
 					initial={{ color: "black" }}
@@ -70,12 +70,14 @@ const categoryBestSeller = [
 		name: "Điện thoại",
 		icon: CiMobile2,
 		isNew: false,
+		categoryId: "0PbC1aL2mN3oPqRs",
 	},
 	{
 		id: 1,
 		name: "Chuột",
 		icon: CiDesktopMouse2,
 		isNew: true,
+		categoryId: "x0bC1a2L3mN3oPqR",
 	},
 
 	{
@@ -83,6 +85,7 @@ const categoryBestSeller = [
 		name: "Tai nghe",
 		icon: CiHeadphones,
 		isNew: false,
+		categoryId: "",
 	},
 
 	{
@@ -90,6 +93,7 @@ const categoryBestSeller = [
 		name: "Laptop",
 		icon: CiLaptop,
 		isNew: true,
+		categoryId: "qRsTuV4wXyZ56789",
 	},
 
 	{
@@ -97,6 +101,7 @@ const categoryBestSeller = [
 		name: "Màng hình",
 		icon: CiDesktop,
 		isNew: true,
+		categoryId: "4d2fG9zIjv37oP8q",
 	},
 
 	{
@@ -104,6 +109,7 @@ const categoryBestSeller = [
 		name: "Bàn phím",
 		icon: CiKeyboard,
 		isNew: true,
+		categoryId: "4d2229zzjv37oP8q",
 	},
 
 	{
@@ -111,6 +117,7 @@ const categoryBestSeller = [
 		name: "Ổ cứng",
 		icon: CiHardDrive,
 		isNew: true,
+		categoryId: "x0bC1a2L3mN3oPqR",
 	},
 
 	{
@@ -118,5 +125,6 @@ const categoryBestSeller = [
 		name: "Smart home",
 		icon: CiStreamOn,
 		isNew: true,
+		categoryId: "7qRsTuVwXyZ56789",
 	},
 ]

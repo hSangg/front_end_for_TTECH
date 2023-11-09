@@ -5,18 +5,20 @@ import {
 	openNewWindow,
 	smoothScrollHorizotal,
 } from "../utils/until"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import {
-	useEffect,
-	useRef,
-	useState,
-} from "react"
+import { useEffect, useRef, useState } from "react"
 import {
 	GoChevronLeft,
 	GoChevronRight,
 } from "react-icons/go"
+import { useRouter } from "next/navigation"
+import CircleLoader from "./CircleLoader"
+import { UserCart } from "@/context/CartContex"
+import Notification from "./Notification"
+import { UserAuth } from "@/context/AuthContext"
+import { handleCart } from "@/app/api/handleCart"
 
 const ProductSlide = ({
 	title,
@@ -24,7 +26,12 @@ const ProductSlide = ({
 	styleForImage = {},
 	categoryId,
 }) => {
-	const [list, setList] = useState([])
+	const router = useRouter()
+	const [list, setList] = useState([1, 2, 3, 4, 5, 6])
+	const { user, setUser, token } = UserAuth()
+	const [notifications, setNotifications] = useState(false)
+	const { totalProduct, setTotalProduct } = UserCart()
+	const [loading, setLoading] = useState(true)
 
 	const getProduct = async () => {
 		const result = await handleProduct.getProduct({
@@ -33,8 +40,8 @@ const ProductSlide = ({
 			pageSize: 999,
 		})
 		const { products, ...rest } = result
-		console.log("products:", products)
 		setList(products)
+		setLoading(false)
 	}
 
 	useEffect(() => {
@@ -45,15 +52,26 @@ const ProductSlide = ({
 	const itemRef = useRef()
 	const bannerRef = useRef()
 
+	const handleBuyClick = async (product_id) => {
+		const data = {
+			user_id: user?.user_id,
+			product_id: product_id,
+			quantity: 1,
+		}
+
+		const result = await handleCart.AddToCart(data, token)
+
+		setNotifications(true)
+		setTotalProduct((pre) => pre + 1)
+	}
+
 	const formattedTitle = {
 		__html: title,
 	}
 
 	const handleNextClick = () => {
-		const itemWidth =
-			itemRef.current.offsetWidth * 1.5
-		const scrollLeft =
-			containerRef.current.scrollLeft
+		const itemWidth = itemRef.current.offsetWidth * 1.5
+		const scrollLeft = containerRef.current.scrollLeft
 		const targetScrollLeft = scrollLeft + itemWidth
 		smoothScrollHorizotal(
 			containerRef.current,
@@ -65,8 +83,7 @@ const ProductSlide = ({
 
 	const handlePreClick = () => {
 		const itemWidth = itemRef.current.offsetWidth
-		const scrollLeft =
-			containerRef.current.scrollLeft
+		const scrollLeft = containerRef.current.scrollLeft
 		const targetScrollLeft = scrollLeft - itemWidth
 		smoothScrollHorizotal(
 			containerRef.current,
@@ -78,20 +95,36 @@ const ProductSlide = ({
 
 	return (
 		<div className='mt-3 bg-slate-200/90 py-4 md:flex overflow-hidden relative '>
+			<AnimatePresence>
+				{notifications && (
+					<Notification
+						setNotifications={setNotifications}
+						notifications={notifications}
+						notification={{
+							style: "success",
+							text: "Sản phẩm đã được thêm vào giỏi hàng của bạn",
+						}}
+					/>
+				)}
+			</AnimatePresence>
+
 			<div ref={bannerRef} className='md:w-1/3 p-2'>
 				<div className='flex gap-3 flex-col items-center'>
 					<div
 						className='text-center w-[70%]'
 						dangerouslySetInnerHTML={formattedTitle}
 					></div>
-					<Link
+					<div
+						onClick={() => {
+							router.push("/products?categoryId=" + categoryId)
+						}}
 						className='text-blue-500 text-[1.1rem] flex
-             items-center underline underline-offset-2 mb-4'
+             items-center underline underline-offset-2 mb-4 cursor-pointer'
 						href={""}
 					>
 						<div> Tìm hiểu thêm</div>{" "}
 						<GoChevronRight scale={25} />
-					</Link>
+					</div>
 
 					<div className='relative w-[200px] h-[200px]'>
 						<Image
@@ -132,54 +165,57 @@ const ProductSlide = ({
 							className={`w-[40%] lg:w-1/3 h-full 
               flex flex-col items-center justify-center bg-white shrink-0 rounded-[26px] `}
 						>
-							<div className='w-[200px] h-[200px] mt-8 mb-4 rounded-[32px]'>
-								<img
-									src={x?.image?.image_href}
-									style={{
-										objectFit: "cover",
-										borderRadius: "32px",
-										margin: "auto",
-										maxWidth: "100%",
-										maxHeight: "100%",
-									}}
-								/>
+							<div className='w-[200px] h-[200px] mt-8 mb-4 rounded-[32px] flex items-center justify-center'>
+								{loading ? (
+									<CircleLoader />
+								) : (
+									<img
+										src={x?.image?.image_href}
+										style={{
+											objectFit: "cover",
+											borderRadius: "32px",
+											margin: "auto",
+											maxWidth: "100%",
+											maxHeight: "100%",
+										}}
+									/>
+								)}
 							</div>
 							<div
 								className='flex flex-col gap-2 
               items-center text-[1.3rem] mt-[auto] flex-1'
 							>
 								<div className='font-[600] text-[2.2rem] max-w-[85%] overflow-hidden whitespace-nowrap overflow-ellipsis'>
-									{x?.product?.name_pr}
+									{x?.product?.name_pr || "Loading..."}
 								</div>
 
 								<div className='font-[300]'>
 									Từ{" "}
 									<span className='font-[500]'>
-										{x?.product?.price.toLocaleString(
-											"it-IT",
-											{
-												style: "currency",
-												currency: "VND",
-											}
-										)}
+										{x?.product?.price.toLocaleString("it-IT", {
+											style: "currency",
+											currency: "VND",
+										}) || "Loading..."}
 									</span>
 								</div>
 								<div
+									onClick={() => {
+										handleBuyClick(x?.product?.product_id)
+									}}
 									className='px-[11px] cursor-pointer
                  py-2 bg-blue-500 rounded-full text-white'
 								>
 									Mua
 								</div>
-								<Link
+								<div
 									href=''
 									onClick={() => {
-										openNewWindow(x.informationLink)
+										router.push("/products/" + x?.product?.product_id)
 									}}
-									className='text-blue-500 flex items-center gap-1 pb-4'
+									className='text-blue-500 flex items-center gap-1 pb-4 mt-4 cursor-pointer'
 								>
-									Tìm hiểu thêm{" "}
-									<GoChevronRight scale={15} />
-								</Link>
+									Tìm hiểu thêm <GoChevronRight scale={15} />
+								</div>
 							</div>
 						</div>
 					))}
@@ -200,37 +236,3 @@ const ProductSlide = ({
 }
 
 export default ProductSlide
-
-const productList = [
-	{
-		name: "Airpods Max",
-		price: 10000000,
-		imageLink:
-			"/images/product_images/headphone-review.png",
-		informationLink: "google.com.vn",
-	},
-
-	{
-		name: "Airpods Max",
-		price: 10000000,
-		imageLink:
-			"/images/product_images/headphone-review.png",
-		informationLink: "google.com.vn",
-	},
-
-	{
-		name: "Airpods Max",
-		price: 10000000,
-		imageLink:
-			"/images/product_images/headphone-review.png",
-		informationLink: "google.com.vn",
-	},
-
-	{
-		name: "Airpods Max",
-		price: 10000000,
-		imageLink:
-			"/images/product_images/headphone-review.png",
-		informationLink: "google.com.vn",
-	},
-]

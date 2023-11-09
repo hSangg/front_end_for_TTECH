@@ -7,7 +7,7 @@ import {
 } from "react"
 import {
 	isValidEmail,
-	isValidPhoneNumber,
+	isValidPhone,
 } from "../utils/until"
 import { UserAuth } from "@/context/AuthContext"
 
@@ -16,24 +16,15 @@ const UserDataForm = () => {
 	const { user, setUser } = UserAuth()
 
 	useEffect(() => {
-		setUser(
-			JSON.parse(localStorage.getItem("user"))
-		)
-
-		console.log(user)
+		setFormData(user)
 	}, [])
 
-	const [formData, setFormData] = useState({
-		name: user.name,
-		sex: "Nam",
-		email: user.email,
-		phoneNumber: user.phone,
-	})
+	const [formData, setFormData] = useState({})
 
 	const [formErrors, setFormErrors] = useState({
 		name: "",
 		email: "",
-		phoneNumber: "",
+		phone: "",
 	})
 
 	const [isValidFormData, setIsValidFormData] =
@@ -65,8 +56,8 @@ const UserDataForm = () => {
 		) {
 			errorMessage = "Sai định dạng email"
 		} else if (
-			id === "phoneNumber" &&
-			!isValidPhoneNumber(value)
+			id === "phone" &&
+			!isValidPhone(value)
 		) {
 			errorMessage =
 				"Số điện thoại gồm 10 hoặc 11 con số"
@@ -120,7 +111,7 @@ const UserDataForm = () => {
 							{
 								labelName: "Số điện thoại",
 								type: "tel",
-								inputName: "phoneNumber",
+								inputName: "phone",
 							},
 						].map(
 							({ labelName, type, inputName }, i) => (
@@ -147,7 +138,7 @@ const UserDataForm = () => {
 											className='py-1 w-full outline-none border-[1px] border-gray-500/60 px-4 rounded-xl bg-slate-200'
 											id={inputName}
 											type={type}
-											value={formData[inputName]}
+											value={formData?.[inputName]}
 										/>
 									</div>
 									<h2 className='error-message text-[1rem] mt-2 text-red-500'>

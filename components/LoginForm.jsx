@@ -9,6 +9,7 @@ import { FcGoogle } from "react-icons/fc"
 import { UserAuth } from "../context/AuthContext"
 import CircleLoader from "./CircleLoader"
 import PopupRegister from "./PopupRegister"
+import { UserCart } from "@/context/CartContex"
 
 const LoginForm = () => {
 	const router = useRouter()
@@ -28,6 +29,8 @@ const LoginForm = () => {
 		token,
 	} = UserAuth()
 
+	const { setTriggerRerender } = UserCart()
+
 	const handleLogin = async () => {
 		try {
 			setLoading(true)
@@ -35,6 +38,7 @@ const LoginForm = () => {
 			const { user, token } = res
 			setUser(user)
 			setToken(token)
+			setTriggerRerender(1)
 			router.push("/")
 		} catch (error) {
 			console.log(error)

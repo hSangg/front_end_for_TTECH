@@ -1,48 +1,22 @@
 "use client"
 
 import { handleCart } from "@/app/api/handleCart"
+import { UserAuth } from "@/context/AuthContext"
+import { UserCart } from "@/context/CartContex"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { CiShoppingCart } from "react-icons/ci"
 const Cart = () => {
 	const router = useRouter()
-	const [totalProduct, setTotalProduct] =
-		useState(0)
-
-	const getUserTotalProduct = async (
-		userId,
-		token
-	) => {
-		try {
-			const result =
-				await handleCart.getCountProductOnCart(
-					userId,
-					token
-				)
-
-			setTotalProduct(result)
-		} catch (e) {
-			console.log(e)
-		}
-	}
-
-	useEffect(() => {
-		const user = JSON.parse(
-			localStorage.getItem("user")
-		)
-
-		const token = JSON.parse(
-			localStorage.getItem("token")
-		)
-
-		getUserTotalProduct(user.user_id, token)
-	}, [])
+	const { totalProduct, setTotalProduct } =
+		UserCart()
+	const { user } = UserAuth()
 
 	return (
 		<motion.div
 			onClick={() => {
-				router.push("cart")
+				router.push(user?.user_id ? "cart" : "login")
 			}}
 			className='relative cursor-pointer'
 		>

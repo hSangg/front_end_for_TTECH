@@ -33,6 +33,8 @@ axiosClient.interceptors.response.use(
 		if (response.status === 200 && response.data) {
 			return response.data
 		}
+		
+
 		return response
 	},
 	(error) => {

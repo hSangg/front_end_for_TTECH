@@ -1,3 +1,4 @@
+import { headers } from "@/next.config"
 import { axiosClient } from "./axiosClient"
 
 export const handleCart = {
@@ -14,14 +15,31 @@ export const handleCart = {
 		),
 
 	GetCartProduct: async (user_id, token) =>
-		await axiosClient.post(
-			"/Cart/GetCartProduct",
-			user_id,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-					"Content-Type": "application/json",
-				},
-			}
+		await axiosClient.post("/Cart/GetCartProduct", user_id, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				"Content-Type": "application/json",
+			},
+		}),
+
+	AddToCart: async (data, token) =>
+		await axiosClient.post("/Cart/AddToCart", data, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				"Content-Type": "application/json",
+			},
+		}),
+
+	UpdateQuantity: async (data, token) =>
+		await axiosClient.put("/Cart/UpdateQuantity", data, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				"Content-Type": "application/json",
+			},
+		}),
+	EmptyCartUser: async (userId, token) =>
+		await axiosClient.delete(
+			"/Cart/EmptyCart?user_id=" + userId,
+			{ headers: { Authorization: `Bearer ${token}` } }
 		),
 }

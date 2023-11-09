@@ -1,64 +1,26 @@
 "use client"
 
+import { UserCart } from "@/context/CartContex"
 import { convertToVND } from "@/utils/until"
 import { useEffect, useState } from "react"
+import OrderFormData from "./OrderFormData"
 
-const OrderBill = ({
-	cart = [
-		{
-			product: {
-				product_id: "ABC123",
-				name_pr: "Samsung Galaxy S21",
-				name_serial: "GA007",
-				detail:
-					"6.2-inch display, 12GB RAM, 256GB storage, 64MP camera",
-				price: 12000000,
-				quantity_pr: 50,
-				guarantee_period: 12,
-				supplier_id: "SUPLLIER001",
-			},
-			quantity: 2,
-			category: {
-				category_id: "0PbC1aL2mN3oPqRs",
-				category_name: "Điện thoại di động",
-			},
-			supplier: {
-				supplier_id: "SUPLLIER001",
-				supplier_name: "Samsung",
-			},
-			image: {
-				image_id: "ABC123001",
-				product_id: "ABC123",
-				image_href:
-					"https://localhost:7067/Upload/product/ABC123/ABC123_1.jpg",
-			},
-		},
-	],
-}) => {
-	const [totalPrice, setTotalPrice] = useState(
-		() => {
-			let total = 0
-			cart
-				.map((x) => x.quantity * x.product.price)
-				.forEach((x) => {
-					total += x
-				})
-			return total
-		}
-	)
-
-	useEffect(() => {
-		let total = 0
-		cart
-			.map((x) => x.quantity * x.product.price)
-			.forEach((x) => {
-				total += x
-			})
-		setTotalPrice(total)
-	}, [cart])
+const OrderBill = () => {
+	const {
+		totalProduct,
+		setTotalProduct,
+		cart,
+		setCart,
+		cartLoading,
+		setCartLoading,
+		setTriggerRerender,
+		triggerRerender,
+		totalPrice,
+		setTotalPrice,
+	} = UserCart()
 
 	return (
-		<div className='flex flex-col items-center p-8 shrink-0  bg-white min-w-[400px] pb-[500px]'>
+		<div className='flex flex-col items-center p-8 shrink-0  bg-white min-w-[300px] max-w-[500px] pb-[500px]'>
 			<h1 className='text-black font-semibold text-4xl text-center'>
 				Chi tiết hóa đơn
 			</h1>
@@ -82,12 +44,12 @@ const OrderBill = ({
 							className='border-t border-slate-500/60 my-2'
 						>
 							<td className='p-2'>
-								{x.product.name_pr}
+								{x?.product?.name_pr || "loading"}
 							</td>
 							<td className='p-2'>{x.quantity}</td>
 							<td className='p-2'>
 								{convertToVND(
-									x.quantity * x.product.price
+									x?.quantity * x?.product?.price || 0
 								)}
 							</td>
 						</tr>
@@ -95,9 +57,13 @@ const OrderBill = ({
 				</tbody>
 			</table>
 
-			<div className='bg-sky-500 text-3xl text-white text-center p-2 w-full rounded-full font-[600] mt-2'>
+			<div className='text-sky-500 text-3xl text-center p-2 w-full rounded-full font-[600] mt-2'>
 				Tổng: {convertToVND(totalPrice)}
 			</div>
+
+			<div className='h-[1px] bg-black/40 w-full mt-[12px]'></div>
+
+			<OrderFormData />
 		</div>
 	)
 }

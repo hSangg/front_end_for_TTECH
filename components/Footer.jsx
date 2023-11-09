@@ -4,9 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import DropDown from "./DropDown"
 const style = {
-	footer_links: "flex flex-col",
+	footer_links: "flex flex-col cursor-pointer",
 	footer_links_header:
-		"font-[600] text-[1.7rem] text-black/90",
+		"font-[600] text-[1.7rem] text-black/90 cursor-pointer",
 	footer_links_item:
 		"text-[1.5rem] text-black/90 font-[300] cursor-pointer",
 }

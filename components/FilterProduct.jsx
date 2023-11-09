@@ -7,11 +7,16 @@ import {
 	CiFilter,
 	CiPercent,
 } from "react-icons/ci"
+import { convertToVND } from "@/utils/until"
 
 const FilterProduct = ({ onFilterChange }) => {
 	const [show, setShow] = useState(false)
 	const [current, setCurrent] = useState({})
 
+	const [priceRange, setPriceRange] = useState({
+		minPrice: 0,
+		maxPrice: 999_999_999,
+	})
 	useEffect(() => {
 		onFilterChange((pre) => {
 			const { id, ...rest } = current
@@ -39,6 +44,14 @@ const FilterProduct = ({ onFilterChange }) => {
 			)
 		}
 	}, [])
+
+	const onPriceRangeChange = (e) => {
+		const { value, id } = e.target
+		setPriceRange((pre) => ({
+			...pre,
+			[id]: value,
+		}))
+	}
 
 	return (
 		<div>
@@ -141,6 +154,49 @@ const FilterProduct = ({ onFilterChange }) => {
 									</div>
 								</div>
 							))}
+
+							<div className='mt-36'>
+								<h1 className='text-5xl font-bold'>
+									Khoảng giá
+								</h1>
+								<form
+									className='flex flex-col items-start mt-5'
+									onSubmit={(e) => e.preventDefault()}
+								>
+									{[
+										{
+											name: "Từ",
+											key: "minPrice",
+											placeholder: convertToVND(0),
+										},
+										{
+											name: "Đến",
+											key: "maxPrice",
+											placeholder: convertToVND(9999999),
+										},
+									].map((x, i) => (
+										<div
+											key={i}
+											className='flex items-center text-2xl gap-5'
+										>
+											<label
+												htmlFor={x.key}
+												className='min-w-[40px]'
+											>
+												{x.name}
+											</label>
+											<input
+												onChange={(e) =>
+													onPriceRangeChange(e)
+												}
+												value={priceRange[x.key]}
+												id={x.key}
+												placeholder={x.placeholder}
+											/>
+										</div>
+									))}
+								</form>
+							</div>
 
 							<div className='absolute hidden sm:block bottom-10 left-1/2 z-40 text-2xl -translate-x-1/2'>
 								Pres{" "}

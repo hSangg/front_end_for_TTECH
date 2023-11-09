@@ -2,10 +2,14 @@
 
 import { handleProduct } from "@/app/api/handleProduct"
 import CircleLoader from "@/components/CircleLoader"
+import Notification from "@/components/Notification"
+import { UserCart } from "@/context/CartContex"
 import {
 	convertToVND,
 	getCurrentDate,
 } from "@/utils/until"
+import { AnimatePresence } from "framer-motion"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import {
 	CiBookmark,
@@ -17,6 +21,11 @@ import {
 export default function Page({ params }) {
 	const [imageList, setImageList] = useState([])
 	const [loading, setLoading] = useState(true)
+	const { totalProduct, setTotalProduct } =
+		UserCart()
+	const [notifications, setNotifications] =
+		useState(false)
+	const router = useRouter()
 	const [result, setResult] = useState({
 		product: {
 			product_id: "IPAD001",
@@ -69,6 +78,19 @@ export default function Page({ params }) {
 
 	return (
 		<div className='container mx-auto pb-[100px] mt-28'>
+			<AnimatePresence>
+				{notifications && (
+					<Notification
+						setNotifications={setNotifications}
+						notifications={notifications}
+						notification={{
+							style: "success",
+							text:
+								"Sản phẩm đã được thêm vào giỏi hàng của bạn",
+						}}
+					/>
+				)}
+			</AnimatePresence>
 			<div className='mx-auto w-4/5'>
 				<div className='text-[1.9rem] capitalize font-[600] cursor-pointer'>
 					{result?.supplier?.supplier_name}
@@ -124,7 +146,16 @@ export default function Page({ params }) {
 							{result?.category?.category_name}
 						</span>{" "}
 						tại{" "}
-						<span className='text-blue-500 underline cursor-pointer'>
+						<span
+							onClick={() => {
+								router.push(
+									"/products?" +
+										"categoryId=" +
+										result?.category?.category_id
+								)
+							}}
+							className='text-blue-500 underline cursor-pointer'
+						>
 							đây
 						</span>
 					</div>
@@ -142,7 +173,13 @@ export default function Page({ params }) {
 					</div>
 					<div>
 						<div className='my-24'>
-							<button className='w-full p-2 rounded-xl text-white text-[1.7rem] bg-blue-500 flex items-center justify-center'>
+							<button
+								onClick={() => {
+									setNotifications(true)
+									setTotalProduct((pre) => pre + 1)
+								}}
+								className='w-full p-2 rounded-xl text-white text-[1.7rem] bg-blue-500 flex items-center justify-center'
+							>
 								Đặt hàng ngay
 							</button>
 						</div>

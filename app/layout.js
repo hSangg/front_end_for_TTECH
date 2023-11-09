@@ -2,6 +2,7 @@ import { Inter } from "next/font/google"
 import { AuthContextProvider } from "../context/AuthContext"
 import "./globals.css"
 import https from "https"
+import { CartContextProdiver } from "@/context/CartContex"
 
 https.globalAgent.options.rejectUnauthorized = false
 
@@ -17,12 +18,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 	return (
-		<html lang='en'>
-			<AuthContextProvider>
-				<body className={inter.className}>
-					{children}
-				</body>
-			</AuthContextProvider>
+		<html lang='en' suppressHydrationWarning={true}>
+			<CartContextProdiver>
+				<AuthContextProvider>
+					<body className={inter.className}>
+						{children}
+					</body>
+				</AuthContextProvider>
+			</CartContextProdiver>
 		</html>
 	)
 }

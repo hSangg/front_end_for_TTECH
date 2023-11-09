@@ -4,29 +4,23 @@ import { handleProduct } from "@/app/api/handleProduct"
 import useDebounce from "../customHook/useDeboune"
 import { productNameExample } from "../data"
 import { convert_vi_to_en } from "../utils/until"
-import {
-	AnimatePresence,
-	motion,
-} from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import {
 	usePathname,
 	useRouter,
 	useSearchParams,
 } from "next/navigation"
 import { useEffect, useState } from "react"
-import {
-	CiMinimize1,
-	CiSearch,
-} from "react-icons/ci"
+import { CiMinimize1, CiSearch } from "react-icons/ci"
 
 const SearchBar = () => {
-	const [showSearchPage, setShowSearchPage] =
-		useState(false)
+	const [showSearchPage, setShowSearchPage] = useState(false)
 	const [value, setValue] = useState("")
 	const router = useRouter()
 
-	const [filteredProducts, setFilteredProducts] =
-		useState([])
+	const [filteredProducts, setFilteredProducts] = useState(
+		[]
+	)
 
 	const debouncedValue = useDebounce(value, 500)
 	//
@@ -55,7 +49,7 @@ const SearchBar = () => {
 
 	const handleKeyPressEnter = (e) => {
 		if (e.key === "Enter") {
-			router.push(`/search?query=${value}`)
+			router.push(`/products?searchKey=${value}`)
 			setShowSearchPage(false)
 		}
 	}
@@ -67,16 +61,10 @@ const SearchBar = () => {
 			}
 		}
 
-		window.addEventListener(
-			"keydown",
-			handleKeyPress
-		)
+		window.addEventListener("keydown", handleKeyPress)
 
 		return () => {
-			window.removeEventListener(
-				"keydown",
-				handleKeyPress
-			)
+			window.removeEventListener("keydown", handleKeyPress)
 		}
 	}, [])
 
@@ -132,17 +120,19 @@ const SearchBar = () => {
 									className='w-full mt-10 
                 flex flex-col justify-start items-start'
 								>
-									{filteredProducts
-										?.slice(0, 6)
-										?.map((x, i) => (
-											<motion.h1
-												whileHover={{ color: "#dc2626" }}
-												key={i}
-												className='text-black text-[2rem] font-[700] cursor-pointer'
-											>
-												{x?.name_pr}
-											</motion.h1>
-										))}
+									{filteredProducts?.slice(0, 6)?.map((x, i) => (
+										<motion.h1
+											onClick={() => {
+												router.push("/products/" + x?.product_id)
+												setShowSearchPage(false)
+											}}
+											whileHover={{ color: "#dc2626" }}
+											key={i}
+											className='text-black text-[2rem] font-[700] cursor-pointer'
+										>
+											{x?.name_pr}
+										</motion.h1>
+									))}
 								</div>
 							</motion.div>
 						</div>

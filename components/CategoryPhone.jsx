@@ -1,17 +1,10 @@
 "use client"
-import {
-	AnimatePresence,
-	motion,
-} from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
-import {
-	CiMenuBurger,
-	CiMinimize1,
-} from "react-icons/ci"
+import { CiMenuBurger, CiMinimize1 } from "react-icons/ci"
 import ProductListCategoryOnPhone from "./ProductListCategoryOnPhone"
 const CategoryPhone = () => {
-	const [showCategory, setShowCategory] =
-		useState(false)
+	const [showCategory, setShowCategory] = useState(false)
 
 	return (
 		<div>
@@ -48,7 +41,9 @@ const CategoryPhone = () => {
 									<CiMinimize1 size={20} color='black' />
 								</motion.div>
 							</motion.div>
-							<ProductListCategoryOnPhone />
+							<ProductListCategoryOnPhone
+								setShowCategory={setShowCategory}
+							/>
 						</motion.div>
 					</motion.div>
 				)}

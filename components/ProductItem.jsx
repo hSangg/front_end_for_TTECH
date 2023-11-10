@@ -3,10 +3,7 @@
 import { handleCart } from "@/app/api/handleCart"
 import { UserAuth } from "@/context/AuthContext"
 import { convertToVND } from "@/utils/until"
-import {
-	AnimatePresence,
-	motion,
-} from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import CircleLoader from "./CircleLoader"
@@ -25,12 +22,21 @@ const ProductItem = ({
 	img_href,
 	guarantee_period,
 }) => {
+	const {
+		totalProduct,
+		setTotalProduct,
+		cart,
+		setCart,
+		cartLoading,
+		setCartLoading,
+
+		totalPrice,
+		setTotalPrice,
+	} = UserCart()
 	const router = useRouter()
 	const { user, setUser, token } = UserAuth()
-	const { totalProduct, setTotalProduct } =
-		UserCart()
-	const [notifications, setNotifications] =
-		useState(false)
+
+	const [notifications, setNotifications] = useState(false)
 
 	const addToCart = async (product_id) => {
 		const data = {
@@ -39,11 +45,7 @@ const ProductItem = ({
 			quantity: 1,
 		}
 
-		const result = await handleCart.AddToCart(
-			data,
-			token
-		)
-
+		const result = await handleCart.AddToCart(data, token)
 		console.log(result)
 	}
 	return (
@@ -55,8 +57,7 @@ const ProductItem = ({
 						notifications={notifications}
 						notification={{
 							style: "success",
-							text:
-								"Sản phẩm đã được thêm vào giỏi hàng của bạn",
+							text: "Sản phẩm đã được thêm vào giỏi hàng của bạn",
 						}}
 					/>
 				)}

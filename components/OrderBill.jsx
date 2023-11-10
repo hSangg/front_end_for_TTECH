@@ -13,8 +13,6 @@ const OrderBill = () => {
 		setCart,
 		cartLoading,
 		setCartLoading,
-		setTriggerRerender,
-		triggerRerender,
 		totalPrice,
 		setTotalPrice,
 	} = UserCart()
@@ -48,9 +46,7 @@ const OrderBill = () => {
 							</td>
 							<td className='p-2'>{x.quantity}</td>
 							<td className='p-2'>
-								{convertToVND(
-									x?.quantity * x?.product?.price || 0
-								)}
+								{convertToVND(x?.quantity * x?.product?.price || 0)}
 							</td>
 						</tr>
 					))}

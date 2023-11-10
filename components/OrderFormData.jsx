@@ -24,8 +24,7 @@ const OrderFormData = () => {
 		setCart,
 		cartLoading,
 		setCartLoading,
-		setTriggerRerender,
-		triggerRerender,
+
 		totalPrice,
 		setTotalPrice,
 	} = UserCart()
@@ -146,6 +145,7 @@ const OrderFormData = () => {
 			token
 		)
 		await handleCart.EmptyCartUser(user.user_id, token)
+		setCart([])
 		setLoading(false)
 		router.push("/upcomming/success")
 	}
@@ -222,7 +222,7 @@ const OrderFormData = () => {
 
 				<button
 					onClick={handleSubmit}
-					className='w-full bg-blue-500 rounded-full text-white py-2 text-2xl font-bold'
+					className='w-full bg-blue-500 rounded-full text-white py-3 text-2xl flex items-center justify-center font-bold'
 				>
 					{loading ? <CircleLoader /> : "Hoàn tất"}
 				</button>

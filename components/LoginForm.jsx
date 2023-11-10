@@ -29,8 +29,6 @@ const LoginForm = () => {
 		token,
 	} = UserAuth()
 
-	const { setTriggerRerender } = UserCart()
-
 	const handleLogin = async () => {
 		try {
 			setLoading(true)
@@ -38,7 +36,6 @@ const LoginForm = () => {
 			const { user, token } = res
 			setUser(user)
 			setToken(token)
-			setTriggerRerender(1)
 			router.push("/")
 		} catch (error) {
 			console.log(error)

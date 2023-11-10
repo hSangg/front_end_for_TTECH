@@ -17,8 +17,6 @@ export const CartContextProdiver = ({ children }) => {
 	const [cart, setCart] = useState([1, 1, 1, 1, 1])
 	const [cartLoading, setCartLoading] = useState(true)
 
-	const [triggerRerender, setTriggerRerender] = useState(0)
-
 	const [totalPrice, setTotalPrice] = useState(() => {
 		let total = 0
 		cart
@@ -36,7 +34,11 @@ export const CartContextProdiver = ({ children }) => {
 			.forEach((x) => {
 				total += x
 			})
+
+		let totalPd = 0
+		cart.forEach((x) => (totalPd += x?.quantity))
 		setTotalPrice(total)
+		setTotalProduct(totalPd)
 	}, [cart])
 
 	const getCurrentProductInCart = async (id, token) => {
@@ -57,36 +59,7 @@ export const CartContextProdiver = ({ children }) => {
 		} catch (error) {
 			console.log(error)
 		}
-	}, [totalProduct, triggerRerender])
-
-	const getUserTotalProduct = async (userId, token) => {
-		try {
-			const result = await handleCart.getCountProductOnCart(
-				userId,
-				token
-			)
-
-			setTotalProduct(Array.isArray(result) ? result : [])
-		} catch (e) {
-			console.log(e)
-		}
-	}
-
-	useEffect(() => {
-		try {
-			const user = JSON.parse(localStorage.getItem("user"))
-
-			const token = JSON.parse(localStorage.getItem("token"))
-
-			if (user?.user_id) {
-				getUserTotalProduct(user.user_id, token)
-			} else {
-				console.log("error with user id in cart Context")
-			}
-		} catch (error) {
-			console.log(error)
-		}
-	}, [triggerRerender])
+	}, [totalProduct])
 
 	return (
 		<CartContext.Provider
@@ -97,8 +70,7 @@ export const CartContextProdiver = ({ children }) => {
 				setCart,
 				cartLoading,
 				setCartLoading,
-				setTriggerRerender,
-				triggerRerender,
+
 				totalPrice,
 				setTotalPrice,
 			}}

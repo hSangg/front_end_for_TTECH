@@ -5,14 +5,12 @@ import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import UserDataForm from "../../components/UserDataForm"
+import UserOrder from "../../components/UserOrder"
 const Page = () => {
 	const { token, user } = UserAuth()
 
 	return (
-		<div
-			onClick={() => {}}
-			className='container mx-auto'
-		>
+		<div onClick={() => {}} className='container mx-auto'>
 			<motion.div className='text-[5rem] font-[300] uppercase h-[60px] leading-[60px]'>
 				<motion.div
 					initial='offscreen'
@@ -20,19 +18,15 @@ const Page = () => {
 					transition={{ staggerChildren: 0.1 }}
 					className='w-[100vw] font-[600] '
 				>
-					{`HY! ${user?.name}`
-						.split("")
-						.map((t, i) => (
-							<motion.span
-								variants={textAnimate}
-								key={i}
-							>
-								{t}
-							</motion.span>
-						))}
+					{`HY! ${user?.name}`.split("").map((t, i) => (
+						<motion.span variants={textAnimate} key={i}>
+							{t}
+						</motion.span>
+					))}
 				</motion.div>
 			</motion.div>
 			<UserDataForm />
+			<UserOrder />
 		</div>
 	)
 }

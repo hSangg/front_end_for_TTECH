@@ -4,11 +4,9 @@ import { handleCart } from "@/app/api/handleCart"
 import { UserAuth } from "@/context/AuthContext"
 import { convertToVND } from "@/utils/until"
 import { AnimatePresence, motion } from "framer-motion"
-import Image from "next/image"
 import { useRouter } from "next/navigation"
-import CircleLoader from "./CircleLoader"
 import { useState } from "react"
-import { UserCart } from "@/context/CartContex"
+import CircleLoader from "./CircleLoader"
 import Notification from "./Notification"
 
 const ProductItem = ({
@@ -22,17 +20,6 @@ const ProductItem = ({
 	img_href,
 	guarantee_period,
 }) => {
-	const {
-		totalProduct,
-		setTotalProduct,
-		cart,
-		setCart,
-		cartLoading,
-		setCartLoading,
-
-		totalPrice,
-		setTotalPrice,
-	} = UserCart()
 	const router = useRouter()
 	const { user, setUser, token } = UserAuth()
 
@@ -99,7 +86,6 @@ const ProductItem = ({
 				onClick={() => {
 					addToCart(product_id)
 					setNotifications(true)
-					setTotalProduct((pre) => pre + 1)
 				}}
 				whileHover={{
 					scale: [1, 1.1],

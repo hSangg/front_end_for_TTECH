@@ -1,33 +1,20 @@
 "use client"
 import { UserAuth } from "@/context/AuthContext"
-import { UserCart } from "@/context/CartContex"
 import { v4 as uuidv4 } from "uuid"
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { useEffect } from "react"
+import { handleCart } from "@/app/api/handleCart"
+import { handleDetailOrder } from "@/app/api/handleDetailOrder"
+import { handleOrder } from "@/app/api/handleOrder"
 import {
 	isValidEmail,
 	isValidPhoneNumber,
 } from "@/utils/until"
-import { handleOrder } from "@/app/api/handleOrder"
-import { handleDetailOrder } from "@/app/api/handleDetailOrder"
-import { handleCart } from "@/app/api/handleCart"
+import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import CircleLoader from "./CircleLoader"
 
-const OrderFormData = () => {
-	const {
-		totalProduct,
-		setTotalProduct,
-		cart,
-		setCart,
-		cartLoading,
-		setCartLoading,
-
-		totalPrice,
-		setTotalPrice,
-	} = UserCart()
+const OrderFormData = ({ cart, setCart, totalPrice }) => {
 	const {
 		user,
 		setUser,

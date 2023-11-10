@@ -35,11 +35,14 @@ export const CartContextProdiver = ({ children }) => {
 				total += x
 			})
 
-		let totalPd = 0
-		cart.forEach((x) => (totalPd += x?.quantity))
 		setTotalPrice(total)
-		setTotalProduct(totalPd)
 	}, [cart])
+
+	useEffect(() => {
+		let totalPd = 0
+		cart.forEach((x) => (totalPd += x?.quantity || 0))
+		setTotalProduct(totalPd)
+	}, [])
 
 	const getCurrentProductInCart = async (id, token) => {
 		const result = await handleCart.GetCartProduct(id, token)

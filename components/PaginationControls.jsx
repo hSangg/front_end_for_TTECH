@@ -1,9 +1,6 @@
 "use client"
 
-import {
-	useRouter,
-	useSearchParams,
-} from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 
 const PaginationControls = ({

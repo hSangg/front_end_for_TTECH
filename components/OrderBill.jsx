@@ -1,21 +1,30 @@
 "use client"
 
-import { UserCart } from "@/context/CartContex"
 import { convertToVND } from "@/utils/until"
 import { useEffect, useState } from "react"
 import OrderFormData from "./OrderFormData"
 
-const OrderBill = () => {
-	const {
-		totalProduct,
-		setTotalProduct,
-		cart,
-		setCart,
-		cartLoading,
-		setCartLoading,
-		totalPrice,
-		setTotalPrice,
-	} = UserCart()
+const OrderBill = ({ cart, setCart }) => {
+	const [totalPrice, setTotalPrice] = useState(() => {
+		let total = 0
+		cart
+			.map((x) => x?.quantity * x?.product?.price || 0)
+			.forEach((x) => {
+				total += x
+			})
+		return total
+	})
+
+	useEffect(() => {
+		let total = 0
+		cart
+			?.map((x) => x?.quantity * x?.product?.price || 0)
+			.forEach((x) => {
+				total += x
+			})
+
+		setTotalPrice(total)
+	}, [cart])
 
 	return (
 		<div className='flex flex-col items-center p-8 shrink-0  bg-white min-w-[300px] max-w-[500px] pb-[500px]'>
@@ -59,7 +68,11 @@ const OrderBill = () => {
 
 			<div className='h-[1px] bg-black/40 w-full mt-[12px]'></div>
 
-			<OrderFormData />
+			<OrderFormData
+				cart={cart}
+				setCart={setCart}
+				totalPrice={totalPrice}
+			/>
 		</div>
 	)
 }

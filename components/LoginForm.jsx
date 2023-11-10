@@ -9,7 +9,6 @@ import { FcGoogle } from "react-icons/fc"
 import { UserAuth } from "../context/AuthContext"
 import CircleLoader from "./CircleLoader"
 import PopupRegister from "./PopupRegister"
-import { UserCart } from "@/context/CartContex"
 
 const LoginForm = () => {
 	const router = useRouter()

@@ -1,24 +1,19 @@
 "use client"
 
+import { handleCart } from "@/app/api/handleCart"
 import { handleProduct } from "@/app/api/handleProduct"
-import {
-	openNewWindow,
-	smoothScrollHorizotal,
-} from "../utils/until"
+import { UserAuth } from "@/context/AuthContext"
 import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import {
 	GoChevronLeft,
 	GoChevronRight,
 } from "react-icons/go"
-import { useRouter } from "next/navigation"
+import { smoothScrollHorizotal } from "../utils/until"
 import CircleLoader from "./CircleLoader"
-import { UserCart } from "@/context/CartContex"
 import Notification from "./Notification"
-import { UserAuth } from "@/context/AuthContext"
-import { handleCart } from "@/app/api/handleCart"
 
 const ProductSlide = ({
 	title,
@@ -30,7 +25,6 @@ const ProductSlide = ({
 	const [list, setList] = useState([1, 2, 3, 4, 5, 6])
 	const { user, setUser, token } = UserAuth()
 	const [notifications, setNotifications] = useState(false)
-	const { totalProduct, setTotalProduct } = UserCart()
 	const [loading, setLoading] = useState(true)
 
 	const getProduct = async () => {
@@ -62,7 +56,6 @@ const ProductSlide = ({
 		const result = await handleCart.AddToCart(data, token)
 
 		setNotifications(true)
-		setTotalProduct((pre) => pre + 1)
 	}
 
 	const formattedTitle = {
@@ -119,7 +112,7 @@ const ProductSlide = ({
 							router.push("/products?categoryId=" + categoryId)
 						}}
 						className='text-blue-500 text-[1.1rem] flex
-             items-center underline underline-offset-2 mb-4 cursor-pointer'
+             items-center underline z-50 underline-offset-2 mb-4 cursor-pointer'
 						href={""}
 					>
 						<div> Tìm hiểu thêm</div>{" "}

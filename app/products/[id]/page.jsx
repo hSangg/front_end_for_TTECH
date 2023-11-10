@@ -3,11 +3,7 @@
 import { handleProduct } from "@/app/api/handleProduct"
 import CircleLoader from "@/components/CircleLoader"
 import Notification from "@/components/Notification"
-import { UserCart } from "@/context/CartContex"
-import {
-	convertToVND,
-	getCurrentDate,
-} from "@/utils/until"
+import { convertToVND, getCurrentDate } from "@/utils/until"
 import { AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -21,10 +17,7 @@ import {
 export default function Page({ params }) {
 	const [imageList, setImageList] = useState([])
 	const [loading, setLoading] = useState(true)
-	const { totalProduct, setTotalProduct } =
-		UserCart()
-	const [notifications, setNotifications] =
-		useState(false)
+	const [notifications, setNotifications] = useState(false)
 	const router = useRouter()
 	const [result, setResult] = useState({
 		product: {
@@ -55,13 +48,13 @@ export default function Page({ params }) {
 
 	const callAPI = async () => {
 		try {
-			const result =
-				await handleProduct.getProducctById(params.id)
+			const result = await handleProduct.getProducctById(
+				params.id
+			)
 
-			const images =
-				await handleProduct.getAllImageOfProduct(
-					params.id
-				)
+			const images = await handleProduct.getAllImageOfProduct(
+				params.id
+			)
 			// const
 			setImageList(images)
 
@@ -85,8 +78,7 @@ export default function Page({ params }) {
 						notifications={notifications}
 						notification={{
 							style: "success",
-							text:
-								"Sản phẩm đã được thêm vào giỏi hàng của bạn",
+							text: "Sản phẩm đã được thêm vào giỏi hàng của bạn",
 						}}
 					/>
 				)}
@@ -140,8 +132,8 @@ export default function Page({ params }) {
 					</div>
 
 					<div className='text-[1.6rem] mt-10 w-1/2'>
-						Bạn chưa ưng ý sản phẩm lắm? <br></br> Hãy
-						nhắn trực tiếp hoặc xem thêm về{" "}
+						Bạn chưa ưng ý sản phẩm lắm? <br></br> Hãy nhắn trực
+						tiếp hoặc xem thêm về{" "}
 						<span className='font-semibold text-blue-400'>
 							{result?.category?.category_name}
 						</span>{" "}
@@ -176,7 +168,6 @@ export default function Page({ params }) {
 							<button
 								onClick={() => {
 									setNotifications(true)
-									setTotalProduct((pre) => pre + 1)
 								}}
 								className='w-full p-2 rounded-xl text-white text-[1.7rem] bg-blue-500 flex items-center justify-center'
 							>
@@ -189,8 +180,8 @@ export default function Page({ params }) {
 							</div>
 
 							<div className='text-[1.3rem]'>
-								Lưu vào danh sách một cách dễ dàng và quay
-								lại xem sau đó
+								Lưu vào danh sách một cách dễ dàng và quay lại xem
+								sau đó
 							</div>
 
 							<div className='flex gap-2  text-blue-500 items-center'>
@@ -205,8 +196,7 @@ export default function Page({ params }) {
 
 				<div className='flex items-center gap-2 text-[1.5rem]'>
 					<CiChat1 size={20} />
-					Chat ngay với hệ thống, hoặc liên hệ hotline
-					09009090
+					Chat ngay với hệ thống, hoặc liên hệ hotline 09009090
 				</div>
 			</div>
 		</div>

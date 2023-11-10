@@ -2,25 +2,13 @@
 
 import { handleCart } from "@/app/api/handleCart"
 import { UserAuth } from "@/context/AuthContext"
-import { UserCart } from "@/context/CartContex"
 import { convertToVND } from "@/utils/until"
-import {
-	CiCircleMinus,
-	CiCirclePlus,
-} from "react-icons/ci"
-import CircleLoader from "./CircleLoader"
+import { CiCircleMinus, CiCirclePlus } from "react-icons/ci"
 
-const CartDetail = () => {
+const CartDetail = ({ cart, setCart }) => {
 	const { token, user } = UserAuth()
-	const {
-		setTotalProduct,
-		cart,
-		setCart,
-		loading,
-	} = UserCart()
-	const handleDecreaseQuantity = async (
-		productId
-	) => {
+
+	const handleDecreaseQuantity = async (productId) => {
 		const productIndex = cart.findIndex(
 			(item) => item.product.product_id === productId
 		)
@@ -45,7 +33,6 @@ const CartDetail = () => {
 		if (newQuantity === 0) {
 			const updatedCart = [...cart]
 			updatedCart.splice(productIndex, 1)
-			setTotalProduct(updatedCart.length)
 			setCart(updatedCart)
 		} else if (newQuantity > 0) {
 			const updatedCart = [...cart]
@@ -53,15 +40,12 @@ const CartDetail = () => {
 			updatedCart[productIndex] = {
 				...updatedProduct,
 			}
-			setTotalProduct(updatedCart.length)
 
 			setCart(updatedCart)
 		}
 	}
 
-	const handleIncreaseQuantity = async (
-		productId
-	) => {
+	const handleIncreaseQuantity = async (productId) => {
 		const productIndex = cart.findIndex(
 			(item) => item.product.product_id === productId
 		)
@@ -88,7 +72,6 @@ const CartDetail = () => {
 			},
 			token
 		)
-		setTotalProduct(updatedCart.length)
 
 		setCart(updatedCart)
 	}
@@ -102,14 +85,10 @@ const CartDetail = () => {
 						className='flex flex-col items-center p-4 rounded-3xl bg-white'
 					>
 						<div className='w-[200px] h-[200px] rounded-3xl select-none'>
-							{loading ? (
-								<CircleLoader />
-							) : (
-								<img
-									src={x?.image?.image_href}
-									className='w-full h-full object-cover p-4 rounded-2xl'
-								/>
-							)}
+							<img
+								src={x?.image?.image_href}
+								className='w-full h-full object-cover p-4 rounded-2xl'
+							/>
 						</div>
 						<h2 className='text-[1.6rem] select-none w-[100px] text-center text-ellipsis font-semibold '>
 							{x?.product?.name_pr || "Loading..."}
@@ -123,22 +102,16 @@ const CartDetail = () => {
 							<div
 								className='cursor-pointer'
 								onClick={() =>
-									handleDecreaseQuantity(
-										x.product.product_id
-									)
+									handleDecreaseQuantity(x.product.product_id)
 								}
 							>
 								<CiCircleMinus size={25} />
 							</div>
-							<h3 className='select-none'>
-								{x?.quantity || 0}
-							</h3>
+							<h3 className='select-none'>{x?.quantity || 0}</h3>
 							<div
 								className='cursor-pointer'
 								onClick={() =>
-									handleIncreaseQuantity(
-										x.product.product_id
-									)
+									handleIncreaseQuantity(x.product.product_id)
 								}
 							>
 								<CiCirclePlus size={25} />

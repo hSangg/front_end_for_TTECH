@@ -1,22 +1,23 @@
-import {
-	AnimatePresence,
-	motion,
-} from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useEffect } from "react"
 
 const notificationVariants = {
 	initial: {
 		opacity: 0,
-
+		y: 20,
+		scale: 0,
 		transition: { duration: 0.1 },
 	},
 	animate: {
 		opacity: 1,
+		y: 10,
+		scale: 1,
 	},
 	exit: {
 		opacity: 0,
-
-		transition: { ease: "easeOut", duration: 0.15 },
+		y: -20,
+		scale: 0,
+		transition: { ease: "easeInOut", duration: 0.15 },
 	},
 	hover: {
 		transition: { duration: 0.1 },
@@ -33,7 +34,7 @@ const Notification = ({
 	useEffect(() => {
 		const timmer = setTimeout(() => {
 			setNotifications(false)
-		}, 2000)
+		}, 1000)
 
 		return () => clearTimeout(timmer)
 	}, [])
@@ -47,23 +48,19 @@ const Notification = ({
 
 			case "error":
 				return {
-					background:
-						"linear-gradient(15deg, #ff596d, #d72c2c)",
+					background: "linear-gradient(15deg, #ff596d, #d72c2c)",
 				}
 			case "warning":
 				return {
-					background:
-						"linear-gradient(15deg, #ffac37, #ff9238)",
+					background: "linear-gradient(15deg, #ffac37, #ff9238)",
 				}
 			case "light":
 				return {
-					background:
-						"linear-gradient(15deg, #e7e7e7, #f4f4f4)",
+					background: "linear-gradient(15deg, #e7e7e7, #f4f4f4)",
 				}
 			default:
 				return {
-					background:
-						"linear-gradient(15deg, #202121, #292a2d)",
+					background: "linear-gradient(15deg, #202121, #292a2d)",
 				}
 		}
 	}
@@ -77,7 +74,7 @@ const Notification = ({
 				initial='initial' // Starting animation
 				animate='animate' // Values to animate to
 				exit='exit' // Target to animate to when removed from the tree
-				className={`fixed bottom-10 right-1/2 translate-x-1/2  text-white p-2 z-50 rounded-xl ${styleType()}`}
+				className={`fixed bottom-10 right-10 text-white p-2 z-50 rounded-xl ${styleType()} z-30`}
 			>
 				<div
 					className='p-2  items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex'

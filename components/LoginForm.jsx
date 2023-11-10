@@ -36,6 +36,7 @@ const LoginForm = () => {
 			setLoading(true)
 			const res = await handleAuth.login(data)
 			const { user, token } = res
+			console.log(user);
 			setUser(user)
 			setToken(token)
 			setTriggerRerender(1)

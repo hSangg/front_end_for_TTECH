@@ -2,7 +2,8 @@ import { axiosClient } from "./axiosClient"
 
 export const handleProduct = {
 	getProduct: async (filter) =>
-		await axiosClient.post("/Product/GetProduct", filter),
+		await axiosClient.post("/product/getProduct", filter),
+
 	getProductBySearchParam: async (searchParam) =>
 		await axiosClient.post(
 			"/Product/GetProductBySearchQuery",

@@ -1,4 +1,4 @@
 export const BASE_URL =
-	"https://localhost:7067/api"
+	"http://localhost:8000/api"
 
 // c#

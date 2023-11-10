@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 export default function Page({ searchParams }) {
 	const [filter, setFilter] = useState({
 		...searchParams,
-		IsDescending: !!searchParams.IsDescending || false,
+		IsDescending: searchParams.IsDescending || false,
 		pageNumber: Number.parseInt(searchParams.pageNumber) || 1,
 		pageSize: 12,
 	})
@@ -34,12 +34,12 @@ export default function Page({ searchParams }) {
 		}
 		console.log("filter: ", newFilter)
 		const result = await handleProduct.getProduct(newFilter)
-		const products = result?.products
-		const totalPages = result?.totalPages
+		const products = result?.Products
+		const totalPages = result?.TotalPages
 		const pageNumber = result?.pageNumber
 		setCurrentPage(pageNumber)
 		setTotalPages(totalPages)
-		console.log("product is", products)
+		console.log("product is", result)
 		setList(products)
 
 		setLoading(false)
@@ -68,15 +68,15 @@ export default function Page({ searchParams }) {
 						<ProductItem
 							loading={loading}
 							key={i}
-							product_id={x?.product?.product_id}
-							category_id={x?.product?.category_id}
+							product_id={x?.product_id}
+							category_id={x?.category_id}
 							name_pr={x?.product?.name_pr}
-							name_serial={x?.product?.name_serial}
-							detail={x?.product?.detail}
-							price={x?.product?.price || 0}
-							quantity_pr={x?.product?.quantity_pr}
-							img_href={x?.image?.image_href || undefined}
-							guarantee_period={x?.products?.guarantee_period}
+							name_serial={x?.name_serial}
+							detail={x?.detail}
+							price={x?.price || 0}
+							quantity_pr={x?.quantity_pr}
+							img_href={x?.image_href || undefined}
+							guarantee_period={x?.guarantee_period}
 						/>
 					))}
 				</div>

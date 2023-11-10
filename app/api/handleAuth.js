@@ -7,5 +7,5 @@ export const handleAuth = {
 			formData
 		),
 	login: async (formData) =>
-		await axiosClient.post("/User/login", formData),
+		await axiosClient.post("/auth/login", formData),
 }

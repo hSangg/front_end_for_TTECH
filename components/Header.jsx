@@ -55,8 +55,8 @@ const Header = () => {
 								onClick={() => {
 									router.push(
 										"/products?" +
-											"categoryId=" +
-											category?.category_id
+										"categoryId=" +
+										category?.category_id
 									)
 								}}
 								className='text-[1.3rem] font-[300] capitalize mx-2 text-black/80 cursor-pointer whitespace-nowrap	'

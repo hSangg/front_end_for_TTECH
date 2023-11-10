@@ -2,7 +2,7 @@ import { axiosClient } from "./axiosClient"
 
 export const handleCategory = {
 	getAllCategories: async () =>
-		await axiosClient.get("/Category"),
+		await axiosClient.get("/category/"),
 	getCategoryById: async (id) =>
-		await axiosClient.get("/Category/" + id),
+		await axiosClient.get("/category/" + id),
 }

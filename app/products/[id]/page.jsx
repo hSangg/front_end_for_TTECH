@@ -55,9 +55,8 @@ export default function Page({ params }) {
 
 	const callAPI = async () => {
 		try {
-			const result =
+			const resultFake =
 				await handleProduct.getProducctById(params.id)
-
 			const images =
 				await handleProduct.getAllImageOfProduct(
 					params.id
@@ -65,7 +64,8 @@ export default function Page({ params }) {
 			// const
 			setImageList(images)
 
-			setResult(result)
+			setResult(resultFake)
+			console.log("this is the result: ", resultFake);
 			setLoading(false)
 		} catch (error) {
 			console.log(error)
@@ -73,6 +73,7 @@ export default function Page({ params }) {
 	}
 
 	useEffect(() => {
+		console.log(params.id);
 		callAPI()
 	}, [])
 
@@ -119,21 +120,21 @@ export default function Page({ params }) {
 
 				<div>
 					<div className='title mt-2'>
-						{result?.product?.name_pr}
+						{result?.name_pr}
 					</div>
 					<div className='text-[1.8rem] font-semibold'>
-						{convertToVND(result?.product?.price)}
+						{convertToVND(result?.price || 1000)}
 					</div>
 
 					<div className='mt-5 text-[2rem] flex items-start  divide-x divide-black/60'>
 						<h1 className='flex-1 text-black/70'>
-							{result?.product?.detail}
+							{result?.detail}
 						</h1>
 						<h1 className='flex-1 flex items-center gap-2 pl-2'>
 							<CiMedal size={25} />
 							Cam kết chất lượng với bảo hành{" "}
 							<span className='text-red-500'>
-								{result?.product?.guarantee_period}
+								{result?.guarantee_period}
 							</span>{" "}
 							tháng
 						</h1>
@@ -143,15 +144,15 @@ export default function Page({ params }) {
 						Bạn chưa ưng ý sản phẩm lắm? <br></br> Hãy
 						nhắn trực tiếp hoặc xem thêm về{" "}
 						<span className='font-semibold text-blue-400'>
-							{result?.category?.category_name}
+							{result?.categories?.category_name}
 						</span>{" "}
 						tại{" "}
 						<span
 							onClick={() => {
 								router.push(
 									"/products?" +
-										"categoryId=" +
-										result?.category?.category_id
+									"categoryId=" +
+									result?.categories?.category_id
 								)
 							}}
 							className='text-blue-500 underline cursor-pointer'

@@ -26,7 +26,7 @@ export const productListAbs = [
 		imageHref:
 			"/images/product_images/headphone-review.png",
 		styleForImage: undefined,
-		categoryId: "4dEfG6zIjvp7oP8q",
+		categoryId: "4dEfG6zIjvp7oP8",
 	},
 
 	{
@@ -39,7 +39,7 @@ export const productListAbs = [
 			scale: 1.2,
 			marginTop: "50px",
 		},
-		categoryId: "9dEfGhIjKp6mN7oP",
+		categoryId: "9dEfGhIjKp6mN7o",
 	},
 
 	{
@@ -53,7 +53,7 @@ export const productListAbs = [
 			marginTop: "80px",
 		},
 
-		categoryId: "0PbC1aL2mN3oPqRs",
+		categoryId: "0PbC1aL2mN3oPqR",
 	},
 
 	{
@@ -67,6 +67,6 @@ export const productListAbs = [
 			marginTop: "40px",
 		},
 
-		categoryId: "4d2fG9zIjv37oP8q",
+		categoryId: "4d2fG9zIjv37oP8",
 	},
 ]

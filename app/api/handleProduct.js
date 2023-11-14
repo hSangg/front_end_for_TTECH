@@ -15,11 +15,7 @@ export const handleProduct = {
 			}
 		),
 	getProducctById: async (id) =>
-		await axiosClient.post("/Product/getProductById", id, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}),
+		await axiosClient.get("/product/" + id),
 
 	getAllImageOfProduct: async (id) =>
 		await axiosClient.post(

@@ -17,11 +17,12 @@ const Header = () => {
 	const getAllCategory = async () => {
 		try {
 			const result = await handleCategory.getAllCategories()
-			console.log(result)
+			console.log("thisiscate", result)
 			setCategory(result)
 		} catch (error) {
 			console.log(error)
 		}
+
 	}
 	useEffect(() => {
 		getAllCategory()

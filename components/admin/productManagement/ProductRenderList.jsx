@@ -31,7 +31,7 @@ const ProductRenderList = ({
 					<div className='w-12 h-12 shrink-0 rounded-xl bg-sky-300'>
 						<img
 							src={x?.image?.image_href}
-							className='w-full h-full object-contain rounded-xl'
+							className='w-full h-full object-cover rounded-xl'
 						/>
 					</div>
 					<div className='text-[1.4rem] whitespace-nowrap overflow-hidden text-ellipsis'>

@@ -20,4 +20,6 @@ export const handleOrder = {
 				Authorization: `Bearer ${token}`,
 			},
 		}),
+	getAllOrder: async () =>
+		await axiosClient.get("/Order/GetAllOrder"),
 }

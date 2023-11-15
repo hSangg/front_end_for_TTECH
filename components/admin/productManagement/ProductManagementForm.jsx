@@ -125,6 +125,9 @@ const ProductManagementForm = ({
 				)
 			}
 			await handleProduct.addImage(formData, product_id)
+			setImageListDisplay([])
+			setImageFile([])
+			setTriggerImage((pre) => !pre)
 		}
 
 		const updatedProduct = {

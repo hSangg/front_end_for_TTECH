@@ -144,7 +144,6 @@ const AdminProductManagement = () => {
 
 	useEffect(() => {
 		getProduct()
-		console.log("call")
 	}, [filterDebounce, trigger])
 
 	return (

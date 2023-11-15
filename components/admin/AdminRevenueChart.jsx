@@ -1,4 +1,5 @@
 "use client"
+import { handleAdmin } from "@/app/api/handleAdmin"
 import { faker } from "@faker-js/faker"
 import {
 	BarElement,
@@ -12,7 +13,7 @@ import {
 	Tooltip,
 } from "chart.js"
 import { useEffect, useState } from "react"
-import { Bar, Line } from "react-chartjs-2"
+import { Line } from "react-chartjs-2"
 import { CiWavePulse1 } from "react-icons/ci"
 
 ChartJS.register(
@@ -55,52 +56,9 @@ export const options = {
 	},
 }
 
-const labels_year = [
-	"January",
-	"February",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December",
-]
-
-const labels_month = [1, 2, 3, 4]
 const labels_week = getWeekLabels()
 
-const optionStyle =
-	"focus:border-none focus:outline-none"
-
-export const data_year = {
-	labels: labels_year,
-	datasets: [
-		{
-			label: "Doanh thu",
-			data: labels_year.map(() =>
-				faker.number.int({ min: 0, max: 1000 })
-			),
-			backgroundColor: "#93c5fd",
-		},
-	],
-}
-
-export const data_month = {
-	labels: labels_month,
-	datasets: [
-		{
-			label: "",
-			data: labels_month.map(() =>
-				faker.number.int({ min: 0, max: 1000 })
-			),
-			backgroundColor: "#93c5fd",
-		},
-	],
-}
+const optionStyle = "focus:border-none focus:outline-none"
 
 export const data_week = {
 	labels: labels_week,
@@ -117,23 +75,58 @@ export const data_week = {
 
 const AdminRevenueChart = () => {
 	const [choose, setChoose] = useState("Y")
-	const [data, setData] = useState(data_year)
+	const [data, setData] = useState(data_week)
+
+	const getRevenueByYear = async () => {
+		try {
+			const { labels, revenues } =
+				await handleAdmin.GetRevenueByYear(2023)
+			const data_year = {
+				labels,
+				datasets: [
+					{
+						label: "Doanh thu trong năm",
+						data: revenues,
+						backgroundColor: "#93c5fd",
+					},
+				],
+			}
+			setData(data_year)
+		} catch (error) {}
+	}
+
+	const getRevenueByWeek = async () => {
+		try {
+			const { labels, revenues } =
+				await handleAdmin.GetRevenueByWeek()
+			const data_week = {
+				labels,
+				datasets: [
+					{
+						label: "Doanh thu theo tuần",
+						data: revenues,
+						backgroundColor: "#93c5fd",
+					},
+				],
+			}
+
+			setData(data_week)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 	useEffect(() => {
 		if (choose === "Y") {
-			setData(data_year)
-		} else if (choose === "M") {
-			setData(data_month)
-		} else {
-			setData(data_week)
-		}
+			getRevenueByYear()
+		} else if (choose === "W") getRevenueByWeek()
 	}, [choose])
 
 	return (
 		<>
 			<div className='flex justify-between'>
 				<div className='text-[1.5rem] font-[700] flex gap-2 items-center'>
-					<CiWavePulse1 size={25} />{" "}
-					<h1>Revenue Chart</h1>
+					<CiWavePulse1 size={25} /> <h1>Revenue Chart</h1>
 				</div>
 				<div className=''>
 					<select
@@ -148,9 +141,7 @@ const AdminRevenueChart = () => {
 						<option className={optionStyle} value='Y'>
 							Year
 						</option>
-						<option className={optionStyle} value='M'>
-							Month
-						</option>
+
 						<option className={optionStyle} value='W'>
 							Week
 						</option>

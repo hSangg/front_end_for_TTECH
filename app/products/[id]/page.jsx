@@ -48,7 +48,7 @@ export default function Page({ params }) {
 
 	const callAPI = async () => {
 		try {
-			const result = await handleProduct.getProducctById(
+			const result = await handleProduct.getProductById(
 				params.id
 			)
 
@@ -101,7 +101,7 @@ export default function Page({ params }) {
 								className='w-[200px] h-[200px] flex items-center justify-center mt-12 mb-5'
 							>
 								<img
-									src={x}
+									src={x.image_href}
 									className='object-cover rounded-[30px] p-4 block'
 								/>
 							</div>

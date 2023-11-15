@@ -1,10 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import {
-	CiShoppingCart,
-	CiStar,
-} from "react-icons/ci"
+import { CiShoppingCart, CiStar } from "react-icons/ci"
 import Advertisement from "./Advertisement"
 import BestSaleCategory from "./BestSaleCategory"
 import ImageSlide from "./ImageSlide"
@@ -27,13 +24,15 @@ const MainContent = () => {
 					<div className='md:grid grid-cols-8'>
 						<div className='col-span-1 cursor-pointer hidden md:block mt-10 ml-10'>
 							<div
-								onClick={() => openURL("products")}
+								onClick={() =>
+									openURL(
+										"products?IsDescending=false&pageNumber=1&pageSize=12"
+									)
+								}
 								className='bg-gray-500/10 rounded-3xl p-6'
 							>
 								<Image
-									src={
-										"/images/product_images/Laptop_01.png"
-									}
+									src={"/images/product_images/Laptop_01.png"}
 									width={0}
 									height={0}
 									sizes='100vw'
@@ -49,9 +48,7 @@ const MainContent = () => {
 								className='bg-gray-500/10 rounded-3xl p-6 mt-10'
 							>
 								<Image
-									src={
-										"/images/product_images/LocationPin_01.png"
-									}
+									src={"/images/product_images/LocationPin_01.png"}
 									width={0}
 									height={0}
 									sizes='100vw'
@@ -69,9 +66,7 @@ const MainContent = () => {
 						<div className='col-span-1 hidden md:block mt-10 mr-10 '>
 							<div className='bg-gray-500/10 rounded-3xl p-6'>
 								<Image
-									src={
-										"/images/product_images/Gamepad_01.png"
-									}
+									src={"/images/product_images/Gamepad_01.png"}
 									width={0}
 									height={0}
 									sizes='100vw'

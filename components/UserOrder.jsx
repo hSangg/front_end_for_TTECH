@@ -74,9 +74,6 @@ const UserOrder = () => {
 		} else {
 			newShowDetail[orderId] = orderId
 		}
-		console.log("AFTER HANDLE")
-		console.log(orderId)
-		console.log(newShowDetail)
 
 		setShowDetail(newShowDetail)
 	}

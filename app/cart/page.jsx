@@ -10,7 +10,6 @@ const Page = () => {
 
 	const getCurrentProductInCart = async (id, token) => {
 		const result = await handleCart.GetCartProduct(id, token)
-		console.log("getCurrentProductInCart:", result)
 		setCart(result)
 	}
 

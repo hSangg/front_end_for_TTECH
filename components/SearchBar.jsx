@@ -30,6 +30,7 @@ const SearchBar = () => {
 			await handleProduct.getProductBySearchParam(
 				debouncedValue
 			)
+		console.log("search: ", result)
 		setFilteredProducts(result)
 	}
 
@@ -130,7 +131,7 @@ const SearchBar = () => {
 											key={i}
 											className='text-black text-[2rem] font-[700] cursor-pointer'
 										>
-											{x?.name_pr}
+											{x?.product?.name_pr}
 										</motion.h1>
 									))}
 								</div>

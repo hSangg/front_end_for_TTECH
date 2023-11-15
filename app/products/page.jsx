@@ -32,14 +32,12 @@ export default function Page({ searchParams }) {
 			IsDescending:
 				searchParams.IsDescending === "true" ? true : false,
 		}
-		console.log("filter: ", newFilter)
 		const result = await handleProduct.getProduct(newFilter)
 		const products = result?.products
 		const totalPages = result?.totalPages
 		const pageNumber = result?.pageNumber
 		setCurrentPage(pageNumber)
 		setTotalPages(totalPages)
-		console.log("product is", products)
 		setList(products)
 
 		setLoading(false)

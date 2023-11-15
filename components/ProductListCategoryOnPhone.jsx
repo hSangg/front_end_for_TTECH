@@ -12,7 +12,6 @@ const ProductListCategoryOnPhone = ({
 
 	const getAllCategories = async () => {
 		const result = await handleCategory.getAllCategories()
-		console.log("cate: ", result)
 		setCategoryList(result || caterogyDataExample)
 	}
 
@@ -22,6 +21,20 @@ const ProductListCategoryOnPhone = ({
 
 	return (
 		<div className='flex flex-col ml-3 gap-3 text-[1.8rem] w-full'>
+			<motion.div
+				initial={{ color: "black" }}
+				whileTap={{ color: "red" }}
+				onClick={() => {
+					router.push(
+						"/products?IsDescending=false&pageNumber=1&pageSize=12"
+					)
+					setShowCategory(false)
+				}}
+				className='text-[2.5rem] font-[600] tracking-[0.007em] capitalize cursor-pointer'
+			>
+				All
+			</motion.div>
+
 			{categoryList.map((x, i) => (
 				<motion.div
 					initial={{ color: "black" }}

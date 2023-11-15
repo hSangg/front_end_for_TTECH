@@ -10,6 +10,7 @@ import CategoryPhone from "./CategoryPhone"
 import SearchBar from "./SearchBar"
 import { UserAuth } from "@/context/AuthContext"
 import Cart from "./Cart"
+import { openURL } from "./MainContent"
 const Header = () => {
 	const [category, setCategory] = useState([])
 	const { user, setUser } = UserAuth()
@@ -48,6 +49,18 @@ const Header = () => {
 					</div>
 
 					<ul className='hidden md:flex overflow-x-scroll flex-nowrap noneScrollBar my-2'>
+						<motion.li
+							whileHover={{ color: "red" }}
+							onClick={() =>
+								router.push(
+									"/products?IsDescending=false&pageNumber=1&pageSize=12"
+								)
+							}
+							className='text-[1.3rem] font-[300] capitalize mx-2 text-black/80 cursor-pointer whitespace-nowrap	'
+						>
+							All
+						</motion.li>
+
 						{category?.map((category, index) => (
 							<motion.li
 								whileHover={{ color: "red" }}

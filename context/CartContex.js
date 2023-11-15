@@ -46,7 +46,6 @@ export const CartContextProdiver = ({ children }) => {
 
 	const getCurrentProductInCart = async (id, token) => {
 		const result = await handleCart.GetCartProduct(id, token)
-		console.log("getCurrentProductInCart:", result)
 		setCart(result)
 		setCartLoading(false)
 	}
@@ -55,12 +54,11 @@ export const CartContextProdiver = ({ children }) => {
 		try {
 			const user = JSON.parse(localStorage.getItem("user"))
 			const token = JSON.parse(localStorage.getItem("token"))
-			console.log("reget product")
 			if (user?.user_id) {
 				getCurrentProductInCart(user.user_id, token)
 			}
 		} catch (error) {
-			console.log(error)
+			le.log(error)
 		}
 	}, [totalProduct])
 

@@ -12,7 +12,7 @@ export const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
 	async (config) => {
-		;(config.headers = {
+		; (config.headers = {
 			"Content-Type": "application/json",
 			"Access-Control-Allow-Origin": "*",
 			"Access-Control-Allow-Credentials": "true",
@@ -22,6 +22,7 @@ axiosClient.interceptors.request.use(
 				"PUT, POST, GET, DELETE, PATCH, OPTIONS",
 			...config.headers,
 		}),
+
 			config.data
 
 		return config
@@ -33,7 +34,7 @@ axiosClient.interceptors.response.use(
 		if (response.status === 200 && response.data) {
 			return response.data
 		}
-		
+
 
 		return response
 	},

@@ -14,14 +14,14 @@ const ProductRenderList = ({
 }) => {
 	return (
 		<ul className='w-[25%] customScrollBar divide-y py-2 flex flex-col gap-2 h-[350px] overflow-y-scroll p-2'>
-			{list.map((x, i) => (
+			{list?.map((x, i) => (
 				<motion.li
 					key={i}
 					variants={variants}
 					initial='initial'
 					animate={
-						currentProductChoose?.product?.product_id ===
-						x?.product?.product_id
+						currentProductChoose?.product_id ===
+							x?.product_id
 							? "animate"
 							: "initial"
 					}
@@ -30,12 +30,12 @@ const ProductRenderList = ({
 				>
 					<div className='w-12 h-12 shrink-0 rounded-xl bg-sky-300'>
 						<img
-							src={x?.image?.image_href}
+							src={x?.image_href}
 							className='w-full h-full object-cover rounded-xl'
 						/>
 					</div>
 					<div className='text-[1.4rem] whitespace-nowrap overflow-hidden text-ellipsis'>
-						{x?.product?.name_pr}
+						{x?.name_pr}
 					</div>
 				</motion.li>
 			))}

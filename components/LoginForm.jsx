@@ -10,6 +10,7 @@ import { UserAuth } from "../context/AuthContext"
 import CircleLoader from "./CircleLoader"
 import PopupRegister from "./PopupRegister"
 import { UserCart } from "@/context/CartContex"
+import { axiosClient } from "@/app/api/axiosClient"
 
 const LoginForm = () => {
 	const router = useRouter()

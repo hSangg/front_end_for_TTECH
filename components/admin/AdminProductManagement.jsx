@@ -9,6 +9,8 @@ import { useEffect } from "react"
 import { handleProduct } from "@/app/api/handleProduct"
 import { handleCategory } from "@/app/api/handleCategory"
 import { handleSupplier } from "@/app/api/handleSupplier"
+import { axiosClient } from "@/app/api/axiosClient"
+import { UserAuth } from "@/context/AuthContext"
 
 const AdminProductManagement = () => {
 	const [currentProductChoose, setCurrentProductChoose] =
@@ -46,7 +48,7 @@ const AdminProductManagement = () => {
 
 	const [triggerImage, setTriggerImage] = useState(false)
 	const [trigger, setTrigger] = useState(false)
-
+	const { token, user } = UserAuth();
 	const [list, setList] = useState([
 		{
 			product: {
@@ -117,12 +119,13 @@ const AdminProductManagement = () => {
 
 	const getData = async () => {
 		try {
-			const supplier = await handleSupplier.getAllSupplier()
+			console.log(token)
+			const supplier = await handleSupplier.getAllSupplier(token)
 			const category = await handleCategory.getAllCategories()
 
 			setSupplier(supplier)
 			setCategory(category)
-		} catch (error) {}
+		} catch (error) { }
 	}
 
 	useEffect(() => {
@@ -137,6 +140,7 @@ const AdminProductManagement = () => {
 				filterDebounce
 			)
 			setList(products)
+			console.log("this is list product: ", list)
 		} catch (error) {
 			console.log(error)
 		}

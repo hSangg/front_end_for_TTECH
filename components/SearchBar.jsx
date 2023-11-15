@@ -30,7 +30,7 @@ const SearchBar = () => {
 				debouncedValue
 			)
 		console.log("search: ", result)
-		setFilteredProducts(result)
+		setFilteredProducts(result?.Products)
 	}
 
 	useEffect(() => {

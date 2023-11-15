@@ -8,4 +8,5 @@ export const handleAuth = {
 		),
 	login: async (formData) =>
 		await axiosClient.post("/auth/login", formData),
+
 }

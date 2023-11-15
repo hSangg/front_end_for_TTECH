@@ -88,7 +88,7 @@ const ProductManagementForm = ({
 				)
 				setTriggerImage((pre) => !pre)
 			}
-		} catch (error) {}
+		} catch (error) { }
 	}
 	const handleRemoveImageNew = async (x) => {
 		// remove this file from file List
@@ -370,7 +370,7 @@ const ProductManagementForm = ({
 						id='supplier_id'
 						onChange={handleProductValueChange}
 					>
-						{supplier.map((x, i) => (
+						{supplier?.map((x, i) => (
 							<option
 								selected={
 									currentProductChoose?.supplier?.supplier_id ===

@@ -33,8 +33,9 @@ const ProductSlide = ({
 			pageNumber: 1,
 			pageSize: 999,
 		})
-		const { products, ...rest } = result
+		console.log(result?.Products);
 		setList(result?.Products)
+		console.log(list);
 		setLoading(false)
 	}
 
@@ -145,7 +146,7 @@ const ProductSlide = ({
 				</div>
 			</div>
 
-			{list.length !== 0 && (
+			{list?.length !== 0 && (
 				<motion.div
 					ref={containerRef}
 					className='hidden flex-1 gap-6 md:flex 
@@ -179,21 +180,19 @@ const ProductSlide = ({
               items-center text-[1.3rem] mt-[auto] flex-1'
 							>
 								<div className='font-[600] text-[2.2rem] max-w-[85%] overflow-hidden whitespace-nowrap overflow-ellipsis'>
-									{x?.product?.name_pr || "Loading..."}
+									{x?.name_pr || "Loading..."}
 								</div>
 
 								<div className='font-[300]'>
 									Từ{" "}
-									<span className='font-[500]'>
-										{x?.product?.price.toLocaleString("it-IT", {
-											style: "currency",
-											currency: "VND",
-										}) || "Loading..."}
-									</span>
+									{x?.price !== undefined ? x.price.toLocaleString("it-IT", {
+										style: "currency",
+										currency: "VND",
+									}) : "Loading..."}
 								</div>
 								<div
 									onClick={() => {
-										handleBuyClick(x?.product?.product_id)
+										handleBuyClick(x?.product_id)
 									}}
 									className='px-[11px] cursor-pointer
                  py-2 bg-blue-500 rounded-full text-white'
@@ -203,7 +202,7 @@ const ProductSlide = ({
 								<div
 									href=''
 									onClick={() => {
-										router.push("/products/" + x?.product?.product_id)
+										router.push("/products/" + x?.product_id)
 									}}
 									className='text-blue-500 flex items-center gap-1 pb-4 mt-4 cursor-pointer'
 								>

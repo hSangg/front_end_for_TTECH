@@ -70,14 +70,14 @@ const categoryBestSeller = [
 		name: "Điện thoại",
 		icon: CiMobile2,
 		isNew: false,
-		categoryId: "0PbC1aL2mN3oPqRs",
+		categoryId: "0PbC1aL2mN3oPqR",
 	},
 	{
 		id: 1,
 		name: "Chuột",
 		icon: CiDesktopMouse2,
 		isNew: true,
-		categoryId: "x0bC1a2L3mN3oPqR",
+		categoryId: "x0bC1a2L3mN3oPq",
 	},
 
 	{
@@ -85,7 +85,7 @@ const categoryBestSeller = [
 		name: "Tai nghe",
 		icon: CiHeadphones,
 		isNew: false,
-		categoryId: "",
+		categoryId: "4dEfG6zIjvp7oP8",
 	},
 
 	{
@@ -93,15 +93,15 @@ const categoryBestSeller = [
 		name: "Laptop",
 		icon: CiLaptop,
 		isNew: true,
-		categoryId: "qRsTuV4wXyZ56789",
+		categoryId: "qRsTuV4wXyZ5678",
 	},
 
 	{
 		id: 4,
-		name: "Màng hình",
+		name: "Màn hình",
 		icon: CiDesktop,
 		isNew: true,
-		categoryId: "4d2fG9zIjv37oP8q",
+		categoryId: "4d2fG9zIjv37oP8",
 	},
 
 	{
@@ -109,7 +109,7 @@ const categoryBestSeller = [
 		name: "Bàn phím",
 		icon: CiKeyboard,
 		isNew: true,
-		categoryId: "4d2229zzjv37oP8q",
+		categoryId: "4d2229zzjv37oP8",
 	},
 
 	{
@@ -117,7 +117,7 @@ const categoryBestSeller = [
 		name: "Ổ cứng",
 		icon: CiHardDrive,
 		isNew: true,
-		categoryId: "x0bC1a2L3mN3oPqR",
+		categoryId: "x0bC1a2L3mN3oPq",
 	},
 
 	{
@@ -125,6 +125,6 @@ const categoryBestSeller = [
 		name: "Smart home",
 		icon: CiStreamOn,
 		isNew: true,
-		categoryId: "7qRsTuVwXyZ56789",
+		categoryId: "7qRsTuVwXyZ5678",
 	},
 ]

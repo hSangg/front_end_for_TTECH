@@ -17,7 +17,6 @@ const SearchBar = () => {
 	const [showSearchPage, setShowSearchPage] = useState(false)
 	const [value, setValue] = useState("")
 	const router = useRouter()
-
 	const [filteredProducts, setFilteredProducts] = useState(
 		[]
 	)
@@ -30,21 +29,12 @@ const SearchBar = () => {
 			await handleProduct.getProductBySearchParam(
 				debouncedValue
 			)
+		console.log("search: ", result)
 		setFilteredProducts(result)
 	}
 
 	useEffect(() => {
-		// call API here
-		// const filteredResults =
-		// 	productNameExample.filter((name) =>
-		// 		convert_vi_to_en(name.toLowerCase()).includes(
-		// 			convert_vi_to_en(
-		// 				debouncedValue.toLowerCase()
-		// 			)
-		// 		)
-		// 	)
 		getProductBySearchParam()
-		// call API here
 	}, [debouncedValue])
 
 	const handleKeyPressEnter = (e) => {

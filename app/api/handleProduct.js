@@ -4,10 +4,10 @@ export const handleProduct = {
 	getProduct: async (filter) =>
 		await axiosClient.post("/product/getProduct", filter),
 
-	getProductBySearchParam: async (searchParam) =>
+	getProductBySearchParam: async (filter) =>
 		await axiosClient.post(
-			"/Product/GetProductBySearchQuery",
-			searchParam,
+			"/product/getProduct",
+			filter,
 			{
 				headers: {
 					"Content-Type": "application/json",

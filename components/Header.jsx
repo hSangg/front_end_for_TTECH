@@ -17,8 +17,8 @@ const Header = () => {
 	const getAllCategory = async () => {
 		try {
 			const result = await handleCategory.getAllCategories()
-			console.log("thisiscate", result)
 			setCategory(result)
+			console.log("thisiscate", result)
 		} catch (error) {
 			console.log(error)
 		}

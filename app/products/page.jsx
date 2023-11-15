@@ -35,10 +35,13 @@ export default function Page({ searchParams }) {
 		console.log("filter: ", newFilter)
 		const result = await handleProduct.getProduct(newFilter)
 		const products = result?.Products
-		const totalPages = result?.TotalPages
-		const pageNumber = result?.pageNumber
+		const maxPage = result?.TotalPages
+		const pageNumber = result?.PageNumber
+		console.log(result);
 		setCurrentPage(pageNumber)
-		setTotalPages(totalPages)
+		setTotalPages(maxPage)
+		console.log(totalPages);
+		console.log(maxPage);
 		console.log("product is", result)
 		setList(products)
 
@@ -70,7 +73,7 @@ export default function Page({ searchParams }) {
 							key={i}
 							product_id={x?.product_id}
 							category_id={x?.category_id}
-							name_pr={x?.product?.name_pr}
+							name_pr={x?.name_pr}
 							name_serial={x?.name_serial}
 							detail={x?.detail}
 							price={x?.price || 0}

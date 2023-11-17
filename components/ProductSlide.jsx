@@ -163,7 +163,7 @@ const ProductSlide = ({
 									<CircleLoader />
 								) : (
 									<img
-										src={x?.image?.image_href}
+										src={x?.image[0]?.image_path}
 										style={{
 											objectFit: "cover",
 											borderRadius: "32px",

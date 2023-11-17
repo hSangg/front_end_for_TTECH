@@ -66,10 +66,10 @@ const ProductItem = ({
 				{loading ? (
 					<CircleLoader />
 				) : (
-					<img
+					< img
 						src={img_href}
-						alt=''
-						className='rounded-[30px]'
+						alt='not thing here but us chicken'
+						className='rounded-[30px] full-width full-height'
 					/>
 				)}
 			</div>

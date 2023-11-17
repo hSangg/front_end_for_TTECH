@@ -37,7 +37,7 @@ export default function Page({ searchParams }) {
 		const products = result?.Products
 		const maxPage = result?.TotalPages
 		const pageNumber = result?.PageNumber
-		console.log(result);
+		console.log("this is product list", result);
 		setCurrentPage(pageNumber)
 		setTotalPages(maxPage)
 		console.log(totalPages);
@@ -68,6 +68,7 @@ export default function Page({ searchParams }) {
 			<div className='flex justify-center'>
 				<div className='grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
 					{list?.map((x, i) => (
+						// console.log("this is the href: ", x?.image && x?.image[0]?.image_path),
 						<ProductItem
 							loading={loading}
 							key={i}
@@ -78,7 +79,7 @@ export default function Page({ searchParams }) {
 							detail={x?.detail}
 							price={x?.price || 0}
 							quantity_pr={x?.quantity_pr}
-							img_href={x?.image_href || undefined}
+							img_href={x?.image && x?.image[0]?.image_path ? x.image[0].image_path : undefined}
 							guarantee_period={x?.guarantee_period}
 						/>
 					))}

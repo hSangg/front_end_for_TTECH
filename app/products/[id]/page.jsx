@@ -110,7 +110,7 @@ export default function Page({ params }) {
 								className='w-[200px] h-[200px] flex items-center justify-center mt-12 mb-5'
 							>
 								<img
-									src={x}
+									src={x.image_path}
 									className='object-cover rounded-[30px] p-4 block'
 								/>
 							</div>

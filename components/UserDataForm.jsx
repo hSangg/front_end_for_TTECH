@@ -1,14 +1,7 @@
 "use client"
 import { motion } from "framer-motion"
-import {
-	useEffect,
-	useRef,
-	useState,
-} from "react"
-import {
-	isValidEmail,
-	isValidPhone,
-} from "../utils/until"
+import { useEffect, useRef, useState } from "react"
+import { isValidEmail, isValidPhone } from "../utils/until"
 import { UserAuth } from "@/context/AuthContext"
 
 const UserDataForm = () => {
@@ -27,12 +20,11 @@ const UserDataForm = () => {
 		phone: "",
 	})
 
-	const [isValidFormData, setIsValidFormData] =
-		useState(() => {
-			return Object.values(formErrors).every(
-				(x) => x === ""
-			)
-		})
+	const [isValidFormData, setIsValidFormData] = useState(
+		() => {
+			return Object.values(formErrors).every((x) => x === "")
+		}
+	)
 
 	const handleInputChange = (e) => {
 		const { id, value } = e.target
@@ -50,17 +42,10 @@ const UserDataForm = () => {
 					? "email"
 					: "số điện thoại"
 			}`
-		} else if (
-			id === "email" &&
-			!isValidEmail(value)
-		) {
+		} else if (id === "email" && !isValidEmail(value)) {
 			errorMessage = "Sai định dạng email"
-		} else if (
-			id === "phone" &&
-			!isValidPhone(value)
-		) {
-			errorMessage =
-				"Số điện thoại gồm 10 hoặc 11 con số"
+		} else if (id === "phone" && !isValidPhone(value)) {
+			errorMessage = "Số điện thoại gồm 10 hoặc 11 con số"
 		}
 
 		setFormErrors((prevErrors) => ({
@@ -80,9 +65,7 @@ const UserDataForm = () => {
 
 	useEffect(() => {
 		setIsValidFormData(
-			Object.values(formErrors).every(
-				(x) => x === ""
-			)
+			Object.values(formErrors).every((x) => x === "")
 		)
 	}, [formErrors, formData])
 
@@ -113,40 +96,36 @@ const UserDataForm = () => {
 								type: "tel",
 								inputName: "phone",
 							},
-						].map(
-							({ labelName, type, inputName }, i) => (
-								<div key={i}>
-									<div className='flex flex-col '>
-										<motion.label
-											className='text-black/70 text-[1.4rem] font-[600]'
-											htmlFor={inputName}
-										>
-											{labelName}
-										</motion.label>
-										<motion.input
-											whileFocus={{
-												borderColor: "#2563eb",
-												color: "#172554",
-											}}
-											style={{
-												borderColor:
-													formErrors[inputName] == ""
-														? "gray"
-														: "red",
-											}}
-											onChange={handleInputChange}
-											className='py-1 w-full outline-none border-[1px] border-gray-500/60 px-4 rounded-xl bg-slate-200'
-											id={inputName}
-											type={type}
-											value={formData?.[inputName]}
-										/>
-									</div>
-									<h2 className='error-message text-[1rem] mt-2 text-red-500'>
-										{formErrors[inputName]}
-									</h2>
+						].map(({ labelName, type, inputName }, i) => (
+							<div key={i}>
+								<div className='flex flex-col '>
+									<motion.label
+										className='text-black/70 text-[1.4rem] font-[600]'
+										htmlFor={inputName}
+									>
+										{labelName}
+									</motion.label>
+									<motion.input
+										whileFocus={{
+											borderColor: "#2563eb",
+											color: "#172554",
+										}}
+										style={{
+											borderColor:
+												formErrors[inputName] == "" ? "gray" : "red",
+										}}
+										onChange={handleInputChange}
+										className='py-1 w-full outline-none border-[1px] border-gray-500/60 px-4 rounded-xl bg-slate-200'
+										id={inputName}
+										type={type}
+										value={formData?.[inputName]}
+									/>
 								</div>
-							)
-						)}
+								<h2 className='error-message text-[1rem] mt-2 text-red-500'>
+									{formErrors[inputName]}
+								</h2>
+							</div>
+						))}
 
 						<div></div>
 						<div className='self-center'>
@@ -161,9 +140,7 @@ const UserDataForm = () => {
 										checked={formData.sex === "Nam"}
 										onChange={handleSexChange}
 									/>
-									<label htmlFor='contactChoice1'>
-										Nam
-									</label>
+									<label htmlFor='contactChoice1'>Nam</label>
 								</div>
 								<div className='flex gap-1 ml-2'>
 									<input
@@ -174,9 +151,7 @@ const UserDataForm = () => {
 										checked={formData.sex === "Nữ"}
 										onChange={handleSexChange}
 									/>
-									<label htmlFor='contactChoice2'>
-										Nữ
-									</label>
+									<label htmlFor='contactChoice2'>Nữ</label>
 								</div>
 							</div>
 						</div>
@@ -190,7 +165,7 @@ const UserDataForm = () => {
 							}}
 							className='w-full py-2 font-[700] text-white rounded-2xl text-center'
 						>
-							SUBMIT
+							Thay đổi thông tin
 						</motion.button>
 					</form>
 				</div>

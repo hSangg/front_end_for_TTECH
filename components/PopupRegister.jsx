@@ -160,6 +160,11 @@ const PopupRegister = () => {
 											<motion.input
 												id={x}
 												required
+												type={
+													(x === "password" ||
+														x === "confirm password") &&
+													"password"
+												}
 												key={i}
 												whileFocus={{
 													scale: 1.05,

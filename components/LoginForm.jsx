@@ -9,6 +9,7 @@ import { FcGoogle } from "react-icons/fc"
 import { UserAuth } from "../context/AuthContext"
 import CircleLoader from "./CircleLoader"
 import PopupRegister from "./PopupRegister"
+import ForgetPassword from "./ForgetPassword"
 
 const LoginForm = () => {
 	const router = useRouter()
@@ -57,10 +58,7 @@ const LoginForm = () => {
 				</div>
 			</div>
 
-			<form
-				onSubmit={(e) => e.preventDefault()}
-				className='flex flex-col mt-2 gap-2'
-			>
+			<div className='flex flex-col mt-2 gap-2'>
 				{["phone", "password"].map((x, i) => (
 					<motion.input
 						required
@@ -82,9 +80,7 @@ const LoginForm = () => {
 					/>
 				))}
 
-				<h1 className='text-blue-400 text-right font-[500] text-xl'>
-					Quên mật khẩu
-				</h1>
+				<ForgetPassword />
 
 				<motion.button
 					onClick={handleLogin}
@@ -98,7 +94,7 @@ const LoginForm = () => {
 				>
 					{loading ? <CircleLoader /> : "Đăng nhập"}
 				</motion.button>
-			</form>
+			</div>
 			<PopupRegister />
 			<div className='uppercase text-center text-[1.4em] font-[700] my-6'>
 				hoặc

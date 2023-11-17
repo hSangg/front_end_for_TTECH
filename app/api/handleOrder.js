@@ -22,4 +22,11 @@ export const handleOrder = {
 		}),
 	getAllOrder: async () =>
 		await axiosClient.get("/Order/GetAllOrder"),
+	updateStateOrder: async (order_id, state) =>
+		await axiosClient.put(
+			"/Order/UpdateStateOrder?orderId=" +
+				order_id +
+				"&state=" +
+				state
+		),
 }

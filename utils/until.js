@@ -111,7 +111,7 @@ export function isValidPhoneNumber(phoneNumber) {
 }
 
 export const convertToVND = (money) => {
-	return money.toLocaleString("it-IT", {
+	return money?.toLocaleString("it-IT", {
 		style: "currency",
 		currency: "VND",
 	})
@@ -167,8 +167,5 @@ export function getPreCurrentMonth() {
 }
 
 export const saveUserToLocalStogare = (user) => {
-	localStorage.setItem(
-		"user",
-		JSON.stringify(user)
-	)
+	localStorage.setItem("user", JSON.stringify(user))
 }

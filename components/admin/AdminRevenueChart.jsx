@@ -97,14 +97,14 @@ const AdminRevenueChart = () => {
 
 	const getRevenueByWeek = async () => {
 		try {
-			const { labels, revenues } =
+			const { day, revenue } =
 				await handleAdmin.GetRevenueByWeek()
 			const data_week = {
-				labels,
+				labels: day,
 				datasets: [
 					{
 						label: "Doanh thu theo tuần",
-						data: revenues,
+						data: revenue,
 						backgroundColor: "#93c5fd",
 					},
 				],

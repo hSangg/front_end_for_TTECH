@@ -3,6 +3,8 @@
 import { handleOrder } from "@/app/api/handleOrder"
 import { useEffect, useState } from "react"
 import OrderRenderList from "./orderManagement/OrderRenderList"
+import { AnimatePresence, motion } from "framer-motion"
+import DetailOrder from "./orderManagement/DetailOrder"
 
 const AdminOrderManagement = () => {
 	const [orderList, setOrderList] = useState([
@@ -41,6 +43,8 @@ const AdminOrderManagement = () => {
 		},
 	])
 
+	const [trigger, setTrigger] = useState(false)
+
 	const getAllOrder = async () => {
 		const result = await handleOrder.getAllOrder()
 		setOrderList(result)
@@ -48,7 +52,16 @@ const AdminOrderManagement = () => {
 
 	useEffect(() => {
 		getAllOrder()
-	}, [])
+	}, [trigger])
+
+	const [currentOrderClick, setCurrentOrderClick] = useState(
+		{}
+	)
+
+	useEffect(() => {
+		console.log(currentOrderClick)
+		console.log(currentOrderClick?.orderInfor?.orderId)
+	}, [currentOrderClick])
 
 	return (
 		<div className='mx-auto container'>
@@ -56,8 +69,30 @@ const AdminOrderManagement = () => {
 				<OrderRenderList
 					orderList={orderList}
 					setOrderList={setOrderList}
+					currentOrderClick={currentOrderClick}
+					setCurrentOrderClick={setCurrentOrderClick}
 				/>
 			</div>
+
+			<AnimatePresence>
+				{currentOrderClick?.orderInfor?.orderId && (
+					<motion.div
+						initial={{ opacity: 0, height: 0 }}
+						whileInView={{
+							opacity: 1,
+							height: "auto",
+						}}
+						exit={{ opacity: 0, height: 0 }}
+						className='fixed inset-0 bg-white origin-top'
+					>
+						<DetailOrder
+							currentOrderClick={currentOrderClick}
+							setCurrentOrderClick={setCurrentOrderClick}
+							setTrigger={setTrigger}
+						/>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	)
 }

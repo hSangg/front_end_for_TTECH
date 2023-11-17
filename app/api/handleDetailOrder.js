@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/constants/constant"
 import { axiosClient } from "./axiosClient"
 
 export const handleDetailOrder = {
@@ -12,5 +11,9 @@ export const handleDetailOrder = {
 					Authorization: `Bearer ${token}`,
 				},
 			}
+		),
+	getOrderDetailByOrderId: async (orderId) =>
+		axiosClient.get(
+			"/DetailOrder/GetOderDetailByOrderId?order_id=" + orderId
 		),
 }

@@ -239,3 +239,7 @@ export const convertDate = (date) => {
 	const formattedDate = `${day}/${month}/${year}`
 	return formattedDate
 }
+
+export function copy(text) {
+	navigator.clipboard.writeText(text)
+}

@@ -17,17 +17,13 @@ import { auth } from "../firebaseConfig"
 
 const AuthContext = createContext()
 
-export const AuthContextProvider = ({
-	children,
-}) => {
+export const AuthContextProvider = ({ children }) => {
 	const [user, setUser] = useState({})
 	const [token, setToken] = useState()
 
 	const router = useRouter()
 
-	const handleUserWhenLogInByGoogle = (
-		currentUser
-	) => {
+	const handleUserWhenLogInByGoogle = (currentUser) => {
 		//call API check user is exit (search by uid) on database
 		// if exit => get this user on database
 		// if not exit => register user (add to USER table on database)
@@ -68,16 +64,10 @@ export const AuthContextProvider = ({
 
 	useEffect(() => {
 		if (user?.user_id) {
-			localStorage.setItem(
-				"user",
-				JSON.stringify(user)
-			)
+			localStorage.setItem("user", JSON.stringify(user))
 		}
 		if (token) {
-			localStorage.setItem(
-				"token",
-				JSON.stringify(token)
-			)
+			localStorage.setItem("token", JSON.stringify(token))
 		}
 	}, [user, token])
 

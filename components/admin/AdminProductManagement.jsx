@@ -12,32 +12,7 @@ import { handleSupplier } from "@/app/api/handleSupplier"
 
 const AdminProductManagement = () => {
 	const [currentProductChoose, setCurrentProductChoose] =
-		useState({
-			product: {
-				product_id: "PRD005",
-				name_pr: "Apple MacBook Air",
-				name_serial: "MA007",
-				detail:
-					"13.3-inch Retina display, Apple M1 chip, 8GB RAM, 256GB SSD, macOS",
-				price: 17000000,
-				quantity_pr: 25,
-				guarantee_period: 12,
-			},
-			category: {
-				category_id: "qRsTuV4wXyZ56789",
-				category_name: "Laptop",
-			},
-			supplier: {
-				supplier_id: "SUPLLIER002",
-				supplier_name: "Apple",
-			},
-			image: {
-				image_id: "PRD005001",
-				product_id: "PRD005",
-				image_href:
-					"https://localhost:7067/Upload/product/PRD005/PRD005_1.jpg",
-			},
-		})
+		useState({})
 
 	const [filter, setFilter] = useState({
 		pageNumber: 1,
@@ -47,57 +22,13 @@ const AdminProductManagement = () => {
 	const [triggerImage, setTriggerImage] = useState(false)
 	const [trigger, setTrigger] = useState(false)
 
-	const [list, setList] = useState([
-		{
-			product: {
-				product_id: "PRD005",
-				name_pr: "Apple MacBook Air",
-				name_serial: "MA007",
-				detail:
-					"13.3-inch Retina display, Apple M1 chip, 8GB RAM, 256GB SSD, macOS",
-				price: 17000000,
-				quantity_pr: 25,
-				guarantee_period: 12,
-			},
-			category: {
-				category_id: "qRsTuV4wXyZ56789",
-				category_name: "Laptop",
-			},
-			supplier: {
-				supplier_id: "SUPLLIER002",
-				supplier_name: "Apple",
-			},
-			image: {
-				image_id: "PRD005001",
-				product_id: "PRD005",
-				image_href:
-					"https://localhost:7067/Upload/product/PRD005/PRD005_1.jpg",
-			},
-		},
-	])
-	const [supplier, setSupplier] = useState([
-		{
-			supplier_id: "1a58c6e8-361e-4c2f-9643-c81b125080e8",
-			supplier_name: "Bullshit",
-		},
-	])
+	const [list, setList] = useState([])
+	const [supplier, setSupplier] = useState([{}])
 
-	const [category, setCategory] = useState([
-		{
-			category_id: "0PbC1aL2mN3oPqRs",
-			category_name: "Điện thoại di động",
-		},
-	])
+	const [category, setCategory] = useState([{}])
 
 	const [allImageOfProduct, setAllImageOfProduct] = useState(
-		[
-			{
-				image_id: "941cfd80-88e7-4011-832d-87102006b9c6",
-				product_id: "573e78ba-2cfa-4bac-b6a4-c10dc67d6007",
-				image_href:
-					"https://localhost:7067/Upload/product/573e78ba-2cfa-4bac-b6a4-c10dc67d6007/573e78ba-2cfa-4bac-b6a4-c10dc67d6007_638355677595152972.jpg",
-			},
-		]
+		[]
 	)
 
 	const getAllImage = async () => {

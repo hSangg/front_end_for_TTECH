@@ -1,10 +1,6 @@
 import { axiosClient } from "./axiosClient"
 
 export const handleSupplier = {
-	getAllSupplier: async (token) => (
-		console.log(token),
-		await axiosClient.get("/supplier/"),
-		{ Headers: { Authorization: `Bearer ${token}` } }
-	)
+	getAllSupplier: async (token) => await axiosClient.get("/supplier/", { headers: { Authorization: `Bearer ${token}` } })
 
 }

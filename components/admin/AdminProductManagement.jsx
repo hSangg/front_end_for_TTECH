@@ -25,10 +25,12 @@ const AdminProductManagement = () => {
 				quantity_pr: 25,
 				guarantee_period: 12,
 			},
-			category: {
-				category_id: "qRsTuV4wXyZ56789",
-				category_name: "Laptop",
-			},
+			categories: [
+				{
+					category_id: "qRsTuV4wXyZ56789",
+					category_name: "Laptop",
+				}
+			],
 			supplier: {
 				supplier_id: "SUPLLIER002",
 				supplier_name: "Apple",
@@ -105,7 +107,7 @@ const AdminProductManagement = () => {
 	const getAllImage = async () => {
 		try {
 			const result = await handleProduct.getAllImageOfProduct(
-				currentProductChoose?.product?.product_id
+				currentProductChoose?.product_id
 			)
 			setAllImageOfProduct(result)
 		} catch (error) {
@@ -119,7 +121,7 @@ const AdminProductManagement = () => {
 
 	const getData = async () => {
 		try {
-			console.log(token)
+			console.log("token is: ", token)
 			const supplier = await handleSupplier.getAllSupplier(token)
 			const category = await handleCategory.getAllCategories()
 
@@ -136,11 +138,10 @@ const AdminProductManagement = () => {
 
 	const getProduct = async () => {
 		try {
-			const { products } = await handleProduct.getProduct(
-				filterDebounce
-			)
-			setList(products)
-			console.log("this is list product: ", list)
+			const products = await handleProduct.getProduct(filter)
+			setList(products?.Products)
+			console.log("this is the filter: ", filterDebounce)
+			console.log("this is list product: ", products)
 		} catch (error) {
 			console.log(error)
 		}

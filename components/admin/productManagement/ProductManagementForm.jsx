@@ -157,7 +157,7 @@ const ProductManagementForm = ({
 
 	return (
 		<motion.div
-			key={currentProductChoose?.product?.product_id}
+			key={currentProductChoose?.product_id}
 			initial={{ opacity: 0, x: 10 }}
 			whileInView={{ opacity: 1, x: 0 }}
 			exit={{ opacity: 0, x: 10 }}
@@ -289,7 +289,7 @@ const ProductManagementForm = ({
 									size={20}
 									onClick={() => {
 										navigator.clipboard.writeText(
-											currentProductChoose?.product?.product_id
+											currentProductChoose?.product_id
 										)
 									}}
 								/>
@@ -298,7 +298,7 @@ const ProductManagementForm = ({
 						<motion.input
 							disabled={x.key === "product_id"}
 							id={x.key}
-							value={currentProductChoose?.product?.[x.key]}
+							value={currentProductChoose?.[x.key]}
 							onChange={handleProductValueChange}
 							className='outline-none border-b font-semibold border-black/20 w-full'
 						/>
@@ -310,7 +310,7 @@ const ProductManagementForm = ({
 					</label>
 					<motion.textarea
 						id={"detail"}
-						value={currentProductChoose?.product?.detail}
+						value={currentProductChoose?.detail}
 						onChange={handleProductValueChange}
 						className='outline-none border-b font-semibold border-black/20 w-full'
 					/>
@@ -332,7 +332,7 @@ const ProductManagementForm = ({
 						</label>
 						<motion.input
 							id={x.key}
-							value={currentProductChoose?.product?.[x.key]}
+							value={currentProductChoose?.[x.key]}
 							onChange={handleProductValueChange}
 							className='outline-none border-b border-black/20 font-semibold w-full'
 						/>
@@ -349,8 +349,9 @@ const ProductManagementForm = ({
 					>
 						{category.map((x, i) => (
 							<option
-								selected={
-									currentProductChoose?.category?.category_id ===
+								selected=
+								{
+									currentProductChoose?.categories[0]?.category_id ===
 									x.category_id
 								}
 								key={i}
@@ -373,7 +374,7 @@ const ProductManagementForm = ({
 						{supplier?.map((x, i) => (
 							<option
 								selected={
-									currentProductChoose?.supplier?.supplier_id ===
+									currentProductChoose?.suppliers?.supplier_id ===
 									x.supplier_id
 								}
 								key={i}

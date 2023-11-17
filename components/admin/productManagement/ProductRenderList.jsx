@@ -25,7 +25,10 @@ const ProductRenderList = ({
 							? "animate"
 							: "initial"
 					}
-					onClick={() => setCurrentProductChoose(x)}
+					onClick={() => {
+						setCurrentProductChoose(x),
+							console.log(currentProductChoose)
+					}}
 					className='flex items-start gap-2 p-2 cursor-pointer rounded-2xl'
 				>
 					<div className='w-12 h-12 shrink-0 rounded-xl bg-sky-300'>

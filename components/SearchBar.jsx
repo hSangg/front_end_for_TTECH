@@ -26,10 +26,12 @@ const SearchBar = () => {
 
 	const getProductBySearchParam = async () => {
 		const result =
-			await handleProduct.getProductBySearchParam(
-				debouncedValue
+			await handleProduct.getProduct(
+				{
+					searchKey: debouncedValue
+				}
 			)
-		console.log("search: ", result)
+		console.log("search: ", debouncedValue)
 		setFilteredProducts(result?.Products)
 	}
 

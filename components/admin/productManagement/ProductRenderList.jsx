@@ -33,7 +33,7 @@ const ProductRenderList = ({
 				>
 					<div className='w-12 h-12 shrink-0 rounded-xl bg-sky-300'>
 						<img
-							src={x?.image_href}
+							src={x?.image[0]?.image_path}
 							className='w-full h-full object-cover rounded-xl'
 						/>
 					</div>

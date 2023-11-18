@@ -188,7 +188,7 @@ const ProductManagementForm = ({
 							x
 						</div>
 						<img
-							src={x?.image_href}
+							src={x?.image_path}
 							className='w-full h-full object-cover rounded-[10px]'
 						/>
 					</div>
@@ -351,8 +351,8 @@ const ProductManagementForm = ({
 							<option
 								selected=
 								{
-									currentProductChoose?.categories[0]?.category_id ===
-									x.category_id
+									currentProductChoose?.category ? currentProductChoose?.category[0]?.category_id ===
+										x.category_id : undefined
 								}
 								key={i}
 								value={x.category_id}

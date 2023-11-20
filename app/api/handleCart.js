@@ -4,7 +4,7 @@ import { axiosClient } from "./axiosClient"
 export const handleCart = {
 	getCountProductOnCart: async (user_id, token) =>
 		await axiosClient.post(
-			"/Cart/GetUserTotalProduct",
+			"/cart/GetUserTotalProduct",
 			user_id,
 			{
 				headers: {
@@ -15,7 +15,7 @@ export const handleCart = {
 		),
 
 	GetCartProduct: async (user_id, token) =>
-		await axiosClient.post("/Cart/GetCartProduct", user_id, {
+		await axiosClient.post("/cart/GetCartProduct", user_id, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",
@@ -23,7 +23,7 @@ export const handleCart = {
 		}),
 
 	AddToCart: async (data, token) =>
-		await axiosClient.post("/Cart/AddToCart", data, {
+		await axiosClient.post("/cart/AddToCart", data, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",

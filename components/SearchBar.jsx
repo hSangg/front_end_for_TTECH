@@ -31,7 +31,6 @@ const SearchBar = () => {
 					searchKey: debouncedValue
 				}
 			)
-		console.log("search: ", debouncedValue)
 		setFilteredProducts(result?.Products)
 	}
 

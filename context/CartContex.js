@@ -1,6 +1,7 @@
 "use client"
 
 import { handleCart } from "@/app/api/handleCart"
+import { UserAuth } from "@/context/AuthContext"
 
 const {
 	createContext,
@@ -19,6 +20,8 @@ export const CartContextProdiver = ({ children }) => {
 
 	const [triggerRerender, setTriggerRerender] = useState(0)
 
+	// const { token, user } = UserAuth();
+
 	const [totalPrice, setTotalPrice] = useState(() => {
 		let total = 0
 		cart
@@ -26,6 +29,7 @@ export const CartContextProdiver = ({ children }) => {
 			.forEach((x) => {
 				total += x
 			})
+		console.log("this is the cart: ", cart)
 		return total
 	})
 
@@ -52,7 +56,7 @@ export const CartContextProdiver = ({ children }) => {
 			const token = JSON.parse(localStorage.getItem("token"))
 			console.log("reget product")
 			if (user?.user_id) {
-				getCurrentProductInCart(user.user_id, token)
+				getCurrentProductInCart(user, token)
 			}
 		} catch (error) {
 			console.log(error)
@@ -77,9 +81,10 @@ export const CartContextProdiver = ({ children }) => {
 			const user = JSON.parse(localStorage.getItem("user"))
 
 			const token = JSON.parse(localStorage.getItem("token"))
-
+			console.log("this is token: ", token)
+			console.log("this is user: ", user)
 			if (user?.user_id) {
-				getUserTotalProduct(user.user_id, token)
+				getUserTotalProduct(user, token)
 			} else {
 				console.log("error with user id in cart Context")
 			}

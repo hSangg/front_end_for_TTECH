@@ -106,7 +106,8 @@ const CartDetail = () => {
 								<CircleLoader />
 							) : (
 								<img
-									src={x?.image?.image_href}
+									src={x?.product?.image[0]?.image_path}
+									alt="no image here chicken"
 									className='w-full h-full object-cover p-4 rounded-2xl'
 								/>
 							)}

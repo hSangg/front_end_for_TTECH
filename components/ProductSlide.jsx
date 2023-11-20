@@ -34,7 +34,6 @@ const ProductSlide = ({
 			pageSize: 999,
 		})
 		setList(result?.Products)
-		console.log(list);
 		setLoading(false)
 	}
 

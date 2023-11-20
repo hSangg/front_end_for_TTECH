@@ -1,16 +1,15 @@
 "use client"
 
 import { handleCategory } from "@/app/api/handleCategory"
+import { UserAuth } from "@/context/AuthContext"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
-import { CiShoppingCart, CiUser } from "react-icons/ci"
+import { useEffect, useState } from "react"
+import { CiUser } from "react-icons/ci"
+import Cart from "./Cart"
 import CategoryPhone from "./CategoryPhone"
 import SearchBar from "./SearchBar"
-import { UserAuth } from "@/context/AuthContext"
-import Cart from "./Cart"
-import { openURL } from "./MainContent"
 const Header = () => {
 	const [category, setCategory] = useState([])
 	const { user, setUser } = UserAuth()
@@ -24,6 +23,15 @@ const Header = () => {
 			console.log(error)
 		}
 	}
+
+	const handleOnClick = () => {
+		if (user?.user_id) {
+			router.push("/account")
+			return
+		}
+		router.push("/login")
+	}
+
 	useEffect(() => {
 		getAllCategory()
 	}, [])
@@ -87,10 +95,7 @@ const Header = () => {
 					</motion.div>
 
 					<motion.div
-						onClick={() => {
-							const route = user?.name ? "account" : "login"
-							router.push(route)
-						}}
+						onClick={handleOnClick}
 						whileHover={{ color: "#dc2626" }}
 						className='md:block cursor-pointer'
 					>

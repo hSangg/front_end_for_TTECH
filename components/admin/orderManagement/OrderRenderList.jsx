@@ -12,41 +12,41 @@ const OrderRenderList = ({
 		setCurrentOrderClick(x)
 	}
 	return (
-		<table className='w-full border-spacing-1 border-separate mt-10 table-auto text-xl bg-white relative'>
-			<thead class=' text-black uppercase sticky top-0'>
+		<table className='w-full border-spacing-1 border-separate table-auto text-xl bg-white relative'>
+			<thead class=' text-black uppercase sticky top-2'>
 				<tr className=''>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Mã đơn hàng
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Tên khách hàng
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Email
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Số điện thoại
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Địa chỉ
 					</th>
 
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Thơi gian đặt hàng
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Trạng thái
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Tổng tiền
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Ghi chú
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Khuyến mãi
 					</th>
-					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 flex-1 shrink-0 text-center'>
+					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Phí giao hàng
 					</th>
 				</tr>

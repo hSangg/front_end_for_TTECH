@@ -207,6 +207,13 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 					></motion.textarea>
 				</div>
 
+				<div className='mt-10 text-black'>
+					<div className='flex gap-2 items-center'>
+						<div className='w-5 h-5 bg-blue-500 rounded-2xl outline outline-1 outline-blue-500 outline-offset-2'></div>
+						<h1 className='text-2xl'>Thanh toán khi nhận hàng</h1>
+					</div>
+				</div>
+
 				<button
 					onClick={handleSubmit}
 					className='w-full bg-blue-500 rounded-full text-white py-3 text-2xl flex items-center justify-center font-bold'

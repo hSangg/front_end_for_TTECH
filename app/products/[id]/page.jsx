@@ -1,8 +1,10 @@
 "use client"
 
+import { handleCart } from "@/app/api/handleCart"
 import { handleProduct } from "@/app/api/handleProduct"
 import CircleLoader from "@/components/CircleLoader"
 import Notification from "@/components/Notification"
+import { UserAuth } from "@/context/AuthContext"
 import { convertToVND, getCurrentDate } from "@/utils/until"
 import { AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
@@ -18,33 +20,60 @@ export default function Page({ params }) {
 	const [imageList, setImageList] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [notifications, setNotifications] = useState(false)
+	const product_id = params.id
+	const {
+		user,
+		setUser,
+		googleSignIn,
+		logOutGoogle,
+		setToken,
+		token,
+	} = UserAuth()
+
 	const router = useRouter()
 	const [result, setResult] = useState({
 		product: {
 			product_id: "IPAD001",
-			name_pr: "Apple iPad Air 2020",
-			name_serial: "IPAD001",
-			detail:
-				"10.9-inch Liquid Retina display, A14 Bionic chip, Touch ID, 64GB storage, Wi-Fi",
-			price: 14000000,
-			quantity_pr: 15,
-			guarantee_period: 12,
+			name_pr: "Loading...",
+			name_serial: "Loading...",
+			detail: "Loading...",
+			price: 0,
+			quantity_pr: 0,
+			guarantee_period: 0,
 		},
-		category: {
-			category_id: "4dEfGhI5jKp6mNoP",
-			category_name: "Tablet",
-		},
+		category: [
+			{
+				category_id: "Loading...",
+				category_name: "Loading...",
+			},
+		],
 		supplier: {
-			supplier_id: "SUPLLIER004",
-			supplier_name: "LG",
+			supplier_id: "Loading...",
+			supplier_name: "Loading...",
 		},
 		image: {
-			image_id: "IPAD001001",
-			product_id: "IPAD001",
-			image_href:
-				"https://localhost:7067/Upload/product/IPAD001/IPAD001_1.jpg",
+			image_id: "Loading...",
+			product_id: "Loading...",
+			image_href: "",
+			file_name: "",
 		},
 	})
+
+	const handleOnClick = async () => {
+		const data = {
+			user_id: user?.user_id,
+			product_id: product_id,
+			quantity: 1,
+		}
+
+		console.log("runing.")
+
+		if (!token || !user?.user_id) router.push("/login")
+
+		const result = await handleCart.AddToCart(data, token)
+		console.log("result order by product id ", result)
+		setNotifications(true)
+	}
 
 	const callAPI = async () => {
 		try {
@@ -135,7 +164,7 @@ export default function Page({ params }) {
 						Bạn chưa ưng ý sản phẩm lắm? <br></br> Hãy nhắn trực
 						tiếp hoặc xem thêm về{" "}
 						<span className='font-semibold text-blue-400'>
-							{result?.category?.category_name}
+							{result?.category[0]?.category_name}
 						</span>{" "}
 						tại{" "}
 						<span
@@ -143,7 +172,7 @@ export default function Page({ params }) {
 								router.push(
 									"/products?" +
 										"categoryId=" +
-										result?.category?.category_id
+										result?.category[0]?.category_id
 								)
 							}}
 							className='text-blue-500 underline cursor-pointer'
@@ -166,9 +195,7 @@ export default function Page({ params }) {
 					<div>
 						<div className='my-24'>
 							<button
-								onClick={() => {
-									setNotifications(true)
-								}}
+								onClick={handleOnClick}
 								className='w-full p-2 rounded-xl text-white text-[1.7rem] bg-blue-500 flex items-center justify-center'
 							>
 								Đặt hàng ngay

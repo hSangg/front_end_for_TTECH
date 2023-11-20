@@ -7,4 +7,12 @@ export const handleUser = {
 		await axiosClient.post("/User/ForgetPassword", email, {
 			headers: { "Content-Type": "application/json" },
 		}),
+	updateUser: async (updatedUser) =>
+		await axiosClient.put(
+			"/User/UpdateUserInfor",
+			updatedUser,
+			{
+				headers: { "Content-Type": "application/json" },
+			}
+		),
 }

@@ -3,7 +3,7 @@ import { handleProduct } from "@/app/api/handleProduct"
 import { handleProductCategory } from "@/app/api/handleProductCategory"
 import Notification from "@/components/Notification"
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CiCircleRemove } from "react-icons/ci"
 import { IoCopyOutline } from "react-icons/io5"
 
@@ -23,11 +23,26 @@ const ProductManagementForm = ({
 	const [imageListDisplay, setImageListDisplay] = useState(
 		[]
 	)
+	const [data, setData] = useState({
+		product_id: currentProductChoose?.product?.product_id,
+		name_pr: currentProductChoose?.product?.name_pr,
+		name_serial: currentProductChoose?.product?.name_serial,
+		detail: currentProductChoose?.product?.detail,
+		price: currentProductChoose?.product?.price,
+		quantity_pr: currentProductChoose?.product?.quantity_pr,
+		guarantee_period:
+			currentProductChoose?.product?.guarantee_period,
+		supplier_id: currentProductChoose?.supplier?.supplier_id,
+		category_id:
+			currentProductChoose?.category?.[0]?.category_id,
+	})
 	const [notifications, setNotifications] = useState(false)
 
 	const handleProductValueChange = (e) => {
 		const { value, id } = e.target
-
+		console.log("data: ", data)
+		console.log("id: ", id)
+		console.log("value: ", value)
 		if (
 			id === "name_pr" ||
 			id === "price" ||
@@ -37,13 +52,27 @@ const ProductManagementForm = ({
 			id === "quantity_pr" ||
 			id === "category_id"
 		) {
-			setCurrentProductChoose((pre) => {
-				const preProduct = { ...pre }
-				preProduct.product[id] = value
-				return preProduct
-			})
+			console.log("set")
+			setData((pre) => ({ ...pre, [id]: value }))
 		}
 	}
+
+	useEffect(() => {
+		console.log("data in use effect run:", data)
+		setData({
+			product_id: currentProductChoose?.product?.product_id,
+			name_pr: currentProductChoose?.product?.name_pr,
+			name_serial: currentProductChoose?.product?.name_serial,
+			detail: currentProductChoose?.product?.detail,
+			price: currentProductChoose?.product?.price,
+			quantity_pr: currentProductChoose?.product?.quantity_pr,
+			guarantee_period:
+				currentProductChoose?.product?.guarantee_period,
+			supplier_id: currentProductChoose?.supplier?.supplier_id,
+			category_id:
+				currentProductChoose?.category?.[0]?.category_id,
+		})
+	}, [currentProductChoose])
 
 	const handleRemoveImageOld = async (x) => {
 		try {
@@ -107,23 +136,22 @@ const ProductManagementForm = ({
 
 		const updatedProduct = {
 			product_id: product_id,
-			name_pr: currentProductChoose.product.name_pr,
-			name_serial: currentProductChoose.product.name_serial,
-			detail: currentProductChoose.product.detail,
-			price: currentProductChoose.product.price,
-			quantity_pr: currentProductChoose.product.quantity_pr,
-			guarantee_period:
-				currentProductChoose.product.guarantee_period,
-			supplier_id: currentProductChoose.supplier.supplier_id,
-		}
-
-		const updatedProductCategory = {
-			productId: product_id,
-			categoryId: currentProductChoose.category.category_id,
+			name_pr: data.name_pr,
+			name_serial: data.name_serial,
+			detail: data.detail,
+			price: Number.parseInt(data.price),
+			quantity_pr: Number.parseInt(data.quantity_pr),
+			guarantee_period: Number.parseInt(data.guarantee_period),
+			supplier_id: data.supplier_id,
 		}
 
 		await handleProductCategory.updateProductCategory(
-			updatedProductCategory
+			{
+				productId: product_id,
+				categoryId:
+					currentProductChoose?.category?.[0]?.category_id,
+			},
+			data.category_id
 		)
 		await handleProduct.updateProduct(updatedProduct)
 
@@ -273,7 +301,7 @@ const ProductManagementForm = ({
 						<motion.input
 							disabled={x.key === "product_id"}
 							id={x.key}
-							value={currentProductChoose?.product?.[x.key]}
+							value={data[x.key]}
 							onChange={handleProductValueChange}
 							className='outline-none border-b font-semibold border-black/20 w-full'
 						/>
@@ -285,7 +313,7 @@ const ProductManagementForm = ({
 					</label>
 					<motion.textarea
 						id={"detail"}
-						value={currentProductChoose?.product?.detail}
+						value={data.detail}
 						onChange={handleProductValueChange}
 						className='outline-none border-b font-semibold border-black/20 w-full'
 					/>
@@ -307,7 +335,7 @@ const ProductManagementForm = ({
 						</label>
 						<motion.input
 							id={x.key}
-							value={currentProductChoose?.product?.[x.key]}
+							value={data[x.key]}
 							onChange={handleProductValueChange}
 							className='outline-none border-b border-black/20 font-semibold w-full'
 						/>
@@ -325,8 +353,8 @@ const ProductManagementForm = ({
 						{category.map((x, i) => (
 							<option
 								selected={
-									currentProductChoose?.category?.category_id ===
-									x.category_id
+									currentProductChoose?.category?.[0]
+										?.category_id === x.category_id
 								}
 								key={i}
 								value={x.category_id}

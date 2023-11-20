@@ -1,8 +1,11 @@
 "use client"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { isValidEmail, isValidPhone } from "../utils/until"
 import { UserAuth } from "@/context/AuthContext"
+import { handleUser } from "@/app/api/handleUser"
+import Notification from "./Notification"
+import CircleLoader from "./CircleLoader"
 
 const UserDataForm = () => {
 	const buttonRef = useRef()
@@ -19,6 +22,9 @@ const UserDataForm = () => {
 		email: "",
 		phone: "",
 	})
+
+	const [notifications, setNotifications] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	const [isValidFormData, setIsValidFormData] = useState(
 		() => {
@@ -54,11 +60,21 @@ const UserDataForm = () => {
 		}))
 	}
 
-	const handleSexChange = (e) => {
-		setFormData((prevData) => ({
-			...prevData,
-			sex: e.target.value,
-		}))
+	const handleSubmit = async () => {
+		setLoading(true)
+		const updatedUser = {
+			user_id: user?.user_id,
+			phone: formData?.phone,
+			email: formData?.email,
+			name: formData?.name,
+		}
+		console.log("updatedUser: ", updatedUser)
+		const result = await handleUser.updateUser(updatedUser)
+		console.log("result updated: ", result)
+		if (result?.user) setUser(result.user)
+
+		setLoading(false)
+		setNotifications(true)
 	}
 
 	const showInforCustomer = () => {}
@@ -71,15 +87,28 @@ const UserDataForm = () => {
 
 	return (
 		<div className='grid grid-cols-1 mt-5'>
+			{notifications && (
+				<Notification
+					notification={{
+						text: "Đã cập nhật thông tin",
+						style: "success",
+					}}
+					notifications={notifications}
+					setNotifications={setNotifications}
+				/>
+			)}
 			<div className=' text-white'>
 				<h1
 					onClick={showInforCustomer}
 					className='text-[1.7rem] text-left px-2 text-black font-[700] capitalize'
 				>
-					Thông tin tài khoản
+					Cập nhật thông tin
 				</h1>
 				<div className='w-full bg-slate-200/50 text-black text-[1.5rem]'>
-					<form className='grid grid-cols-1 gap-2 px-4'>
+					<form
+						onSubmit={(e) => e.preventDefault()}
+						className='grid grid-cols-1 gap-2 px-4'
+					>
 						{[
 							{
 								labelName: "Họ và tên",
@@ -128,44 +157,19 @@ const UserDataForm = () => {
 						))}
 
 						<div></div>
-						<div className='self-center'>
-							<div className='flex items-center gap-2'>
-								<div className='pr-4'>Giới tính</div>
-								<div className='flex gap-1'>
-									<input
-										type='radio'
-										id='contactChoice1'
-										name='gioitinh'
-										value='Nam'
-										checked={formData.sex === "Nam"}
-										onChange={handleSexChange}
-									/>
-									<label htmlFor='contactChoice1'>Nam</label>
-								</div>
-								<div className='flex gap-1 ml-2'>
-									<input
-										type='radio'
-										id='contactChoice2'
-										name='gioitinh'
-										value='Nữ'
-										checked={formData.sex === "Nữ"}
-										onChange={handleSexChange}
-									/>
-									<label htmlFor='contactChoice2'>Nữ</label>
-								</div>
-							</div>
-						</div>
+
 						<motion.button
 							ref={buttonRef}
+							onClick={handleSubmit}
 							disabled={!isValidFormData}
 							animate={{
 								backgroundColor: isValidFormData
 									? "#0284c7"
 									: "#78716c",
 							}}
-							className='w-full py-2 font-[700] text-white rounded-2xl text-center'
+							className='w-full py-2 font-[700] text-white flex items-center justify-center rounded-2xl text-center'
 						>
-							Thay đổi thông tin
+							{loading ? <CircleLoader /> : "Cập nhật thông tin"}
 						</motion.button>
 					</form>
 				</div>

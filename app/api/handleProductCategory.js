@@ -4,11 +4,16 @@ export const handleProductCategory = {
 	addNewProductCategory: async (data) =>
 		await axiosClient.post(
 			"/ProductCategory/AddNewProductCategory",
-			data
+			data,
+			{ headers: { "Content-Type": "application/json" } }
 		),
-	updateProductCategory: async (data) =>
+	updateProductCategory: async (
+		oldProductCategory,
+		newCategoryId
+	) =>
 		await axiosClient.put(
-			"/ProductCategory/UpdateProductCategory",
-			data
+			"/ProductCategory/UpdateProductCategory?new_category_id=" +
+				newCategoryId,
+			oldProductCategory
 		),
 }

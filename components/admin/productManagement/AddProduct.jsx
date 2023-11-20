@@ -57,10 +57,12 @@ const AddProduct = ({
 				supplier_id: data.supplier_id,
 			}
 
-			const productCategory = {
-				productId: product_id,
-				categoryId: data.category_id,
-			}
+			const productCategory = [
+				{
+					productId: product_id,
+					categoryId: data.category_id,
+				},
+			]
 
 			const formData = new FormData()
 

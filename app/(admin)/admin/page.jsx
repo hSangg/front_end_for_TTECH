@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import AdminCustomerManagement from "@/components/admin/AdminCustomerManagement"
 import { UserAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
+import AdminDiscountManagement from "@/components/admin/AdminDiscountManagement"
 
 const Page = () => {
 	const [route, setRoute] = useState("dashboard")
@@ -31,6 +32,7 @@ const Page = () => {
 				{route === "order" && <AdminOrderManagement />}
 				{route === "customer" && <AdminCustomerManagement />}
 				{route === "message" && <CustomerMessage />}
+				{route === "discount" && <AdminDiscountManagement />}
 			</AnimatePresence>
 			{/* routeNavigator[i] = ["dashboard", "product", "order"] */}
 			{/* <RealTimeMessageAdmin /> */}

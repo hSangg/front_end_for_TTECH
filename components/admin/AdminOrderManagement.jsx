@@ -64,7 +64,13 @@ const AdminOrderManagement = () => {
 	}, [currentOrderClick])
 
 	return (
-		<div className='mx-auto container'>
+		<div className='mx-auto mt-10 container'>
+			<div className='flex mb-2 text-xl text-white font-[600] gap-5'>
+				<button className='bg-blue-500 px-4 py-2 rounded-lg'>
+					Xuất Exel
+				</button>
+			</div>
+
 			<div>
 				<OrderRenderList
 					orderList={orderList}

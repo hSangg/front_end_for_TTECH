@@ -63,7 +63,9 @@ export const AuthContextProvider = ({ children }) => {
 	}, [])
 
 	useEffect(() => {
+		console.log("runing update localstorage")
 		if (user?.user_id) {
+			console.log("update user")
 			localStorage.setItem("user", JSON.stringify(user))
 		}
 		if (token) {

@@ -9,6 +9,10 @@ import { convertToVND } from "@/utils/until"
 const FilterProduct = ({ onFilterChange }) => {
 	const [show, setShow] = useState(false)
 	const [current, setCurrent] = useState({})
+	const [formatPrice, setFormatPrice] = useState({
+		minPrice: 0,
+		maxPrice: 999_999_999,
+	})
 
 	const [priceRange, setPriceRange] = useState({
 		minPrice: 0,
@@ -173,7 +177,7 @@ const FilterProduct = ({ onFilterChange }) => {
 									].map((x, i) => (
 										<div
 											key={i}
-											className='flex items-center text-2xl gap-5'
+											className='flex items-center text-2xl gap-2'
 										>
 											<label htmlFor={x.key} className='min-w-[40px]'>
 												{x.name}
@@ -184,6 +188,11 @@ const FilterProduct = ({ onFilterChange }) => {
 												id={x.key}
 												placeholder={x.placeholder}
 											/>
+											<h1 className='text-black/40 font-[400] text-xl'>
+												{convertToVND(
+													Number.parseInt(priceRange[x.key]) || 0
+												)}
+											</h1>
 										</div>
 									))}
 

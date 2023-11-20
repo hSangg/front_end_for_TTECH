@@ -8,11 +8,18 @@ const Cart = () => {
 	const router = useRouter()
 	const { user } = UserAuth()
 
+	const handleOnClick = () => {
+		if (user?.user_id) {
+			router.push("/cart")
+			return
+		}
+
+		router.push("/login")
+	}
+
 	return (
 		<motion.div
-			onClick={() => {
-				router.push(user?.user_id ? "cart" : "login")
-			}}
+			onClick={handleOnClick}
 			className='relative cursor-pointer'
 		>
 			<CiShoppingCart size={25} />

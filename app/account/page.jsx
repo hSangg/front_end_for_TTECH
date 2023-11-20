@@ -18,11 +18,7 @@ const Page = () => {
 					transition={{ staggerChildren: 0.1 }}
 					className='w-[100vw] font-[600] '
 				>
-					{`HY! ${user?.name}`.split("").map((t, i) => (
-						<motion.span variants={textAnimate} key={i}>
-							{t}
-						</motion.span>
-					))}
+					HY! {user?.name}{" "}
 				</motion.div>
 			</motion.div>
 			<UserDataForm />

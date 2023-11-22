@@ -38,7 +38,7 @@ const OrderBill = () => {
 					</tr>
 				</thead>
 				<tbody className=''>
-					{cart.map((x, i) => (
+					{cart?.map((x, i) => (
 						<tr
 							key={i}
 							className='border-t border-slate-500/60 my-2'

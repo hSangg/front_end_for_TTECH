@@ -64,7 +64,7 @@ export default function Page({ params }) {
 			// const
 			setImageList(images)
 
-			setResult(resultFake)
+			setResult(resultFake.product)
 			console.log("this is the result: ", resultFake);
 			setLoading(false)
 		} catch (error) {
@@ -144,7 +144,7 @@ export default function Page({ params }) {
 						Bạn chưa ưng ý sản phẩm lắm? <br></br> Hãy
 						nhắn trực tiếp hoặc xem thêm về{" "}
 						<span className='font-semibold text-blue-400'>
-							{result?.categories?.category_name}
+							{result?.category[0]?.category_name}
 						</span>{" "}
 						tại{" "}
 						<span
@@ -152,7 +152,7 @@ export default function Page({ params }) {
 								router.push(
 									"/products?" +
 									"categoryId=" +
-									result?.categories?.category_id
+									result?.category[0]?.category_id
 								)
 							}}
 							className='text-blue-500 underline cursor-pointer'

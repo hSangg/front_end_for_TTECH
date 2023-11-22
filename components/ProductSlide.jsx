@@ -14,6 +14,7 @@ import {
 import { smoothScrollHorizotal } from "../utils/until"
 import CircleLoader from "./CircleLoader"
 import Notification from "./Notification"
+import { UserCart } from "@/context/CartContex"
 
 const ProductSlide = ({
 	title,
@@ -26,7 +27,7 @@ const ProductSlide = ({
 	const { user, setUser, token } = UserAuth()
 	const [notifications, setNotifications] = useState(false)
 	const [loading, setLoading] = useState(true)
-
+	const { triggerRerender, setTriggerRerender } = UserCart()
 	const getProduct = async () => {
 		const result = await handleProduct.getProduct({
 			categoryId: categoryId,
@@ -53,6 +54,7 @@ const ProductSlide = ({
 		}
 
 		const result = await handleCart.AddToCart(data, token)
+		setTriggerRerender(triggerRerender == 0 ? 1 : 0)
 
 		setNotifications(true)
 	}

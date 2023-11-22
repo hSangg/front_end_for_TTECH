@@ -27,6 +27,7 @@ const ProductItem = ({
 }) => {
 	const router = useRouter()
 	const { user, setUser, token } = UserAuth()
+	const { cartLoading, setCartLoading } = UserCart()
 	const { totalProduct, setTotalProduct } =
 		UserCart()
 	const [notifications, setNotifications] =
@@ -43,7 +44,6 @@ const ProductItem = ({
 			data,
 			token
 		)
-
 		console.log(result)
 	}
 	return (

@@ -3,15 +3,16 @@
 import { AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import {
-	CiFilter,
-	CiPercent,
-} from "react-icons/ci"
+import { CiFilter, CiPercent } from "react-icons/ci"
 import { convertToVND } from "@/utils/until"
 
 const FilterProduct = ({ onFilterChange }) => {
 	const [show, setShow] = useState(false)
 	const [current, setCurrent] = useState({})
+	const [formatPrice, setFormatPrice] = useState({
+		minPrice: 0,
+		maxPrice: 999_999_999,
+	})
 
 	const [priceRange, setPriceRange] = useState({
 		minPrice: 0,
@@ -32,16 +33,10 @@ const FilterProduct = ({ onFilterChange }) => {
 			}
 		}
 
-		window.addEventListener(
-			"keydown",
-			handleKeyDown
-		)
+		window.addEventListener("keydown", handleKeyDown)
 
 		return () => {
-			window.removeEventListener(
-				"keydown",
-				handleKeyDown
-			)
+			window.removeEventListener("keydown", handleKeyDown)
 		}
 	}, [])
 
@@ -51,6 +46,20 @@ const FilterProduct = ({ onFilterChange }) => {
 			...pre,
 			[id]: value,
 		}))
+	}
+
+	const handlePriceRangeClick = (e) => {
+		const from = Number.parseInt(priceRange.minPrice) || 0
+		const to =
+			Number.parseInt(priceRange.maxPrice) || 999_999_999
+
+		onFilterChange((pre) => ({
+			...pre,
+			minPrice: from,
+			maxPrice: to,
+		}))
+
+		setShow(false)
 	}
 
 	return (
@@ -79,7 +88,7 @@ const FilterProduct = ({ onFilterChange }) => {
 
 				<div
 					className='flex justify-center gap-2 items-center'
-					onClick={() => {}}
+					onClick={() => { }}
 				>
 					<CiPercent
 						className='bg-red-500 px-2 py-1 rounded-2xl'
@@ -87,8 +96,7 @@ const FilterProduct = ({ onFilterChange }) => {
 						size={30}
 					/>
 					<h1 className='text-2xl text-black/70  font-[400]'>
-						Ưu đãi ngập tràng, <br></br> khuyễn mại đến
-						60%
+						Ưu đãi ngập tràng, <br></br> khuyễn mại đến 60%
 					</h1>
 				</div>
 			</div>
@@ -107,13 +115,8 @@ const FilterProduct = ({ onFilterChange }) => {
 					>
 						<div className='absolute top-0 bottom-40 inset-x-0 bg-white z-40 grid grid-cols-2 '>
 							{filterData.map((x, i) => (
-								<div
-									key={i}
-									className='text-center mt-36'
-								>
-									<h1 className='text-5xl font-bold'>
-										{x.name}
-									</h1>
+								<div key={i} className='text-center mt-36'>
+									<h1 className='text-5xl font-bold'>{x.name}</h1>
 									<div className='mt-5'>
 										{x.filter.map((y, j) => (
 											<div key={j}>
@@ -123,8 +126,7 @@ const FilterProduct = ({ onFilterChange }) => {
 													animate={() => {
 														if (x.id === 1) {
 															if (
-																current.priceIdentify ==
-																`${x.id} ${y.id}`
+																current.priceIdentify == `${x.id} ${y.id}`
 															)
 																return "click"
 														}
@@ -145,7 +147,7 @@ const FilterProduct = ({ onFilterChange }) => {
 															return prevFilter
 														})
 													}}
-													className='text-2xl'
+													className='text-2xl cursor-pointer'
 												>
 													{y.name}
 												</motion.div>
@@ -156,9 +158,7 @@ const FilterProduct = ({ onFilterChange }) => {
 							))}
 
 							<div className='mt-36'>
-								<h1 className='text-5xl font-bold'>
-									Khoảng giá
-								</h1>
+								<h1 className='text-5xl font-bold'>Khoảng giá</h1>
 								<form
 									className='flex flex-col items-start mt-5'
 									onSubmit={(e) => e.preventDefault()}
@@ -177,24 +177,31 @@ const FilterProduct = ({ onFilterChange }) => {
 									].map((x, i) => (
 										<div
 											key={i}
-											className='flex items-center text-2xl gap-5'
+											className='flex items-center text-2xl gap-2'
 										>
-											<label
-												htmlFor={x.key}
-												className='min-w-[40px]'
-											>
+											<label htmlFor={x.key} className='min-w-[40px]'>
 												{x.name}
 											</label>
 											<input
-												onChange={(e) =>
-													onPriceRangeChange(e)
-												}
+												onChange={(e) => onPriceRangeChange(e)}
 												value={priceRange[x.key]}
 												id={x.key}
 												placeholder={x.placeholder}
 											/>
+											<h1 className='text-black/40 font-[400] text-xl'>
+												{convertToVND(
+													Number.parseInt(priceRange[x.key]) || 0
+												)}
+											</h1>
 										</div>
 									))}
+
+									<button
+										onClick={handlePriceRangeClick}
+										className='px-4 text-white text-2xl mt-4 bg-blue-500 rounded-full  py-1 '
+									>
+										Xác nhận
+									</button>
 								</form>
 							</div>
 

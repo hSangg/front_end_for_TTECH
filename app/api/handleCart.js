@@ -30,16 +30,19 @@ export const handleCart = {
 			},
 		}),
 
-	UpdateQuantity: async (data, token) =>
-		await axiosClient.put("/Cart/UpdateQuantity", data, {
+	UpdateQuantity: async (data, token) => {
+		console.log(data)
+		await axiosClient.put("/cart/UpdateQuantity", data, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",
 			},
-		}),
+		})
+	},
 	EmptyCartUser: async (userId, token) =>
 		await axiosClient.delete(
 			"/Cart/EmptyCart?user_id=" + userId,
 			{ headers: { Authorization: `Bearer ${token}` } }
 		),
+
 }

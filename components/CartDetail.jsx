@@ -82,7 +82,7 @@ const CartDetail = () => {
 
 		await handleCart.UpdateQuantity(
 			{
-				user_id: user.id,
+				user_id: user.user_id,
 				product_id: updatedProduct.product.product_id,
 				quantity: newQuantity,
 			},

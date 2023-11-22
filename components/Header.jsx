@@ -1,29 +1,43 @@
 "use client"
 
 import { handleCategory } from "@/app/api/handleCategory"
+import { UserAuth } from "@/context/AuthContext"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
-import { CiShoppingCart, CiUser } from "react-icons/ci"
+import { useEffect, useState } from "react"
+import { CiUser } from "react-icons/ci"
+import Cart from "./Cart"
 import CategoryPhone from "./CategoryPhone"
 import SearchBar from "./SearchBar"
-import { UserAuth } from "@/context/AuthContext"
-import Cart from "./Cart"
 const Header = () => {
 	const [category, setCategory] = useState([])
 	const { user, setUser } = UserAuth()
+	const { token, setToken } = UserAuth();
 
+	// useEffect(() => {
+	// 	setUser(JSON.parse(localStorage.getItem('user')))
+	// 	console.log("runned");
+	// 	setToken(JSON.parse(localStorage.getItem('token')))
+	// }, [])
 	const getAllCategory = async () => {
 		try {
 			const result = await handleCategory.getAllCategories()
+			console.log(result)
 			setCategory(result)
-			console.log("thisiscate", result)
 		} catch (error) {
 			console.log(error)
 		}
-
 	}
+
+	const handleOnClick = () => {
+		if (user?.user_id) {
+			router.push("/account")
+			return
+		}
+		router.push("/login")
+	}
+
 	useEffect(() => {
 		getAllCategory()
 	}, [])
@@ -49,6 +63,18 @@ const Header = () => {
 					</div>
 
 					<ul className='hidden md:flex overflow-x-scroll flex-nowrap noneScrollBar my-2'>
+						<motion.li
+							whileHover={{ color: "red" }}
+							onClick={() =>
+								router.push(
+									"/products?IsDescending=false&pageNumber=1&pageSize=12"
+								)
+							}
+							className='text-[1.3rem] font-[300] capitalize mx-2 text-black/80 cursor-pointer whitespace-nowrap	'
+						>
+							All
+						</motion.li>
+
 						{category?.map((category, index) => (
 							<motion.li
 								whileHover={{ color: "red" }}
@@ -75,10 +101,7 @@ const Header = () => {
 					</motion.div>
 
 					<motion.div
-						onClick={() => {
-							const route = user?.name ? "account" : "login"
-							router.push(route)
-						}}
+						onClick={handleOnClick}
 						whileHover={{ color: "#dc2626" }}
 						className='md:block cursor-pointer'
 					>

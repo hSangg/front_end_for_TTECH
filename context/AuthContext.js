@@ -46,18 +46,31 @@ export const AuthContextProvider = ({
 	const logOutGoogle = () => {
 		signOut(auth)
 	}
+	const logout = () => {
+		//clear user and token
+		setUser({})
+		setToken("")
 
+		//remove token and user in localstorage
+		localStorage.removeItem("user")
+		localStorage.removeItem("token")
+
+		// redirect to main page
+
+		router.push("/")
+	}
 	useEffect(() => {
 		try {
-			if (!user && localStorage.getItem("user")) {
+			if (!user && localStorage.getItem('user')) {
 				const reloadUser = JSON.parse(
-					localStorage.getItem("user")
+					localStorage.getItem('user')
 				)
+				console.log("sett");
 				setUser(reloadUser)
 			}
-			if (!token && localStorage.getItem("token")) {
+			if (!token && localStorage.getItem('token')) {
 				const reloadToken = JSON.parse(
-					localStorage.getItem("token")
+					localStorage.getItem('token')
 				)
 				setToken(reloadToken)
 			}
@@ -86,6 +99,7 @@ export const AuthContextProvider = ({
 			value={{
 				user,
 				setUser,
+				logout,
 				googleSignIn,
 				logOutGoogle,
 				setToken,

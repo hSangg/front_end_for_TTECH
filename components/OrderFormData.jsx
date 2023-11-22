@@ -53,7 +53,9 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 					? "email"
 					: id == "password"
 					? "mật khẩu"
-					: "Số điện thoại"
+					: id == "phone"
+					? "số điện thoại"
+					: "địa chỉ"
 			}`
 		} else if (id === "phone" && !isValidPhoneNumber(value)) {
 			errorMessage = "Sai định dạng số điện thoại"

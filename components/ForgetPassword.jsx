@@ -35,6 +35,7 @@ const ForgetPassword = () => {
 					notification={{
 						text: "Mật khẩu xác nhận đã được gửi đến email",
 						style: "success",
+						duration: 2000,
 					}}
 					notifications={notifications}
 					setNotifications={setNotifications}

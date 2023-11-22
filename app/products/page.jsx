@@ -8,6 +8,8 @@ import { handleProduct } from "../api/handleProduct"
 import { useRouter } from "next/navigation"
 
 export default function Page({ searchParams }) {
+	console.log("searchParams: ", searchParams)
+
 	const [filter, setFilter] = useState({
 		...searchParams,
 		IsDescending: !!searchParams.IsDescending || false,
@@ -44,8 +46,7 @@ export default function Page({ searchParams }) {
 	}
 
 	useEffect(() => {
-		const { priceIdentify, ...rest } = filter
-		const queryString = Object.entries(rest)
+		const queryString = Object.entries(filter)
 			.map(
 				([key, value]) => `${key}=${encodeURIComponent(value)}`
 			)
@@ -59,8 +60,14 @@ export default function Page({ searchParams }) {
 
 	return (
 		<div className='mt-20' suppressHydrationWarning={true}>
-			<FilterProduct onFilterChange={setFilter} />
-			<div className='flex justify-center'>
+			<FilterProduct
+				onFilterChange={setFilter}
+				filter={filter}
+			/>
+			<div
+				onClick={() => console.log(filter)}
+				className='flex justify-center'
+			>
 				<div className='grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
 					{list?.map((x, i) => (
 						<ProductItem

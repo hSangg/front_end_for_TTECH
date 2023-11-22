@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import OrderRenderList from "./orderManagement/OrderRenderList"
 import { AnimatePresence, motion } from "framer-motion"
 import DetailOrder from "./orderManagement/DetailOrder"
+import OrderFeatures from "./orderManagement/OrderFeatures"
 
 const AdminOrderManagement = () => {
 	const [orderList, setOrderList] = useState([
@@ -65,11 +66,7 @@ const AdminOrderManagement = () => {
 
 	return (
 		<div className='mx-auto mt-10 container'>
-			<div className='flex mb-2 text-xl text-white font-[600] gap-5'>
-				<button className='bg-blue-500 px-4 py-2 rounded-lg'>
-					Xuất Exel
-				</button>
-			</div>
+			<OrderFeatures/>
 
 			<div>
 				<OrderRenderList

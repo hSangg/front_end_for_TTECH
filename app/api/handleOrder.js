@@ -29,4 +29,6 @@ export const handleOrder = {
 				"&state=" +
 				state
 		),
+	getExcelFile: async () =>
+		await axiosClient.get("/Order/GetExcelFileData"),
 }

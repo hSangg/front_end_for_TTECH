@@ -15,4 +15,8 @@ export const handleUser = {
 				headers: { "Content-Type": "application/json" },
 			}
 		),
+	getUserById: async (user_id) =>
+		await axiosClient.get(
+			"/User/GetUserById?userId=" + user_id
+		),
 }

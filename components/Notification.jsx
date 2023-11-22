@@ -31,13 +31,15 @@ const Notification = ({
 }) => {
 	const { text, style } = notification
 
-	useEffect(() => {
-		const timmer = setTimeout(() => {
-			setNotifications(false)
-		}, 1000)
+	// const duration = notification?.duration || 1000
 
-		return () => clearTimeout(timmer)
-	}, [])
+	// useEffect(() => {
+	// 	const timmer = setTimeout(() => {
+	// 		setNotifications(false)
+	// 	}, duration)
+
+	// 	return () => clearTimeout(timmer)
+	// }, [])
 
 	const styleType = () => {
 		// Controlled by selection menu

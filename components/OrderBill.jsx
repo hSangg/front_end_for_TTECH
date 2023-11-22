@@ -27,7 +27,7 @@ const OrderBill = ({ cart, setCart }) => {
 	}, [cart])
 
 	return (
-		<div className='flex flex-col items-center p-8 shrink-0  bg-white min-w-[300px] max-w-[500px] pb-[500px]'>
+		<div className='flex flex-col items-center p-8 shrink-0  bg-white min-w-[300px] max-w-[500px] '>
 			<h1 className='text-black font-semibold text-4xl text-center'>
 				Chi tiết hóa đơn
 			</h1>

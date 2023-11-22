@@ -120,14 +120,18 @@ const FilterProduct = ({ onFilterChange, filter }) => {
 
 														onFilterChange(() => {
 															if (x.id == 1) {
-																const newFilter = {
-																	...filter,
-																	SortBy: "price",
-																	IsDescending: y.type === "Desc",
-																	categoryId: category_id,
-																}
-																console.log("newFilter: ", newFilter)
-																return newFilter
+																return category_id
+																	? {
+																			...filter,
+																			SortBy: "price",
+																			IsDescending: y.type === "Desc",
+																			categoryId: category_id,
+																	  }
+																	: {
+																			...filter,
+																			SortBy: "price",
+																			IsDescending: y.type === "Desc",
+																	  }
 															}
 														})
 													}}

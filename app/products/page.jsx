@@ -8,8 +8,6 @@ import { handleProduct } from "../api/handleProduct"
 import { useRouter } from "next/navigation"
 
 export default function Page({ searchParams }) {
-	console.log("searchParams: ", searchParams)
-
 	const [filter, setFilter] = useState({
 		...searchParams,
 		IsDescending: !!searchParams.IsDescending || false,
@@ -27,6 +25,20 @@ export default function Page({ searchParams }) {
 	const [list, setList] = useState([
 		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
 	])
+
+	useEffect(() => {
+		const categoryId = searchParams.categoryId
+		const pageNumber = searchParams.pageNumber
+
+		if (categoryId) {
+			console.log("runingt set category")
+			setFilter((pre) => ({ ...pre, categoryId, pageNumber }))
+		} else {
+			const { categoryId, ...rest } = filter
+			setFilter({ ...rest, pageNumber })
+			console.log("filter when searchParams change: ", filter)
+		}
+	}, [searchParams.categoryId, searchParams.pageNumber])
 
 	const getProduct = async () => {
 		const newFilter = {
@@ -51,7 +63,9 @@ export default function Page({ searchParams }) {
 				([key, value]) => `${key}=${encodeURIComponent(value)}`
 			)
 			.join("&")
-		router.push("/products?" + queryString)
+		router.push("/products?" + queryString, undefined, {
+			shallow: true,
+		})
 	}, [filter])
 
 	useEffect(() => {
@@ -99,8 +113,9 @@ export default function Page({ searchParams }) {
 							categoryId,
 						})
 					} else {
+						const { categoryId, ...rest } = filter
 						setFilter({
-							...filter,
+							...rest,
 							pageNumber,
 						})
 					}

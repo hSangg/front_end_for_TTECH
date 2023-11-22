@@ -74,6 +74,7 @@ const Header = () => {
 								whileHover={{ color: "red" }}
 								key={index}
 								onClick={() => {
+									console.log("cate header: ", category?.category_id)
 									router.push(
 										"/products?" +
 											"categoryId=" +

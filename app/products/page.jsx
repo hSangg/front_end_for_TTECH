@@ -30,7 +30,7 @@ export default function Page({ searchParams }) {
 		const categoryId = searchParams.categoryId
 		const pageNumber = searchParams.pageNumber
 
-		if (categoryId) {
+		if (categoryId && pageNumber) {
 			console.log("runingt set category")
 			setFilter((pre) => ({ ...pre, categoryId, pageNumber }))
 		} else {

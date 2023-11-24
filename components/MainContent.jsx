@@ -51,6 +51,7 @@ const MainContent = () => {
 									src={"/images/product_images/LocationPin_01.png"}
 									width={0}
 									height={0}
+									alt=''
 									sizes='100vw'
 									className='w-[100%] h-auto p-[10px]'
 								/>
@@ -68,6 +69,7 @@ const MainContent = () => {
 								<Image
 									src={"/images/product_images/Gamepad_01.png"}
 									width={0}
+									alt=''
 									height={0}
 									sizes='100vw'
 									className='w-[100%] h-auto'

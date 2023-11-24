@@ -15,4 +15,6 @@ export const handleAdmin = {
 		await axiosClient.get("/Admin/GetTotalOrder"),
 	GetTotalCustomer: async () =>
 		await axiosClient.get("/Admin/GetTotalCustomer"),
+	GetRevenue: async () =>
+		await axiosClient.get("/Admin/GetRevenue"),
 }

@@ -20,7 +20,10 @@ const BestSaleCategory = () => {
 				<motion.div
 					onClick={() => {
 						router.push(
-							"/products?" + "categoryId=" + x.categoryId
+							"/products?" +
+								"categoryId=" +
+								x.categoryId +
+								"&IsDescending=true&pageNumber=1&pageSize=12"
 						)
 					}}
 					initial={{ color: "black" }}

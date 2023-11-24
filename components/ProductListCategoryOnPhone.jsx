@@ -41,7 +41,10 @@ const ProductListCategoryOnPhone = ({
 					whileTap={{ color: "red" }}
 					onClick={() => {
 						router.push(
-							"/products?" + "categoryId=" + x.category_id
+							"/products?" +
+								"categoryId=" +
+								x.category_id +
+								"&IsDescending=true&pageNumber=1&pageSize=12"
 						)
 						setShowCategory(false)
 					}}

@@ -18,6 +18,7 @@ const Page = () => {
 	const router = useRouter()
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem("user"))
+		console.log("user, ", user)
 		if (user.isAdmin !== "1") return router.push("/")
 		if (user?.user_id) setUser(user)
 	}, [])

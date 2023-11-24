@@ -172,7 +172,8 @@ export default function Page({ params }) {
 								router.push(
 									"/products?" +
 										"categoryId=" +
-										result?.category[0]?.category_id
+										result?.category[0]?.category_id +
+										"&IsDescending=true&pageNumber=1&pageSize=12"
 								)
 							}}
 							className='text-blue-500 underline cursor-pointer'

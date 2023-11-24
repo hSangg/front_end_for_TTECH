@@ -22,6 +22,7 @@ const AuthContext = createContext()
 export const AuthContextProvider = ({ children }) => {
 	const [user, setUser] = useState({})
 	const [token, setToken] = useState()
+	const [triggerLogin, setTriggerLogin] = useState(false)
 
 	const router = useRouter()
 
@@ -34,21 +35,6 @@ export const AuthContextProvider = ({ children }) => {
 		const isExit = await handleUser.getUserById(
 			currentUser?.uid
 		)
-
-		console.log("isExit: ", isExit)
-
-		/*
-		expected response {
-				"user_id": "001",
-				"name": "adudarkqua223",
-				"email": "Sang@gmail.com",
-				"phone": "0944552050",
-				"password": "$2a$11$/VyLbThx9mdMq1AXmqhSpuDQcEQOn0Q3IcQH04mfksGgbBE4MgBsS",
-				"isAdmin": "1",
-				"create_at": "2023-11-04T05:35:56"
-		}
-
-		*/
 
 		if (isExit?.user_id) {
 			// if exit => login this user on database
@@ -122,17 +108,17 @@ export const AuthContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		try {
-			if (!user && localStorage.getItem("user")) {
-				const reloadUser = JSON.parse(
-					localStorage.getItem("user")
-				)
-				setUser(reloadUser)
+			const user = JSON.parse(localStorage.getItem("user"))
+			const token = JSON.parse(localStorage.getItem("token"))
+
+			console.log("user", user)
+
+			if (user) {
+				console.log("seted")
+				setUser(user)
 			}
-			if (!token && localStorage.getItem("token")) {
-				const reloadToken = JSON.parse(
-					localStorage.getItem("token")
-				)
-				setToken(reloadToken)
+			if (token) {
+				setToken(token)
 			}
 		} catch (error) {
 			console.log(error)
@@ -148,7 +134,7 @@ export const AuthContextProvider = ({ children }) => {
 		if (token) {
 			localStorage.setItem("token", JSON.stringify(token))
 		}
-	}, [user, token])
+	}, [user])
 
 	return (
 		<AuthContext.Provider
@@ -158,6 +144,7 @@ export const AuthContextProvider = ({ children }) => {
 				setUser,
 				googleSignIn,
 				logOutGoogle,
+
 				setToken,
 				token,
 			}}

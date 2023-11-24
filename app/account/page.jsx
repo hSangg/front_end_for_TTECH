@@ -36,15 +36,3 @@ const Page = () => {
 }
 
 export default Page
-
-const textAnimate = {
-	offscreen: { opacity: 0 },
-	onscreen: {
-		opacity: 1,
-		transition: {
-			type: "spring",
-			bounce: 0.4,
-			duration: 1,
-		},
-	},
-}

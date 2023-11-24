@@ -65,7 +65,7 @@ const SearchBar = () => {
 						}}
 						animate={{ y: 0, scaleY: 1, opacity: 1 }}
 						exit={{ y: "-100%", scaleY: 0, opacity: 0 }}
-						className=' absolute h-[100vh]  inset-0 backdrop-blur-2xl text-black origin-top'
+						className=' absolute h-[100vh] z-[40] inset-0 backdrop-blur-2xl text-black origin-top'
 						transition={{ type: "tween" }}
 					>
 						<div className='absolute z-40  inset-x-0 top-0 bottom-0 md:bottom-[90px] bg-[#efeff1]'>

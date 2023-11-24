@@ -28,7 +28,7 @@ export default function Page({ searchParams }) {
 
 	useEffect(() => {
 		const categoryId = searchParams.categoryId
-		const pageNumber = searchParams.pageNumber
+		const pageNumber = parseInt(searchParams.pageNumber)
 
 		if (categoryId && pageNumber) {
 			console.log("runingt set category")
@@ -70,7 +70,7 @@ export default function Page({ searchParams }) {
 
 	useEffect(() => {
 		getProduct()
-	}, [filter, searchParams])
+	}, [searchParams])
 
 	return (
 		<div className='mt-20' suppressHydrationWarning={true}>

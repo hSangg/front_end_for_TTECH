@@ -98,6 +98,9 @@ const OrderRenderList = ({
 											: x.orderInfor.state.toLocaleLowerCase() ===
 											  "completed"
 											? "#3b82f6"
+											: x.orderInfor.state.toLocaleLowerCase() ===
+											  "banked"
+											? "#06b6d4"
 											: "#ef4444",
 								}}
 								className='p-2 rounded-xl text-white'

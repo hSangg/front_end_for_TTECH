@@ -8,7 +8,7 @@ const Page = () => {
 	return (
 		<div className='w-full h-screen bg-black'>
 			<div className='fixed -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2'>
-				<h1 className='text-[7rem] mx-auto text-blue-200 capitalize w-full leading-[7rem] text-center font-[700]'>
+				<h1 className='text-[4rem] leading-[4rem] lg:text-[7rem] mx-auto text-blue-200 capitalize w-full lg:leading-[7rem] text-center font-[700]'>
 					Đơn hàng của bạn đã được đặt thành công.
 				</h1>
 				<div className='flex flex-col items-center gap-5'>

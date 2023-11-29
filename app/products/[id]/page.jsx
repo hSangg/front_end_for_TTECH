@@ -146,7 +146,7 @@ export default function Page({ params }) {
 						{convertToVND(result?.product?.price)}
 					</div>
 
-					<div className='mt-5 text-[2rem] flex items-start  divide-x divide-black/60'>
+					<div className='mt-5 text-[2rem] flex flex-col md:flex-row gap-4 md:gap-0 items-start  divide-x divide-black/60'>
 						<h1 className='flex-1 text-black/70'>
 							{result?.product?.detail}
 						</h1>

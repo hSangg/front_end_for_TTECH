@@ -89,7 +89,7 @@ const LoginForm = () => {
 	}
 
 	return (
-		<div className='p-[30px] w-[500px] mx-auto'>
+		<div className='p-[30px] md:w-[500px] mx-auto'>
 			<div className='flex gap-4 justify-center'>
 				<h1 className='text-[3rem] pt-[10px] font-[700] capitalize tracking-wide'>
 					Đăng nhập tài khoản{" "}

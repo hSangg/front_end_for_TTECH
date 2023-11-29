@@ -11,7 +11,7 @@ import {
 } from "@/utils/until"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import CircleLoader from "./CircleLoader"
 
 const OrderFormData = ({ cart, setCart, totalPrice }) => {
@@ -25,6 +25,9 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 	} = UserAuth()
 
 	const router = useRouter()
+	const [orderId, setOrderId] = useState(() => {
+		return uuidv4()
+	})
 
 	const [data, setData] = useState({
 		name: user?.name,
@@ -71,55 +74,28 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 			[id]: value,
 		}))
 	}
+	const [selectedPaymentType, setSelectedPaymentType] =
+		useState("")
+	const paymentTypeRef = useRef()
 
 	const [loading, setLoading] = useState(false)
 
 	const handleSubmit = async () => {
 		setLoading(true)
-		const orderId = uuidv4()
+		const state =
+			selectedPaymentType === "bank" ? "banked" : "pending"
 
 		const order = {
 			orderId,
 			userId: user.user_id,
 			// createOrderAt: new Date().getTime(),
 			...data,
-			state: "pending",
+			state,
 			note: data.Note || "",
 			total: totalPrice,
 			discount: "2",
 			deliveryFee: 0,
 		}
-
-		// const cart = [
-		// 	{
-		// 		product: {
-		// 			product_id: "ABC123",
-		// 			name_pr: "Samsung Galaxy S21",
-		// 			name_serial: "GA007",
-		// 			detail:
-		// 				"6.2-inch display, 12GB RAM, 256GB storage, 64MP camera",
-		// 			price: 12000000,
-		// 			quantity_pr: 50,
-		// 			guarantee_period: 12,
-		// 			supplier_id: "SUPLLIER001",
-		// 		},
-		// 		quantity: 1,
-		// 		category: {
-		// 			category_id: "0PbC1aL2mN3oPqRs",
-		// 			category_name: "Điện thoại di động",
-		// 		},
-		// 		supplier: {
-		// 			supplier_id: "SUPLLIER001",
-		// 			supplier_name: "Samsung",
-		// 		},
-		// 		image: {
-		// 			image_id: "ABC123001",
-		// 			product_id: "ABC123",
-		// 			image_href:
-		// 				"https://localhost:7067/Upload/product/ABC123/ABC123_1.jpg",
-		// 		},
-		// 	},
-		// ]
 
 		const detailOrder = [...cart].map((x) => ({
 			orderId,
@@ -136,7 +112,13 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 		await handleCart.EmptyCartUser(user.user_id, token)
 		setCart([])
 		setLoading(false)
-		router.push("/upcomming/success")
+
+		if (selectedPaymentType === "bank") {
+			router.push(
+				`/upcomming/payment?amount=${totalPrice}&id=${orderId}`
+			)
+			return
+		} else router.push("/upcomming/success")
 	}
 
 	return (
@@ -209,10 +191,40 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 					></motion.textarea>
 				</div>
 
-				<div className='mt-10 text-black'>
-					<div className='flex gap-2 items-center'>
-						<div className='w-5 h-5 bg-blue-500 rounded-2xl outline outline-1 outline-blue-500 outline-offset-2'></div>
-						<h1 className='text-2xl'>Thanh toán khi nhận hàng</h1>
+				<div className='mt-10 text-black w-full'>
+					<h1 className='text-xl'>Hình thức thanh toán</h1>
+					<div className='flex items-center gap-4'>
+						<input
+							type='radio'
+							name='payment-type'
+							value='cash'
+							id='cash'
+							checked={selectedPaymentType === "cash"}
+							onChange={() => {
+								setSelectedPaymentType("cash")
+								paymentTypeRef.current.focus()
+							}}
+						/>
+						<label htmlFor='cash' className='text-2xl'>
+							Thanh toán khi nhận hàng
+						</label>
+					</div>
+					<div className='flex items-center gap-4'>
+						<input
+							type='radio'
+							name='payment-type'
+							value='bank'
+							id='bank'
+							checked={selectedPaymentType === "bank"}
+							onChange={() => {
+								setSelectedPaymentType("bank")
+								paymentTypeRef.current.focus()
+							}}
+							ref={paymentTypeRef} // Set the ref here for the second radio input element. This will allow us to focus on it after selecting it.
+						/>
+						<label htmlFor='bank' className='text-2xl'>
+							Chuyển khoản ngân hàng
+						</label>
 					</div>
 				</div>
 

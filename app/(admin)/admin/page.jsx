@@ -11,6 +11,8 @@ import AdminCustomerManagement from "@/components/admin/AdminCustomerManagement"
 import { UserAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
 import AdminDiscountManagement from "@/components/admin/AdminDiscountManagement"
+import AdminSupplierManagement from "@/components/admin/AdminSupplierManagement"
+import AdminCategoryManagement from "@/components/admin/AdminCategoryManagement"
 
 const Page = () => {
 	const [route, setRoute] = useState("dashboard")
@@ -34,9 +36,9 @@ const Page = () => {
 				{route === "customer" && <AdminCustomerManagement />}
 				{route === "message" && <CustomerMessage />}
 				{route === "discount" && <AdminDiscountManagement />}
+				{route === "supplier" && <AdminSupplierManagement />}
+				{route === "category" && <AdminCategoryManagement />}
 			</AnimatePresence>
-			{/* routeNavigator[i] = ["dashboard", "product", "order"] */}
-			{/* <RealTimeMessageAdmin /> */}
 		</div>
 	)
 }

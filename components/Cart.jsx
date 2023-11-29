@@ -20,6 +20,7 @@ const Cart = () => {
 	return (
 		<motion.div
 			onClick={handleOnClick}
+			whileHover={{ scale: 1.1, color: "#dc2626" }}
 			className='relative cursor-pointer'
 		>
 			<CiShoppingCart size={25} />

@@ -122,3 +122,11 @@ html {
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
 }
+
+.display-1-line {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+}

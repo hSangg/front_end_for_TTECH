@@ -22,17 +22,21 @@ const Navigator = () => {
 	const router = useRouter()
 	const { user } = UserAuth()
 
-	useMotionValueEvent(
-		scrollY,
-		"change",
-		(lastest) => {
-			const previous = scrollY.getPrevious()
+	useMotionValueEvent(scrollY, "change", (lastest) => {
+		const previous = scrollY.getPrevious()
 
-			if (lastest > previous && lastest > 150)
-				setHidden(true)
-			else setHidden(false)
+		if (lastest > previous && lastest > 150) setHidden(true)
+		else setHidden(false)
+	})
+
+	const handleOnClick = () => {
+		if (user?.user_id) {
+			router.push("/account")
+			return
 		}
-	)
+
+		router.push("/login")
+	}
 
 	return (
 		<>
@@ -56,22 +60,20 @@ const Navigator = () => {
 					className='flex flex-col bg-transparent cursor-pointer gap-1 w-[200px] justify-center items-center'
 				>
 					<CiShop size={23} />
-					<div className='text-[1.1rem]'>
-						Trang chủ
-					</div>
+					<div className='text-[1.1rem]'>Trang chủ</div>
 				</motion.li>
 
 				<motion.li
 					whileHover={{ color: "red" }}
 					onClick={() => {
-						router.push("/products?promotion=true")
+						router.push(
+							"/products?IsDescending=false&pageNumber=1&pageSize=12"
+						)
 					}}
 					className='flex flex-col bg-transparent cursor-pointer gap-1 w-[200px] justify-center items-center'
 				>
 					<CiPercent size={23} />
-					<div className='text-[1.1rem]'>
-						Khuyến mãi
-					</div>
+					<div className='text-[1.1rem]'>Khuyến mãi</div>
 				</motion.li>
 
 				<motion.li
@@ -84,16 +86,13 @@ const Navigator = () => {
 
 				<motion.li
 					onClick={() => {
-						const route = user ? "account" : "login"
-						router.push(route)
+						handleOnClick()
 					}}
 					whileHover={{ color: "red" }}
 					className='flex flex-col bg-transparent cursor-pointer gap-1 w-[200px] justify-center items-center'
 				>
 					<CiUser size={23} />
-					<div className='text-[1.1rem]'>
-						Tài khoản
-					</div>
+					<div className='text-[1.1rem]'>Tài khoản</div>
 				</motion.li>
 			</motion.ul>
 		</>

@@ -176,7 +176,7 @@ const FilterProduct = ({ onFilterChange, filter }) => {
 												id={x.key}
 												placeholder={x.placeholder}
 											/>
-											<h1 className='text-black/40 font-[400] text-xl'>
+											<h1 className='text-black/40 font-[400] hidden md:block text-xl'>
 												{convertToVND(
 													Number.parseInt(priceRange[x.key]) || 0
 												)}

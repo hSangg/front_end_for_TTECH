@@ -12,7 +12,7 @@ const Page = () => {
 
 	return (
 		<div onClick={() => {}} className='container mx-auto'>
-			<div className='flex justify-between items-center'>
+			<div className='flex justify-between items-center mx-2'>
 				<motion.div className='text-[5rem] font-[300] uppercase h-[60px] leading-[60px]'>
 					<motion.div
 						initial='offscreen'

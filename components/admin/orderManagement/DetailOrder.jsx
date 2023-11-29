@@ -118,4 +118,9 @@ const DetailOrder = ({
 
 export default DetailOrder
 
-const state = ["Pending", "Completed", "Cancelled"]
+const state = [
+	"Pending",
+	"Completed",
+	"Cancelled",
+	"Banked",
+]

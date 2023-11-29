@@ -13,6 +13,7 @@ import SearchBar from "./SearchBar"
 const Header = () => {
 	const [category, setCategory] = useState([])
 	const { user, setUser } = UserAuth()
+	const router = useRouter()
 
 	const getAllCategory = async () => {
 		try {
@@ -35,7 +36,6 @@ const Header = () => {
 	useEffect(() => {
 		getAllCategory()
 	}, [])
-	const router = useRouter()
 
 	return (
 		<div className='fixed top-0 z-30 inset-x-0 px-10 h-[50px] bg-white/20 backdrop-blur-md'>

@@ -3,21 +3,18 @@ import { useEffect, useState } from "react"
 import SupplierRenderList from "./supplierManagement/SupplierRenderList"
 import { handleSupplier } from "@/app/api/handleSupplier"
 import SupplierForm from "./supplierManagement/SupplierForm"
-import { handleDiscount } from "@/app/api/handleDiscount."
-import DiscountRenderList from "./discountManagement/DiscountRenderList"
-import DiscountForm from "./discountManagement/DiscountForm"
 
 const AdminSupplierManagement = () => {
-	const [discountList, setDiscountList] = useState([])
+	const [supplierList, setSupplierList] = useState([])
 	const [mode, setMode] = useState("add")
 	const [triggerGetData, setTriggerGetData] = useState(false)
 
-	const [currentDiscountClicked, setCurrentDiscountClicked] =
+	const [currentSupplierClicked, setCurrentSupplierClicked] =
 		useState({})
 
 	const getData = async () => {
-		const response = await handleDiscount.getAllDiscount()
-		if (Array.isArray(response)) setDiscountList(response)
+		const response = await handleSupplier.getAllSupplier()
+		if (Array.isArray(response)) setSupplierList(response)
 	}
 
 	useEffect(() => {
@@ -27,18 +24,18 @@ const AdminSupplierManagement = () => {
 	return (
 		<div className='container mx-auto flex mt-10 gap-5'>
 			<div className='flex-1'>
-				<DiscountRenderList
-					discountList={discountList}
-					setDiscountList={setDiscountList}
-					currentDiscountClicked={currentDiscountClicked}
-					setCurrentDiscountClicked={setCurrentDiscountClicked}
+				<SupplierRenderList
+					supplierList={supplierList}
+					setSupplierList={setSupplierList}
+					currentSupplierClicked={currentSupplierClicked}
+					setCurrentSupplierClicked={setCurrentSupplierClicked}
 					setMode={setMode}
 				/>
 			</div>
 			<div className='flex-1 bg-white'>
-				<DiscountForm
-					currentDiscountClicked={currentDiscountClicked}
-					setCurrentDiscountClicked={setCurrentDiscountClicked}
+				<SupplierForm
+					currentSupplierClicked={currentSupplierClicked}
+					setCurrentSupplierClicked={setCurrentSupplierClicked}
 					mode={mode}
 					setMode={setMode}
 					triggerGetData={triggerGetData}

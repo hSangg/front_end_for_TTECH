@@ -48,13 +48,13 @@ const ForgetPassword = () => {
 						initial={{ opacity: 0 }}
 						exit={{ opacity: 0 }}
 						whileInView={{ opacity: 1 }}
-						className='fixed inset-0 text-5xl '
+						className='fixed inset-0 text-5xl'
 					>
 						<div
 							className='absolute inset-0 bg-black/20 z-[50]'
 							onClick={() => setShow(false)}
 						></div>
-						<div className='absolute top-0 left-0 right-0 bottom-20 bg-white z-[51] flex items-center justify-center '>
+						<div className='absolute top-0 left-0 p-10 right-0 bottom-20 bg-white z-[51] flex items-center justify-center '>
 							<div className='absolute top-10 right-10'>
 								<CiMinimize1
 									size={20}

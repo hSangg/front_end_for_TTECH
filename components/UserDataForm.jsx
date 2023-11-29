@@ -100,7 +100,7 @@ const UserDataForm = () => {
 			<div className=' text-white'>
 				<h1
 					onClick={showInforCustomer}
-					className='text-[1.7rem] text-left px-2 text-black font-[700] capitalize'
+					className='text-[1.7rem] text-left px-2 text-black/80 font-[500] capitalize'
 				>
 					Cập nhật thông tin
 				</h1>

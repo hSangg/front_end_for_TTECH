@@ -20,7 +20,7 @@ const ProductListCategoryOnPhone = ({
 	}, [])
 
 	return (
-		<div className='flex flex-col ml-3 gap-3 text-[1.8rem] w-full'>
+		<div className='flex flex-col ml-3 text-[1.8rem] leading-[3.7rem] w-full'>
 			<motion.div
 				initial={{ color: "black" }}
 				whileTap={{ color: "red" }}

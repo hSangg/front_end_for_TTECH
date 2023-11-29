@@ -8,6 +8,8 @@ export const adminRouteNavigator = [
 	"customer",
 	"message",
 	"discount",
+	"supplier",
+	"category",
 ]
 
 const AdminNavigator = ({ route, onRouteChange }) => {

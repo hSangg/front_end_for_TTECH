@@ -48,7 +48,7 @@ const BestSaleCategory = () => {
 					>
 						<h1
 							className='capitalize 
-            text-center text-[1.5rem] font-[300] leading-4 '
+            text-center text-[1.5rem] font-[300] leading-[1.5rem]'
 						>
 							{x.name}
 						</h1>

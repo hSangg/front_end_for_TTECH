@@ -1,7 +1,8 @@
 "use client"
-import { convertDate } from "@/components/UserOrder"
+import { convertDate, copy } from "@/components/UserOrder"
 import { convertToVND } from "@/utils/until"
 import { motion } from "framer-motion"
+import { IoCopyOutline } from "react-icons/io5"
 const OrderRenderList = ({
 	orderList,
 	setOrderList,
@@ -69,9 +70,15 @@ const OrderRenderList = ({
 					>
 						<motion.th
 							whileTap={{ color: "red" }}
-							className='px-4 py-2 flex-1 font-[400] shrink-0 flex items-center text-center'
+							className='px-4 py-2 flex-1 font-[400] shrink-0 flex items-center gap-2 text-center'
 						>
-							{x.orderInfor.orderId.slice(0, 10)}...{" "}
+							{x.orderInfor.orderId.slice(0, 5)}...{" "}
+							<IoCopyOutline
+								size={15}
+								onClick={() => {
+									copy(x.orderInfor.orderId)
+								}}
+							/>
 						</motion.th>
 						<th className='px-4 py-2 flex-1 font-[400] shrink-0 text-center'>
 							{x.orderInfor.name}

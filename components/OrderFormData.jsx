@@ -13,8 +13,14 @@ import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useRef, useState } from "react"
 import CircleLoader from "./CircleLoader"
+import { handleTransaction } from "@/app/api/handleTransaction"
 
-const OrderFormData = ({ cart, setCart, totalPrice }) => {
+const OrderFormData = ({
+	cart,
+	setCart,
+	totalPrice,
+	discount,
+}) => {
 	const {
 		user,
 		setUser,
@@ -25,9 +31,6 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 	} = UserAuth()
 
 	const router = useRouter()
-	const [orderId, setOrderId] = useState(() => {
-		return uuidv4()
-	})
 
 	const [data, setData] = useState({
 		name: user?.name,
@@ -81,6 +84,7 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 	const [loading, setLoading] = useState(false)
 
 	const handleSubmit = async () => {
+		const orderId = uuidv4()
 		setLoading(true)
 		const state =
 			selectedPaymentType === "bank" ? "banked" : "pending"
@@ -92,8 +96,8 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 			...data,
 			state,
 			note: data.Note || "",
-			total: totalPrice,
-			discount: "2",
+			total: Math.ceil(totalPrice),
+			discount: discount.discountId,
 			deliveryFee: 0,
 		}
 
@@ -114,9 +118,8 @@ const OrderFormData = ({ cart, setCart, totalPrice }) => {
 		setLoading(false)
 
 		if (selectedPaymentType === "bank") {
-			router.push(
-				`/upcomming/payment?amount=${totalPrice}&id=${orderId}`
-			)
+			const result = await handleTransaction.bank(totalPrice)
+			router.push(result)
 			return
 		} else router.push("/upcomming/success")
 	}

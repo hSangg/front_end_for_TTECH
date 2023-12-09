@@ -6,8 +6,11 @@ import OrderRenderList from "./orderManagement/OrderRenderList"
 import { AnimatePresence, motion } from "framer-motion"
 import DetailOrder from "./orderManagement/DetailOrder"
 import OrderFeatures from "./orderManagement/OrderFeatures"
+import useDebounce from "@/customHook/useDeboune"
 
 const AdminOrderManagement = () => {
+	const [searchOrder, setSearchOrder] = useState("")
+
 	const [orderList, setOrderList] = useState([
 		{
 			customerInfor: {
@@ -44,11 +47,33 @@ const AdminOrderManagement = () => {
 		},
 	])
 
+	const orderSearchId = useDebounce(searchOrder, 500)
+
+	useEffect(() => {
+		handleSearch()
+	}, [orderSearchId])
+
 	const [trigger, setTrigger] = useState(false)
 
 	const getAllOrder = async () => {
 		const result = await handleOrder.getAllOrder()
-		setOrderList(result)
+		if (Array.isArray(result)) setOrderList(result)
+	}
+
+	const handleSearch = async () => {
+		if (
+			orderSearchId == "" ||
+			orderSearchId == null ||
+			orderSearchId == undefined
+		) {
+			getAllOrder()
+			return
+		}
+		const response = await handleOrder.getOrderById(
+			orderSearchId
+		)
+		if (Array.isArray(response)) setOrderList(response)
+		else alert("order không tồn tại")
 	}
 
 	useEffect(() => {
@@ -66,7 +91,11 @@ const AdminOrderManagement = () => {
 
 	return (
 		<div className='mx-auto mt-10 container'>
-			<OrderFeatures/>
+			<OrderFeatures
+				searchOrder={searchOrder}
+				setSearchOrder={setSearchOrder}
+				handleSearch={handleSearch}
+			/>
 
 			<div>
 				<OrderRenderList

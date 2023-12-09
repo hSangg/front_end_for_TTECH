@@ -2,6 +2,10 @@ import { data } from "autoprefixer"
 import { axiosClient } from "./axiosClient"
 
 export const handleDiscount = {
+	getCurrentDiscount: async (currentDate) =>
+		await axiosClient.get(
+			"/Discount/GetCurrentDiscount?currentDate=" + currentDate
+		),
 	getAllDiscount: async () =>
 		await axiosClient.get("/Discount"),
 	addDiscount: async (discount) =>

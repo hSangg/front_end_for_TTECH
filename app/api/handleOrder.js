@@ -31,4 +31,8 @@ export const handleOrder = {
 		),
 	getExcelFile: async () =>
 		await axiosClient.get("/Order/GetExcelFileData"),
+	getOrderById: async (id) =>
+		await axiosClient.get(
+			"/Order/GetOrderById?order_id=" + id
+		),
 }

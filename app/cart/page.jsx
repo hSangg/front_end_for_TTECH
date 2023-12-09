@@ -4,6 +4,7 @@ import CartDetail from "@/components/CartDetail"
 import OrderBill from "@/components/OrderBill"
 import { useEffect, useState } from "react"
 import { handleCart } from "../api/handleCart"
+import { handleDiscount } from "../api/handleDiscount."
 
 const Page = () => {
 	const [cart, setCart] = useState([1, 1, 1, 1, 1])

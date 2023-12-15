@@ -9,6 +9,7 @@ import { IoCopyOutline } from "react-icons/io5"
 
 const ProductManagementForm = ({
 	currentProductChoose,
+	setTrigger,
 	setCurrentProductChoose,
 	category,
 	setCategory,
@@ -112,6 +113,10 @@ const ProductManagementForm = ({
 
 	const handleSubmit = async () => {
 		const product_id = currentProductChoose.product.product_id
+		console.log(
+			"currentProductChoose: ",
+			currentProductChoose
+		)
 
 		// handle add new image
 
@@ -156,6 +161,7 @@ const ProductManagementForm = ({
 		await handleProduct.updateProduct(updatedProduct)
 
 		setNotifications(true)
+		setTrigger((pre) => !pre)
 	}
 
 	return (

@@ -40,9 +40,10 @@ axiosClient.interceptors.response.use(
 )
 
 export const handleTransaction = {
-	bank: async (amount) => {
+	bank: async (amount, orderId) => {
 		return axiosClient.post("/create_payment_url", {
 			amount: amount,
+			orderId: orderId,
 			bankCode: "VNBANK",
 			language: "vn",
 		})

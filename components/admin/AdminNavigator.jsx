@@ -1,5 +1,7 @@
+"use client"
 import Image from "next/image"
 import AdminInformation from "./AdminInformation"
+import { useRouter } from "next/navigation"
 
 export const adminRouteNavigator = [
 	"dashboard",
@@ -13,10 +15,14 @@ export const adminRouteNavigator = [
 ]
 
 const AdminNavigator = ({ route, onRouteChange }) => {
+	const router = useRouter()
 	return (
 		<div className='mx-4 mt-4'>
 			<div className='flex justify-between items-center'>
-				<div className='flex items-center gap-2'>
+				<div
+					// onClick={router.push("/")}
+					className='flex items-center gap-2'
+				>
 					<Image
 						src={"/images/0.5x/Asset_9@0.5x.png"}
 						width={30}

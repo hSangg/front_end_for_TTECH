@@ -15,8 +15,7 @@ import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { CiChat2 } from "react-icons/ci"
 
-const ADMIN_ID =
-	"day_la_admin_934857lkghjo834kjasg34958hrg"
+const ADMIN_ID = "day_la_admin_934857lkghjo834kjasg34958hrg"
 
 const CustomerMessage = () => {
 	const [room, setRoom] = useState([])
@@ -38,9 +37,7 @@ const CustomerMessage = () => {
 		setRoom([...new Set(rooms)])
 	}
 
-	const [messageList, setMessageList] = useState(
-		[]
-	)
+	const [messageList, setMessageList] = useState([])
 
 	useEffect(() => {
 		const queryMessages = query(
@@ -97,9 +94,7 @@ const CustomerMessage = () => {
 								variants={variants}
 								initial='initial'
 								animate={
-									x === currentRoomClick
-										? "animate"
-										: "initial"
+									x === currentRoomClick ? "animate" : "initial"
 								}
 								className='font-semibold text-2xl block cursor-pointer w-full p-2'
 								onClick={() => setCurrentRoomClick(x)}
@@ -115,8 +110,7 @@ const CustomerMessage = () => {
 							<h1
 								key={i}
 								style={{
-									textAlign:
-										x.userId == ADMIN_ID ? "end" : "start",
+									textAlign: x.userId == ADMIN_ID ? "end" : "start",
 								}}
 							>
 								{x.text}
@@ -140,7 +134,10 @@ const CustomerMessage = () => {
 							value={newMessage}
 						/>
 
-						<button onClick={handleSubmit}>
+						<button
+							className='text-2xl bg-pink-500 ml-2 rounded-lg text-white px-2'
+							onClick={handleSubmit}
+						>
 							submit
 						</button>
 					</form>

@@ -102,6 +102,7 @@ const AdminProductManagement = () => {
 					/>
 					<div className=''>
 						<ProductManagementForm
+							setTrigger={setTrigger}
 							setCurrentProductChoose={setCurrentProductChoose}
 							currentProductChoose={currentProductChoose}
 							category={category}

@@ -6,19 +6,16 @@ const Page = () => {
 	const router = useRouter()
 	return (
 		<div className='w-full h-screen bg-black text-white flex flex-col justify-center items-center'>
-			<h1 className=' w-2/3 leading-[100px] text-center font-[700] text-[100px]'>
+			<h1 className=' w-2/3 leading-[50px] md:leading-[100px] text-center font-[700] md:text-[100px] text-[50px]'>
 				<span className='bg-gradient-to-r from-slate-500 to-slate-800 p-2'>
 					Tính năng
 				</span>{" "}
 				này sẽ có trong tương lai
 			</h1>
 			<div className='text-4xl mt-16 leading-[26px] font-[500] text-white/70 text-center'>
-				Chúng tôi rất mong sự giúp đỡ đến từ các bạn.{" "}
-				<br></br>
+				Chúng tôi rất mong sự giúp đỡ đến từ các bạn. <br></br>
 				Ủng hộ nhà phát triển tại{" "}
-				<strong className='text-white'>
-					@Momo 0944552050
-				</strong>
+				<strong className='text-white'>@Momo 0944552050</strong>
 			</div>
 
 			<div

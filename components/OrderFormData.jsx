@@ -86,15 +86,13 @@ const OrderFormData = ({
 	const handleSubmit = async () => {
 		const orderId = uuidv4()
 		setLoading(true)
-		const state =
-			selectedPaymentType === "bank" ? "banked" : "pending"
 
 		const order = {
 			orderId,
 			userId: user.user_id,
 			// createOrderAt: new Date().getTime(),
 			...data,
-			state,
+			state: "pending",
 			note: data.Note || "",
 			total: Math.ceil(totalPrice),
 			discount: discount.discountId,
@@ -118,7 +116,10 @@ const OrderFormData = ({
 		setLoading(false)
 
 		if (selectedPaymentType === "bank") {
-			const result = await handleTransaction.bank(totalPrice)
+			const result = await handleTransaction.bank(
+				totalPrice,
+				orderId
+			)
 			router.push(result)
 			return
 		} else router.push("/upcomming/success")

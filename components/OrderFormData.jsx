@@ -93,7 +93,7 @@ const OrderFormData = ({
 			// createOrderAt: new Date().getTime(),
 			...data,
 			state: "pending",
-			note: data.Note || "",
+			note: data.note || "",
 			total: Math.ceil(totalPrice),
 			discount: discount.discountId,
 			deliveryFee: 0,

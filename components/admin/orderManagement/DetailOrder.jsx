@@ -59,8 +59,11 @@ const DetailOrder = ({
 					Chi tiết hóa đơn
 				</h1>
 
-				<div onClick={() => setCurrentOrderClick({})}>
-					<CiMinimize1 size={20} />
+				<div
+					className='mt-10 mr-10 p-2 bg-gradient-to-bl from-blue-400 rounded-xl to-blue-700'
+					onClick={() => setCurrentOrderClick({})}
+				>
+					<CiMinimize1 size={18} className='text-white' />
 				</div>
 			</div>
 			<div className='flex mt-5 h-[500px]'>
@@ -77,7 +80,10 @@ const DetailOrder = ({
 							<option
 								value={x}
 								key={i}
-								selected={x === currentOrderClick.orderInfor.state}
+								selected={
+									x.toLowerCase() ===
+									currentOrderClick.orderInfor.state.toLowerCase()
+								}
 							>
 								{x}
 							</option>
@@ -119,8 +125,8 @@ const DetailOrder = ({
 export default DetailOrder
 
 const state = [
-	"Pending",
-	"Completed",
-	"Cancelled",
-	"Banked",
+	"pending",
+	"completed",
+	"cancelled",
+	"banked",
 ]

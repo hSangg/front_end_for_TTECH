@@ -99,7 +99,7 @@ const CustomerMessage = () => {
 								className='font-semibold text-2xl block cursor-pointer w-full p-2'
 								onClick={() => setCurrentRoomClick(x)}
 							>
-								{x.slice(0, 20)}...
+								{x.slice(0, 10)}...
 							</motion.div>
 						)
 					})}

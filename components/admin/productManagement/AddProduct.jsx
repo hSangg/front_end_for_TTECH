@@ -33,13 +33,17 @@ const AddProduct = ({
 	})
 
 	const [loading, setLoading] = useState(false)
-
+	const [error, setError] = useState({})
 	const [fileImage, setFileImage] = useState([])
 	const [imageListDisplay, setImageListDisplay] = useState(
 		[]
 	)
 
 	const addNewProduct = async (e) => {
+		if (isErrorForm(error)) {
+			alert("Error")
+			return
+		}
 		try {
 			const product_id = uuidv4()
 			const imageList = [...fileImage]
@@ -112,12 +116,31 @@ const AddProduct = ({
 			id === "supplier_id" ||
 			id === "category_id"
 		) {
+			if (
+				id === "price" ||
+				id === "guarantee_period" ||
+				id === "quantity_pr"
+			) {
+				console.log("run")
+				if (isNaN(value)) {
+					setError((pre) => ({
+						...pre,
+						[id]: "Vui lòng nhập một số",
+					}))
+				} else {
+					setError((pre) => ({ ...pre, [id]: "" }))
+				}
+			}
 			setData((pre) => {
 				const preData = { ...pre }
 				preData[id] = value
 				return preData
 			})
 		}
+	}
+
+	const isErrorForm = (error = { price: "" }) => {
+		return Object.values(error).some((x) => x != "")
 	}
 
 	useEffect(() => {
@@ -250,19 +273,24 @@ const AddProduct = ({
 										name: "Seri",
 									},
 								].map((x, i) => (
-									<motion.div key={i} className='flex gap-2 w-full'>
-										<label className='min-w-[170px] text-black/50'>
-											{x.name}
-										</label>
-										<motion.input
-											placeholder={x.name}
-											required
-											id={x.key}
-											value={data[x.key]}
-											onChange={handleProductValueChange}
-											className='outline-none border-b font-semibold border-black/20 w-full'
-										/>
-									</motion.div>
+									<div key={i}>
+										<motion.div className='flex gap-2 w-full'>
+											<label className='min-w-[170px] text-black/50'>
+												{x.name}
+											</label>
+											<motion.input
+												placeholder={x.name}
+												required
+												id={x.key}
+												value={data[x.key]}
+												onChange={handleProductValueChange}
+												className='outline-none border-b font-semibold border-black/20 w-full'
+											/>
+										</motion.div>
+										<h2 className='text-red-500 text-2xl'>
+											{error[x.key]}
+										</h2>
+									</div>
 								))}
 								<motion.div className='flex gap-2 w-full'>
 									<label className='min-w-[170px] text-black/50'>
@@ -286,19 +314,24 @@ const AddProduct = ({
 										name: "Còn lại (sản phẩm)",
 									},
 								].map((x, i) => (
-									<motion.div key={i} className='flex gap-2 w-full'>
-										<label className='min-w-[170px] text-black/50'>
-											{x.name}
-										</label>
-										<motion.input
-											placeholder={x.name}
-											required
-											id={x.key}
-											value={data[x.key]}
-											onChange={handleProductValueChange}
-											className='outline-none border-b border-black/20 font-semibold w-full'
-										/>
-									</motion.div>
+									<div key={i}>
+										<motion.div className='flex gap-2 w-full'>
+											<label className='min-w-[170px] text-black/50'>
+												{x.name}
+											</label>
+											<motion.input
+												placeholder={x.name}
+												required
+												id={x.key}
+												value={data[x.key]}
+												onChange={handleProductValueChange}
+												className='outline-none border-b border-black/20 font-semibold w-full'
+											/>
+										</motion.div>
+										<h2 className='text-red-500 text-2xl'>
+											{error[x.key]}
+										</h2>
+									</div>
 								))}
 
 								<motion.div className='flex gap-2 w-full'>

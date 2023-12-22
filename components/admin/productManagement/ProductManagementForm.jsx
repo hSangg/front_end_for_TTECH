@@ -21,6 +21,7 @@ const ProductManagementForm = ({
 	setTriggerImage,
 }) => {
 	const [imageFile, setImageFile] = useState([])
+	const [error, setError] = useState({})
 	const [imageListDisplay, setImageListDisplay] = useState(
 		[]
 	)
@@ -53,13 +54,29 @@ const ProductManagementForm = ({
 			id === "quantity_pr" ||
 			id === "category_id"
 		) {
-			console.log("set")
+			if (
+				id === "price" ||
+				id === "guarantee_period" ||
+				id === "quantity_pr"
+			) {
+				console.log("run")
+				if (isNaN(value)) {
+					setError((pre) => ({
+						...pre,
+						[id]: "Vui lòng nhập một số",
+					}))
+				} else {
+					setError((pre) => ({ ...pre, [id]: "" }))
+				}
+			}
 			setData((pre) => ({ ...pre, [id]: value }))
+			console.log("error: ", error)
 		}
 	}
 
 	useEffect(() => {
 		console.log("data in use effect run:", data)
+		setError({})
 		setData({
 			product_id: currentProductChoose?.product?.product_id,
 			name_pr: currentProductChoose?.product?.name_pr,
@@ -139,29 +156,45 @@ const ProductManagementForm = ({
 			setTriggerImage((pre) => !pre)
 		}
 
+		const price = Number.parseInt(data.price)
+		const quantity_pr = Number.parseInt(data.quantity_pr)
+		const guarantee_period = Number.parseInt(
+			data.guarantee_period
+		)
+
 		const updatedProduct = {
 			product_id: product_id,
 			name_pr: data.name_pr,
 			name_serial: data.name_serial,
 			detail: data.detail,
-			price: Number.parseInt(data.price),
-			quantity_pr: Number.parseInt(data.quantity_pr),
-			guarantee_period: Number.parseInt(data.guarantee_period),
+			price,
+			quantity_pr,
+			guarantee_period,
 			supplier_id: data.supplier_id,
 		}
 
-		await handleProductCategory.updateProductCategory(
-			{
-				productId: product_id,
-				categoryId:
-					currentProductChoose?.category?.[0]?.category_id,
-			},
-			data.category_id
+		const running = Object.values(error).every(
+			(x) => x === ""
 		)
-		await handleProduct.updateProduct(updatedProduct)
 
-		setNotifications(true)
-		setTrigger((pre) => !pre)
+		console.log("running: ", running)
+
+		if (running) {
+			const resultUpdateCategory =
+				await handleProductCategory.updateProductCategory(
+					{
+						productId: product_id,
+						categoryId:
+							currentProductChoose?.category?.[0]?.category_id,
+					},
+					data.category_id
+				)
+			const resultUpdateProduct =
+				await handleProduct.updateProduct(updatedProduct)
+
+			setNotifications(true)
+			setTrigger((pre) => !pre)
+		} else alert("Lỗi cập nhật sản phẩm")
 	}
 
 	return (
@@ -287,31 +320,36 @@ const ProductManagementForm = ({
 						name: "Seri",
 					},
 				].map((x, i) => (
-					<motion.div key={i} className='flex gap-2 w-full'>
-						<motion.label
-							whileTap={{ color: "red" }}
-							className='min-w-[170px] flex items-center gap-2 text-black/50'
-						>
-							{x.name}
-							{x.key === "product_id" && (
-								<IoCopyOutline
-									size={20}
-									onClick={() => {
-										navigator.clipboard.writeText(
-											currentProductChoose?.product?.product_id
-										)
-									}}
-								/>
-							)}
-						</motion.label>
-						<motion.input
-							disabled={x.key === "product_id"}
-							id={x.key}
-							value={data[x.key]}
-							onChange={handleProductValueChange}
-							className='outline-none border-b font-semibold border-black/20 w-full'
-						/>
-					</motion.div>
+					<div key={i}>
+						<motion.div className='flex gap-2 w-full'>
+							<motion.label
+								whileTap={{ color: "red" }}
+								className='min-w-[170px] flex items-center gap-2 text-black/50'
+							>
+								{x.name}
+								{x.key === "product_id" && (
+									<IoCopyOutline
+										size={20}
+										onClick={() => {
+											navigator.clipboard.writeText(
+												currentProductChoose?.product?.product_id
+											)
+										}}
+									/>
+								)}
+							</motion.label>
+							<motion.input
+								disabled={x.key === "product_id"}
+								id={x.key}
+								value={data[x.key]}
+								onChange={handleProductValueChange}
+								className='outline-none border-b font-semibold border-black/20 w-full'
+							/>
+						</motion.div>
+						<h2 className='text-red-500 text-2xl'>
+							{error[x.key]}
+						</h2>
+					</div>
 				))}
 				<motion.div className='flex gap-2 w-full'>
 					<label className='min-w-[170px] text-black/50'>
@@ -335,17 +373,22 @@ const ProductManagementForm = ({
 						name: "Còn lại (sản phẩm)",
 					},
 				].map((x, i) => (
-					<motion.div key={i} className='flex gap-2 w-full'>
-						<label className='min-w-[170px] text-black/50'>
-							{x.name}
-						</label>
-						<motion.input
-							id={x.key}
-							value={data[x.key]}
-							onChange={handleProductValueChange}
-							className='outline-none border-b border-black/20 font-semibold w-full'
-						/>
-					</motion.div>
+					<div key={i}>
+						<motion.div className='flex gap-2 w-full'>
+							<label className='min-w-[170px] text-black/50'>
+								{x.name}
+							</label>
+							<motion.input
+								id={x.key}
+								value={data[x.key]}
+								onChange={handleProductValueChange}
+								className='outline-none border-b border-black/20 font-semibold w-full'
+							/>
+						</motion.div>
+						<h2 className='text-red-500 text-2xl'>
+							{error[x.key]}
+						</h2>
+					</div>
 				))}
 
 				<motion.div className='flex gap-2 w-full'>

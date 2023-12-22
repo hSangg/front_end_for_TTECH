@@ -5,8 +5,7 @@
   <body class="c10 doc-content">
     <p class="c7">
       <span class="c6"
-        >SOURCE X&Acirc;Y D&#431;&#803;NG HTTT TR&Ecirc;N CA&#769;C
-        FRAMEWORK</span
+        >SOURCE TTECH</span
       >
     </p>
     <hr />

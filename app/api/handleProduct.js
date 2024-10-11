@@ -2,11 +2,10 @@ import { axiosClient } from "./axiosClient"
 
 export const handleProduct = {
 	addNewProduct: async (data) =>
-		await axiosClient.post("/Product/AddProduct", data),
+		await axiosClient.post("/Product", data),
 	addImage: async (data, product_id) =>
 		await axiosClient.post(
-			"/Product/AddMoreImageForProduct?product_id=" +
-				product_id,
+			`/Product/${product_id}/images`,
 			data,
 			{
 				headers: {
@@ -17,7 +16,7 @@ export const handleProduct = {
 			}
 		),
 	getProduct: async (filter) =>
-		await axiosClient.post("/Product/GetProduct", filter),
+		await axiosClient.post("/Product/filter", filter),
 	getProductBySearchParam: async (searchParam) =>
 		await axiosClient.post(
 			"/Product/GetProductBySearchQuery",
@@ -29,27 +28,24 @@ export const handleProduct = {
 			}
 		),
 	getProductById: async (id) =>
-		await axiosClient.get("/Product/getProductById?id=" + id),
+		await axiosClient.get("/Product/" + id),
 
 	getAllImageOfProduct: async (id) =>
 		await axiosClient.get(
-			"/Product/GetAllImageOfProduct?product_id=" + id
+			`/Product/${id}/images`
 		),
 	updateProduct: async (data) =>
-		await axiosClient.put("/Product/UpdateProduct", data, {
+		await axiosClient.put("/Product", data, {
 			headers: {
 				"Content-Type": "application/json",
 			},
 		}),
 	deleteProduct: async (product_id) =>
 		await axiosClient.delete(
-			"/Product?product_id=" + product_id
+			"/Product/" + product_id
 		),
 	deleteImageOfProduct: async (product_id, file_name) =>
 		await axiosClient.delete(
-			"/Product/DeleteImageOfProduct?product_id=" +
-				product_id +
-				"&file_name=" +
-				file_name
+			`/Product/${product_id}/images`
 		),
 }

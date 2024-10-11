@@ -37,9 +37,8 @@ const LoginForm = () => {
 	const verify = (id, value) => {
 		let errorMessage = ""
 		if (!value.trim()) {
-			errorMessage = `Vui lòng nhập ${
-				id == "phone" ? "số điện thoại" : "mật khẩu"
-			}`
+			errorMessage = `Vui lòng nhập ${id == "phone" ? "số điện thoại" : "mật khẩu"
+				}`
 		} else if (id === "phone" && !isValidPhoneNumber(value))
 			errorMessage = "Sai định dạng số điện thoại"
 
@@ -69,9 +68,11 @@ const LoginForm = () => {
 
 			setLoading(true)
 			const res = await handleAuth.login(data)
+			console.log(res)
 
 			if (res?.token) {
-				const { user, token } = res
+				const { token } = res
+				const user = res?.loginedUser
 				setUser(user)
 				setToken(token)
 				router.push("/")

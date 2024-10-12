@@ -13,7 +13,7 @@ const AdminCustomerManagement = () => {
 			phone: "0856661768",
 			password:
 				"$2a$11$61fk6yiLy104ppt4JjCcf.PdvBGRXpeIJFzyqyTIXeB1k5l.NrH6W",
-			isAdmin: "0",
+			role: "USER",
 			create_at: "0001-01-01T00:00:00",
 		},
 	])

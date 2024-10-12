@@ -26,7 +26,7 @@ const Header = () => {
 	}
 
 	const handleOnClick = () => {
-		if (user?.user_id) {
+		if (user?.userId) {
 			router.push("/account")
 			return
 		}

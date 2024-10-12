@@ -53,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
 		} else {
 			// if not exit => register user (add to USER table on database)
 			const user_format = {
-				user_id: currentUser.uid,
+				userId: currentUser.uid,
 				name: currentUser.displayName,
 				email: currentUser.email,
 				phone: (Math.random() * 10)
@@ -63,7 +63,7 @@ export const AuthContextProvider = ({ children }) => {
 					.slice(0, 10)
 					.join(""),
 				password: currentUser.email,
-				isAdmin: "0",
+				role: "USER",
 			}
 
 			const res_register = await handleAuth.register(

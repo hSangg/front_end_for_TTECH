@@ -63,7 +63,7 @@ const UserDataForm = () => {
 	const handleSubmit = async () => {
 		setLoading(true)
 		const updatedUser = {
-			user_id: user?.user_id,
+			userId: user?.user_id,
 			phone: formData?.phone,
 			email: formData?.email,
 			name: formData?.name,

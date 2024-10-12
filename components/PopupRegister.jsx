@@ -48,12 +48,12 @@ const PopupRegister = () => {
 		e.preventDefault()
 		setLoading(true)
 		const formData = {
-			user_id: uuidv4(),
+			userId: uuidv4(),
 			name: data.username,
 			phone: data.phone,
 			email: data.email,
 			password: data.password,
-			isAdmin: "0",
+			role: "USER",
 		}
 
 		try {

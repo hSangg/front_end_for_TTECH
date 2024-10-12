@@ -20,7 +20,7 @@ const AdminOrderManagement = () => {
 				phone: "0944552050",
 				password:
 					"$2a$11$/VyLbThx9mdMq1AXmqhSpuDQcEQOn0Q3IcQH04mfksGgbBE4MgBsS",
-				isAdmin: "1",
+				role: "1",
 				create_at: "2023-11-04T05:35:56",
 			},
 			orderInfor: {

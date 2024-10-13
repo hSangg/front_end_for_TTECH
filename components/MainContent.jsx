@@ -80,26 +80,6 @@ const MainContent = () => {
 									Chiến game với setup mượt mà. Sẵn ngay.
 								</h1>
 							</div>
-							{user.isAdmin === "1" && (
-								<div
-									onClick={() => {
-										router.push("/admin")
-									}}
-									className='bg-gray-500/10 cursor-pointer mt-10 rounded-3xl p-6'
-								>
-									<Image
-										src={"/images/product_images/boy-iso-premium.png"}
-										width={0}
-										alt=''
-										height={0}
-										sizes='100vw'
-										className='w-[80%] mx-auto h-auto'
-									/>
-									<h1 className='text-3xl text-center font-[600] p-4 leading-[18px]'>
-										Vào trang admin
-									</h1>
-								</div>
-							)}
 						</div>
 					</div>
 				</div>

@@ -43,7 +43,7 @@ const ProductListCategoryOnPhone = ({
 						router.push(
 							"/products?" +
 								"categoryId=" +
-								x.category_id +
+								x.categoryId +
 								"&IsDescending=true&pageNumber=1&pageSize=12"
 						)
 						setShowCategory(false)
@@ -51,7 +51,7 @@ const ProductListCategoryOnPhone = ({
 					key={i}
 					className='text-[2.5rem] font-[600] tracking-[0.007em] capitalize cursor-pointer'
 				>
-					{x.category_name}
+					{x.categoryName}
 				</motion.div>
 			))}
 		</div>

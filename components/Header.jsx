@@ -74,17 +74,16 @@ const Header = () => {
 								whileHover={{ color: "red" }}
 								key={index}
 								onClick={() => {
-									console.log("cate header: ", category?.category_id)
 									router.push(
 										"/products?" +
 											"categoryId=" +
-											category?.category_id +
+											category?.categoryId +
 											"&IsDescending=true&pageNumber=1&pageSize=12"
 									)
 								}}
 								className='text-[1.3rem] font-[300] capitalize mx-2 text-black/80 cursor-pointer whitespace-nowrap	'
 							>
-								{category.category_name}
+								{category.categoryName}
 							</motion.li>
 						))}
 					</ul>

@@ -58,7 +58,7 @@ const PopupRegister = () => {
 
 		try {
 			const result = await handleAuth.register(formData)
-			const { user, token } = result
+			const { user, token } = result.data
 			setUser(user)
 			setToken(token)
 			router.push("/")
@@ -84,15 +84,14 @@ const PopupRegister = () => {
 
 		let errorMessage = ""
 		if (!value.trim()) {
-			errorMessage = `Vui lòng nhập ${
-				id == "username"
-					? "tên"
-					: id == "email"
+			errorMessage = `Vui lòng nhập ${id == "username"
+				? "tên"
+				: id == "email"
 					? "email"
 					: id == "password"
-					? "mật khẩu"
-					: "mật khẩu xác thực"
-			}`
+						? "mật khẩu"
+						: "mật khẩu xác thực"
+				}`
 		} else if (
 			id === "confirm password" &&
 			data.password.trim() !== value.trim()
@@ -143,7 +142,7 @@ const PopupRegister = () => {
 						>
 							<div className='p-10'>
 								<div
-									onClick={() => {}}
+									onClick={() => { }}
 									className='text-[3rem] mb-6 font-[600]'
 								>
 									Tạo tài khoản mới

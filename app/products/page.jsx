@@ -43,6 +43,8 @@ export default function Page({ searchParams }) {
 			...searchParams,
 			IsDescending:
 				searchParams.IsDescending === "true" ? true : false,
+			pageNumber: 0,
+			pageSize: 0
 		}
 		const result = await handleProduct.getProduct(newFilter)
 		const products = result?.products

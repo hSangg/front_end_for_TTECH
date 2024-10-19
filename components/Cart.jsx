@@ -9,7 +9,7 @@ const Cart = () => {
 	const { user } = UserAuth()
 
 	const handleOnClick = () => {
-		if (user?.user_id) {
+		if (user?.userId) {
 			router.push("/cart")
 			return
 		}

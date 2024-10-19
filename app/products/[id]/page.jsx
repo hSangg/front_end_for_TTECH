@@ -61,14 +61,14 @@ export default function Page({ params }) {
 
 	const handleOnClick = async () => {
 		const data = {
-			user_id: user?.user_id,
+			user_id: user?.userId,
 			product_id: product_id,
 			quantity: 1,
 		}
 
 		console.log("runing.")
 
-		if (!token || !user?.user_id) router.push("/login")
+		if (!token || !user?.userId) router.push("/login")
 
 		const result = await handleCart.AddToCart(data, token)
 		console.log("result order by product id ", result)
@@ -88,7 +88,7 @@ export default function Page({ params }) {
 			setImageList(images)
 
 			setResult(result)
-			setLoading(false)
+			setLoading(false)		
 		} catch (error) {
 			console.log(error)
 		}
@@ -114,7 +114,7 @@ export default function Page({ params }) {
 			</AnimatePresence>
 			<div className='mx-auto w-4/5'>
 				<div className='text-[1.9rem] capitalize font-[600] cursor-pointer'>
-					{result?.supplier?.supplier_name}
+					{result?.supplierName || ""}
 				</div>
 				<hr className='bg-black/10 h-[2px]'></hr>
 
@@ -130,7 +130,7 @@ export default function Page({ params }) {
 								className='w-[200px] h-[200px] flex items-center justify-center mt-12 mb-5'
 							>
 								<img
-									src={x.image_href}
+									src={x?.imageHref || ""}
 									className='object-cover rounded-[30px] p-4 block'
 								/>
 							</div>
@@ -140,21 +140,21 @@ export default function Page({ params }) {
 
 				<div>
 					<div className='title mt-2'>
-						{result?.product?.name_pr}
+						{result?.namePr || ""}
 					</div>
 					<div className='text-[1.8rem] font-semibold'>
-						{convertToVND(result?.product?.price)}
+						{convertToVND(result?.price || "")}
 					</div>
 
 					<div className='mt-5 text-[2rem] flex flex-col md:flex-row gap-4 md:gap-0 items-start  divide-x divide-black/60'>
 						<h1 className='flex-1 text-black/70'>
-							{result?.product?.detail}
+							{result?.detail || ""}
 						</h1>
 						<h1 className='flex-1 flex items-center gap-2 pl-2'>
 							<CiMedal size={25} />
 							Cam kết chất lượng với bảo hành{" "}
 							<span className='text-red-500'>
-								{result?.product?.guarantee_period}
+								{result?.guaranteePeriod || ""}
 							</span>{" "}
 							tháng
 						</h1>
@@ -164,7 +164,7 @@ export default function Page({ params }) {
 						Bạn chưa ưng ý sản phẩm lắm? <br></br> Hãy nhắn trực
 						tiếp hoặc xem thêm về{" "}
 						<span className='font-semibold text-blue-400'>
-							{result?.category[0]?.category_name}
+							{result?.categoryName || ""}
 						</span>{" "}
 						tại{" "}
 						<span
@@ -172,7 +172,7 @@ export default function Page({ params }) {
 								router.push(
 									"/products?" +
 										"categoryId=" +
-										result?.category[0]?.category_id +
+										result?.categoryId +
 										"&IsDescending=true&pageNumber=1&pageSize=12"
 								)
 							}}

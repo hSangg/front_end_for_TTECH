@@ -22,7 +22,7 @@ const ProductItem = ({
 }) => {
 	const router = useRouter()
 	const { user, setUser, token } = UserAuth()
-
+	console.log("product:id:: ", product_id)
 	const [notifications, setNotifications] = useState(false)
 
 	const addToCart = async (product_id) => {

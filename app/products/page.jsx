@@ -28,15 +28,13 @@ export default function Page({ searchParams }) {
 
 	useEffect(() => {
 		const categoryId = searchParams.categoryId
-		const pageNumber = parseInt(searchParams.pageNumber)
+		const pageNumber = parseInt(searchParams?.pageNumber)
 
 		if (categoryId && pageNumber) {
-			console.log("runingt set category")
 			setFilter((pre) => ({ ...pre, categoryId, pageNumber }))
 		} else {
 			const { categoryId, ...rest } = filter
 			setFilter({ ...rest, pageNumber })
-			console.log("filter when searchParams change: ", filter)
 		}
 	}, [searchParams.categoryId, searchParams.pageNumber])
 
@@ -87,15 +85,15 @@ export default function Page({ searchParams }) {
 						<ProductItem
 							loading={loading}
 							key={i}
-							product_id={x?.product?.product_id}
-							category_id={x?.product?.category_id}
-							name_pr={x?.product?.name_pr}
-							name_serial={x?.product?.name_serial}
-							detail={x?.product?.detail}
-							price={x?.product?.price || 0}
-							quantity_pr={x?.product?.quantity_pr}
-							img_href={x?.image?.image_href || undefined}
-							guarantee_period={x?.products?.guarantee_period}
+							product_id={x?.productId || ""}
+							category_id={x?.categoryId || ""}
+							name_pr={x?.namePr || ""}
+							name_serial={x?.nameSerial || ""}
+							detail={x?.detail || ""}
+							price={x?.price || 0}
+							quantity_pr={x?.quantityPr || ""}
+							img_href={x?.images || []}
+							guarantee_period={x?.guaranteePeriod || ""}
 						/>
 					))}
 				</div>

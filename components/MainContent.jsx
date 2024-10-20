@@ -38,6 +38,7 @@ const MainContent = () => {
 									width={0}
 									height={0}
 									sizes='100vw'
+									alt=""
 									className='w-[100%] h-auto'
 								/>
 								<h1 className='text-3xl text-center font-[600] p-4 leading-[18px]'>

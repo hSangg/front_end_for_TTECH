@@ -111,9 +111,7 @@ const AdminRevenueChart = () => {
 			}
 
 			setData(data_week)
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}
 
 	useEffect(() => {

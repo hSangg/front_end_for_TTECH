@@ -28,7 +28,6 @@ const DiscountForm = ({
 				discountDateTo: currentDiscountClicked.discountDateTo,
 			}
 			const res = await handleDiscount.addDiscount(newDiscount)
-			console.log(res)
 		} else {
 			const updatedDiscount = {
 				discountId: currentDiscountClicked.discountId,
@@ -41,7 +40,6 @@ const DiscountForm = ({
 			const res = await handleDiscount.updateDiscount(
 				updatedDiscount
 			)
-			console.log(res)
 		}
 		setTriggerGetData((pre) => !pre)
 	}
@@ -67,7 +65,7 @@ const DiscountForm = ({
 
 	const handleOnChange = (e) => {
 		const { value, id } = e.target
-		console.log("id: ", id, " value: ", value)
+
 		setCurrentDiscountClicked((pre) => ({
 			...pre,
 			[id]: value,

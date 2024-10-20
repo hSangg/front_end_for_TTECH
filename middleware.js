@@ -3,5 +3,4 @@ export function middleware(request) {
 	// const user = JSON.parse(
 	// 	window.localStorage.getItem("user")
 	// )
-	// console.log(user)
 }

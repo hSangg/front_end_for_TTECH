@@ -66,12 +66,10 @@ export default function Page({ params }) {
 			quantity: 1,
 		}
 
-		console.log("runing.")
-
 		if (!token || !user?.userId) router.push("/login")
 
 		const result = await handleCart.AddToCart(data, token)
-		console.log("result order by product id ", result)
+
 		setNotifications(true)
 	}
 
@@ -88,10 +86,8 @@ export default function Page({ params }) {
 			setImageList(images)
 
 			setResult(result)
-			setLoading(false)		
-		} catch (error) {
-			console.log(error)
-		}
+			setLoading(false)
+		} catch (error) {}
 	}
 
 	useEffect(() => {

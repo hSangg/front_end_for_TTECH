@@ -29,8 +29,6 @@ export const AuthContextProvider = ({ children }) => {
 	const handleUserWhenLogInByGoogle = async (
 		currentUser
 	) => {
-		console.log("currentUser: ", currentUser)
-
 		//call API check user is exit (search by uid) on database
 		const isExit = await handleUser.getUserById(
 			currentUser?.uid
@@ -43,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
 				password: isExit.email,
 			}
 			const res_login = await handleAuth.login(login_form)
-			console.log("loged: ", res_login)
+
 			if (res_login?.token) {
 				const { user, token } = res_login
 				setToken(token)
@@ -69,8 +67,6 @@ export const AuthContextProvider = ({ children }) => {
 			const res_register = await handleAuth.register(
 				user_format
 			)
-
-			console.log("res_register ", res_register)
 
 			if (res_register?.token) {
 				setUser(res_register.user)
@@ -111,24 +107,17 @@ export const AuthContextProvider = ({ children }) => {
 			const user = JSON.parse(localStorage.getItem("user"))
 			const token = JSON.parse(localStorage.getItem("token"))
 
-			console.log("user", user)
-
 			if (user) {
-				console.log("seted")
 				setUser(user)
 			}
 			if (token) {
 				setToken(token)
 			}
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}, [])
 
 	useEffect(() => {
-		console.log("runing update localstorage")
 		if (user?.userId) {
-			console.log("update user")
 			localStorage.setItem("user", JSON.stringify(user))
 		}
 		if (token) {

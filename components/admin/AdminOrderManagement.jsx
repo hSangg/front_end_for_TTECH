@@ -84,10 +84,7 @@ const AdminOrderManagement = () => {
 		{}
 	)
 
-	useEffect(() => {
-		console.log(currentOrderClick)
-		console.log(currentOrderClick?.orderInfor?.orderId)
-	}, [currentOrderClick])
+	useEffect(() => {}, [currentOrderClick])
 
 	return (
 		<div className='mx-auto mt-10 container'>

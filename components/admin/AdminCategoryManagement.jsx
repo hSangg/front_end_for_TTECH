@@ -14,7 +14,7 @@ const AdminCategoryManagement = () => {
 
 	const getData = async () => {
 		const response = await handleCategory.getAllCategories()
-		console.log("response:: ", response)
+
 		if (Array.isArray(response)) {
 			setCategoryList(response)
 		}

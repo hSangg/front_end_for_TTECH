@@ -21,9 +21,7 @@ const Page = () => {
 			if (user?.user_id) {
 				getCurrentProductInCart(user.user_id, token)
 			}
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}, [])
 
 	return (

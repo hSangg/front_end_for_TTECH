@@ -16,7 +16,7 @@ const ForgetPassword = () => {
 	const handleSubmit = async () => {
 		setLoading(true)
 		const result = await handleUser.forgetPassword(data)
-		console.log(result)
+
 		setLoading(false)
 		setNotifications(true)
 	}

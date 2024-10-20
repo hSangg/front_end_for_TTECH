@@ -14,8 +14,6 @@ import { UserAuth } from "@/context/AuthContext"
 const AdminProductManagement = () => {
 	const { token, user, logout } = UserAuth()
 
-	console.log(token)
-
 	const [currentProductChoose, setCurrentProductChoose] =
 		useState({})
 	const [filter, setFilter] = useState({
@@ -37,9 +35,7 @@ const AdminProductManagement = () => {
 				currentProductChoose?.product?.productId
 			)
 			setAllImageOfProduct(result)
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}
 
 	useEffect(() => {
@@ -69,11 +65,9 @@ const AdminProductManagement = () => {
 			const { products } = await handleProduct.getProduct(
 				filterDebounce
 			)
-			console.log("products::", products)
+
 			setList(products)
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}
 
 	useEffect(() => {

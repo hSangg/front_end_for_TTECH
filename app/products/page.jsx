@@ -77,7 +77,7 @@ export default function Page({ searchParams }) {
 				filter={filter}
 			/>
 			<div
-				onClick={() => console.log(filter)}
+				onClick={() => 
 				className='flex justify-center'
 			>
 				<div className='grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>

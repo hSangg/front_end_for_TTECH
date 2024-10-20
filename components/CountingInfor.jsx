@@ -12,10 +12,11 @@ const CountingInfor = () => {
 		try {
 			const user = await handleAdmin.GetTotalCustomer()
 			const order = await handleAdmin.GetTotalOrder()
+			const totalOrder = order?.data || 0
 
 			setInfor({
 				user,
-				order,
+				totalOrder,
 			})
 		} catch (error) {}
 	}

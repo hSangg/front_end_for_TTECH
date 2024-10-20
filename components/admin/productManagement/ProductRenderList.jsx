@@ -12,6 +12,7 @@ const ProductRenderList = ({
 	list,
 	setList,
 }) => {
+	console.log("list::", list)
 	return (
 		<ul className='w-[25%] customScrollBar divide-y py-2 flex flex-col gap-2 h-[350px] overflow-y-scroll p-2'>
 			{list.map((x, i) => (
@@ -20,8 +21,8 @@ const ProductRenderList = ({
 					variants={variants}
 					initial='initial'
 					animate={
-						currentProductChoose?.product?.product_id ===
-						x?.product?.product_id
+						currentProductChoose?.product?.productId ===
+						x?.productId
 							? "animate"
 							: "initial"
 					}
@@ -30,12 +31,12 @@ const ProductRenderList = ({
 				>
 					<div className='w-12 h-12 shrink-0 rounded-xl bg-sky-300'>
 						<img
-							src={x?.image?.image_href}
+							src={x?.images[0]}
 							className='w-full h-full object-cover rounded-xl'
 						/>
 					</div>
 					<div className='text-[1.4rem] whitespace-nowrap overflow-hidden text-ellipsis'>
-						{x?.product?.name_pr}
+						{x?.namePr}
 					</div>
 				</motion.li>
 			))}

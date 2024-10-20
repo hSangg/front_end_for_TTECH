@@ -234,8 +234,9 @@ const variant = {
 }
 
 export const convertDate = (date) => {
-	const datePortion = date.slice(0, 10)
-	const [year, month, day] = datePortion.split("-")
+	const datePortion = date?.slice(0, 10)
+	if (!datePortion) return ""
+	const [year, month, day] = datePortion?.split("-")
 	const formattedDate = `${day}/${month}/${year}`
 	return formattedDate
 }

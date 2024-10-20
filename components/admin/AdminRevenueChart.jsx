@@ -131,7 +131,7 @@ const AdminRevenueChart = () => {
 				<div className=''>
 					<select
 						id='countries'
-						class='bg-white focus:outline-none focus:border-none 
+						className='bg-white focus:outline-none focus:border-none 
              border text-[1.1rem] text-black rounded-lg 
               block w-full p-2.5 '
 						onChange={(e) => {

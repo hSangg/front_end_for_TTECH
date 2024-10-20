@@ -8,9 +8,10 @@ const CategoryRenderList = ({
 	currentCategoryClicked,
 	setMode,
 }) => {
+	console.log("categoryList:: ", categoryList)
 	return (
 		<table className='w-full border-spacing-1 border-separate table-auto text-xl bg-white relative'>
-			<thead class=' text-black uppercase sticky top-2'>
+			<thead className=' text-black uppercase sticky top-2'>
 				<tr>
 					<th className='px-4 py-2 border border-b-4 rounded-md border-blue-500 bg-white flex-1 shrink-0 text-center'>
 						Id
@@ -32,7 +33,7 @@ const CategoryRenderList = ({
 						initial='init'
 						whileHover='hover'
 						animate={
-							x.category_id === currentCategoryClicked.category_id
+							x.category_id === currentCategoryClicked.categoryId
 								? "clicked"
 								: "init"
 						}
@@ -41,10 +42,10 @@ const CategoryRenderList = ({
 						className='cursor-pointer'
 					>
 						<th className='px-4 py-2 flex-1 font-[400] shrink-0 text-center'>
-							{x.category_id}
+							{x.categoryId}
 						</th>
 						<th className='px-4 py-2 flex-1 font-[400] shrink-0 text-center'>
-							{x.category_name}
+							{x.categoryName}
 						</th>
 					</motion.tr>
 				))}

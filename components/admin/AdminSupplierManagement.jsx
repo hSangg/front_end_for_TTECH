@@ -3,8 +3,11 @@ import { useEffect, useState } from "react"
 import SupplierRenderList from "./supplierManagement/SupplierRenderList"
 import { handleSupplier } from "@/app/api/handleSupplier"
 import SupplierForm from "./supplierManagement/SupplierForm"
+import { UserAuth } from "@/context/AuthContext"
 
 const AdminSupplierManagement = () => {
+	const { token, user, logout } = UserAuth()
+
 	const [supplierList, setSupplierList] = useState([])
 	const [mode, setMode] = useState("add")
 	const [triggerGetData, setTriggerGetData] = useState(false)
@@ -13,7 +16,9 @@ const AdminSupplierManagement = () => {
 		useState({})
 
 	const getData = async () => {
-		const response = await handleSupplier.getAllSupplier()
+		const response = await handleSupplier.getAllSupplier(
+			token
+		)
 		if (Array.isArray(response)) setSupplierList(response)
 	}
 

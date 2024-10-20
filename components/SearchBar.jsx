@@ -148,13 +148,3 @@ const SearchBar = () => {
 }
 
 export default SearchBar
-
-/**
- * % ĐÓNG GÓP
- * + (NỘP DEADLINE ĐÚNG HẠNG) (- ĐIỂM ĐÓNG GÓP, TRỄ 1H -> 10H)
- * + ĐỘ UY TÍN, PHẦN LÀM CÓ PHẢI LÀ CHO CÓ ĐỐI PHÓ
- * +
- * + TIẾN ĐỘ TỪNG THÀNH VIÊN, GÓP Ý -> SỬA, NỘI QUY CHUNG NHÓM.
- *
- *
- */

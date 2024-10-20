@@ -2,11 +2,9 @@
 
 import { UserAuth } from "@/context/AuthContext"
 import { motion } from "framer-motion"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { CiLogout } from "react-icons/ci"
 import UserDataForm from "../../components/UserDataForm"
 import UserOrder from "../../components/UserOrder"
-import { CiLogout } from "react-icons/ci"
 const Page = () => {
 	const { token, user, logout } = UserAuth()
 

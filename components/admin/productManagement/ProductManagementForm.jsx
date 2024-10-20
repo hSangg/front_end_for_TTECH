@@ -26,17 +26,16 @@ const ProductManagementForm = ({
 		[]
 	)
 	const [data, setData] = useState({
-		product_id: currentProductChoose?.product?.product_id,
-		name_pr: currentProductChoose?.product?.name_pr,
-		name_serial: currentProductChoose?.product?.name_serial,
-		detail: currentProductChoose?.product?.detail,
-		price: currentProductChoose?.product?.price,
-		quantity_pr: currentProductChoose?.product?.quantity_pr,
-		guarantee_period:
-			currentProductChoose?.product?.guarantee_period,
-		supplier_id: currentProductChoose?.supplier?.supplier_id,
-		category_id:
-			currentProductChoose?.category?.[0]?.category_id,
+		productId: currentProductChoose?.productId,
+		namePr: currentProductChoose?.namePr,
+		nameSerial: currentProductChoose?.nameSerial,
+		detail: currentProductChoose?.detail,
+		price: currentProductChoose?.price,
+		quantityPr: currentProductChoose?.quantityPr,
+		guaranteePeriod: currentProductChoose?.guaranteePeriod,
+		supplierId: currentProductChoose?.supplier?.supplierId,
+		categoryId:
+			currentProductChoose?.category?.[0]?.categoryId,
 	})
 	const [notifications, setNotifications] = useState(false)
 
@@ -46,18 +45,18 @@ const ProductManagementForm = ({
 		console.log("id: ", id)
 		console.log("value: ", value)
 		if (
-			id === "name_pr" ||
+			id === "namePr" ||
 			id === "price" ||
-			id === "name_serial" ||
+			id === "nameSerial" ||
 			id === "detail" ||
-			id === "guarantee_period" ||
-			id === "quantity_pr" ||
-			id === "category_id"
+			id === "guaranteePeriod" ||
+			id === "quantityPr" ||
+			id === "categoryId"
 		) {
 			if (
 				id === "price" ||
-				id === "guarantee_period" ||
-				id === "quantity_pr"
+				id === "guaranteePeriod" ||
+				id === "quantityPr"
 			) {
 				console.log("run")
 				if (isNaN(value)) {
@@ -78,17 +77,16 @@ const ProductManagementForm = ({
 		console.log("data in use effect run:", data)
 		setError({})
 		setData({
-			product_id: currentProductChoose?.product?.product_id,
-			name_pr: currentProductChoose?.product?.name_pr,
-			name_serial: currentProductChoose?.product?.name_serial,
-			detail: currentProductChoose?.product?.detail,
-			price: currentProductChoose?.product?.price,
-			quantity_pr: currentProductChoose?.product?.quantity_pr,
-			guarantee_period:
-				currentProductChoose?.product?.guarantee_period,
-			supplier_id: currentProductChoose?.supplier?.supplier_id,
-			category_id:
-				currentProductChoose?.category?.[0]?.category_id,
+			productId: currentProductChoose?.productId,
+			namePr: currentProductChoose?.namePr,
+			nameSerial: currentProductChoose?.nameSerial,
+			detail: currentProductChoose?.detail,
+			price: currentProductChoose?.price,
+			quantityPr: currentProductChoose?.quantityPr,
+			guaranteePeriod: currentProductChoose?.guaranteePeriod,
+			supplierId: currentProductChoose?.supplier?.supplierId,
+			categoryId:
+				currentProductChoose?.category?.[0]?.categoryId,
 		})
 	}, [currentProductChoose])
 
@@ -101,11 +99,11 @@ const ProductManagementForm = ({
 					"delete image :",
 					x.file_name,
 					" of product whose id: ",
-					x.product_id
+					x.productId
 				)
 
 				await handleProduct.deleteImageOfProduct(
-					x.product_id,
+					x.productId,
 					x.file_name
 				)
 				setTriggerImage((pre) => !pre)
@@ -129,7 +127,7 @@ const ProductManagementForm = ({
 	}
 
 	const handleSubmit = async () => {
-		const product_id = currentProductChoose.product.product_id
+		const productId = currentProductChoose.product.productId
 		console.log(
 			"currentProductChoose: ",
 			currentProductChoose
@@ -150,44 +148,42 @@ const ProductManagementForm = ({
 					imageList[i].name
 				)
 			}
-			await handleProduct.addImage(formData, product_id)
+			await handleProduct.addImage(formData, productId)
 			setImageListDisplay([])
 			setImageFile([])
 			setTriggerImage((pre) => !pre)
 		}
 
 		const price = Number.parseInt(data.price)
-		const quantity_pr = Number.parseInt(data.quantity_pr)
-		const guarantee_period = Number.parseInt(
-			data.guarantee_period
+		const quantityPr = Number.parseInt(data.quantityPr)
+		const guaranteePeriod = Number.parseInt(
+			data.guaranteePeriod
 		)
 
 		const updatedProduct = {
-			product_id: product_id,
-			name_pr: data.name_pr,
-			name_serial: data.name_serial,
+			productId: productId,
+			namePr: data.namePr,
+			nameSerial: data.nameSerial,
 			detail: data.detail,
 			price,
-			quantity_pr,
-			guarantee_period,
-			supplier_id: data.supplier_id,
+			quantityPr,
+			guaranteePeriod,
+			supplierId: data.supplierId,
 		}
 
 		const running = Object.values(error).every(
 			(x) => x === ""
 		)
 
-		console.log("running: ", running)
-
 		if (running) {
 			const resultUpdateCategory =
 				await handleProductCategory.updateProductCategory(
 					{
-						productId: product_id,
+						productId: productId,
 						categoryId:
-							currentProductChoose?.category?.[0]?.category_id,
+							currentProductChoose?.category?.[0]?.categoryId,
 					},
-					data.category_id
+					data.categoryId
 				)
 			const resultUpdateProduct =
 				await handleProduct.updateProduct(updatedProduct)
@@ -199,7 +195,7 @@ const ProductManagementForm = ({
 
 	return (
 		<motion.div
-			key={currentProductChoose?.product?.product_id}
+			key={currentProductChoose?.productId}
 			initial={{ opacity: 0, x: 10 }}
 			whileInView={{ opacity: 1, x: 0 }}
 			exit={{ opacity: 0, x: 10 }}
@@ -304,11 +300,11 @@ const ProductManagementForm = ({
 			>
 				{[
 					{
-						key: "product_id",
+						key: "productId",
 						name: "Mã sản phẩm",
 					},
 					{
-						key: "name_pr",
+						key: "namePr",
 						name: "Tên sản phẩm",
 					},
 					{
@@ -316,7 +312,7 @@ const ProductManagementForm = ({
 						name: "Giá sản phẩm",
 					},
 					{
-						key: "name_serial",
+						key: "nameSerial",
 						name: "Seri",
 					},
 				].map((x, i) => (
@@ -327,19 +323,19 @@ const ProductManagementForm = ({
 								className='min-w-[170px] flex items-center gap-2 text-black/50'
 							>
 								{x.name}
-								{x.key === "product_id" && (
+								{x.key === "productId" && (
 									<IoCopyOutline
 										size={20}
 										onClick={() => {
 											navigator.clipboard.writeText(
-												currentProductChoose?.product?.product_id
+												currentProductChoose?.productId
 											)
 										}}
 									/>
 								)}
 							</motion.label>
 							<motion.input
-								disabled={x.key === "product_id"}
+								disabled={x.key === "productId"}
 								id={x.key}
 								value={data[x.key]}
 								onChange={handleProductValueChange}
@@ -365,11 +361,11 @@ const ProductManagementForm = ({
 
 				{[
 					{
-						key: "guarantee_period",
+						key: "guaranteePeriod",
 						name: "Bảo hành (tháng)",
 					},
 					{
-						key: "quantity_pr",
+						key: "quantityPr",
 						name: "Còn lại (sản phẩm)",
 					},
 				].map((x, i) => (
@@ -396,19 +392,19 @@ const ProductManagementForm = ({
 						Doanh mục
 					</label>
 					<select
-						id='category_id'
+						id='categoryId'
 						onChange={handleProductValueChange}
 					>
 						{category.map((x, i) => (
 							<option
 								selected={
-									currentProductChoose?.category?.[0]
-										?.category_id === x.category_id
+									currentProductChoose?.category?.[0]?.categoryId ===
+									x.categoryId
 								}
 								key={i}
-								value={x.category_id}
+								value={x.categoryId}
 							>
-								{x.category_name}
+								{x.categoryName}
 							</option>
 						))}
 					</select>
@@ -419,19 +415,19 @@ const ProductManagementForm = ({
 						Nhà cung cấp
 					</label>
 					<select
-						id='supplier_id'
+						id='supplierId'
 						onChange={handleProductValueChange}
 					>
 						{supplier.map((x, i) => (
 							<option
 								selected={
-									currentProductChoose?.supplier?.supplier_id ===
-									x.supplier_id
+									currentProductChoose?.supplier?.supplierId ===
+									x.supplierId
 								}
 								key={i}
-								value={x.supplier_id}
+								value={x.supplierId}
 							>
-								{x.supplier_name}
+								{x.supplierName}
 							</option>
 						))}
 					</select>

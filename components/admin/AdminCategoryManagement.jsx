@@ -14,7 +14,10 @@ const AdminCategoryManagement = () => {
 
 	const getData = async () => {
 		const response = await handleCategory.getAllCategories()
-		if (Array.isArray(response)) setCategoryList(response)
+		console.log("response:: ", response)
+		if (Array.isArray(response)) {
+			setCategoryList(response)
+		}
 	}
 
 	useEffect(() => {

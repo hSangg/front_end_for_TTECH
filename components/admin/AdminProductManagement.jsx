@@ -9,24 +9,24 @@ import { useEffect } from "react"
 import { handleProduct } from "@/app/api/handleProduct"
 import { handleCategory } from "@/app/api/handleCategory"
 import { handleSupplier } from "@/app/api/handleSupplier"
+import { UserAuth } from "@/context/AuthContext"
 
 const AdminProductManagement = () => {
+	const { token, user, logout } = UserAuth()
+
+	console.log(token)
+
 	const [currentProductChoose, setCurrentProductChoose] =
 		useState({})
-
 	const [filter, setFilter] = useState({
 		pageNumber: 1,
 		pageSize: 999_999,
 	})
-
 	const [triggerImage, setTriggerImage] = useState(false)
 	const [trigger, setTrigger] = useState(false)
-
 	const [list, setList] = useState([])
 	const [supplier, setSupplier] = useState([{}])
-
 	const [category, setCategory] = useState([{}])
-
 	const [allImageOfProduct, setAllImageOfProduct] = useState(
 		[]
 	)
@@ -34,7 +34,7 @@ const AdminProductManagement = () => {
 	const getAllImage = async () => {
 		try {
 			const result = await handleProduct.getAllImageOfProduct(
-				currentProductChoose?.product?.product_id
+				currentProductChoose?.product?.productId
 			)
 			setAllImageOfProduct(result)
 		} catch (error) {
@@ -48,7 +48,9 @@ const AdminProductManagement = () => {
 
 	const getData = async () => {
 		try {
-			const supplier = await handleSupplier.getAllSupplier()
+			const supplier = await handleSupplier.getAllSupplier(
+				token
+			)
 			const category = await handleCategory.getAllCategories()
 
 			setSupplier(supplier)
@@ -67,6 +69,7 @@ const AdminProductManagement = () => {
 			const { products } = await handleProduct.getProduct(
 				filterDebounce
 			)
+			console.log("products::", products)
 			setList(products)
 		} catch (error) {
 			console.log(error)

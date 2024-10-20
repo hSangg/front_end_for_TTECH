@@ -22,14 +22,14 @@ const AddProduct = ({
 	setCategory,
 }) => {
 	const [data, setData] = useState({
-		quantity_pr: "",
-		name_serial: "",
+		quantityPr: "",
+		nameSerial: "",
 		detail: "",
-		name_pr: "",
-		supplier_id: "",
+		namePr: "",
+		supplierId: "",
 		price: "",
-		guarantee_period: "",
-		category_id: "",
+		guaranteePeriod: "",
+		categoryId: "",
 	})
 
 	const [loading, setLoading] = useState(false)
@@ -39,32 +39,32 @@ const AddProduct = ({
 		[]
 	)
 
+	console.log("category:: ", category)
+
 	const addNewProduct = async (e) => {
 		if (isErrorForm(error)) {
 			alert("Error")
 			return
 		}
 		try {
-			const product_id = uuidv4()
+			const productId = uuidv4()
 			const imageList = [...fileImage]
 
 			const productDetail = {
-				product_id: product_id,
-				name_pr: data.name_pr,
-				name_serial: data.name_serial,
+				productId: productId,
+				namePr: data.namePr,
+				nameSerial: data.nameSerial,
 				detail: data.detail,
 				price: Number.parseInt(data.price),
-				quantity_pr: Number.parseInt(data.quantity_pr),
-				guarantee_period: Number.parseInt(
-					data.guarantee_period
-				),
-				supplier_id: data.supplier_id,
+				quantityPr: Number.parseInt(data.quantityPr),
+				guaranteePeriod: Number.parseInt(data.guaranteePeriod),
+				supplierId: data.supplierId,
 			}
 
 			const productCategory = [
 				{
-					productId: product_id,
-					categoryId: data.category_id,
+					productId: productId,
+					categoryId: data.categoryId,
 				},
 			]
 
@@ -79,7 +79,7 @@ const AddProduct = ({
 			}
 
 			await handleProduct.addNewProduct(productDetail)
-			await handleProduct.addImage(formData, product_id)
+			await handleProduct.addImage(formData, productId)
 			await handleProductCategory.addNewProductCategory(
 				productCategory
 			)
@@ -87,13 +87,13 @@ const AddProduct = ({
 			setTrigger((pre) => !pre)
 
 			setData({
-				quantity_pr: "",
-				name_serial: "",
+				quantityPr: "",
+				nameSerial: "",
 				detail: "",
-				name_pr: "",
-				supplier_id: "",
+				namePr: "",
+				supplierId: "",
 				price: "",
-				guarantee_period: "",
+				guaranteePeriod: "",
 			})
 			setFileImage([])
 			setImageListDisplay([])
@@ -107,19 +107,19 @@ const AddProduct = ({
 		const { value, id } = e.target
 
 		if (
-			id === "name_pr" ||
+			id === "namePr" ||
 			id === "price" ||
-			id === "name_serial" ||
+			id === "nameSerial" ||
 			id === "detail" ||
-			id === "guarantee_period" ||
-			id === "quantity_pr" ||
-			id === "supplier_id" ||
-			id === "category_id"
+			id === "guaranteePeriod" ||
+			id === "quantityPr" ||
+			id === "supplierId" ||
+			id === "categoryId"
 		) {
 			if (
 				id === "price" ||
-				id === "guarantee_period" ||
-				id === "quantity_pr"
+				id === "guaranteePeriod" ||
+				id === "quantityPr"
 			) {
 				console.log("run")
 				if (isNaN(value)) {
@@ -261,7 +261,7 @@ const AddProduct = ({
 							>
 								{[
 									{
-										key: "name_pr",
+										key: "namePr",
 										name: "Tên sản phẩm",
 									},
 									{
@@ -269,7 +269,7 @@ const AddProduct = ({
 										name: "Giá sản phẩm",
 									},
 									{
-										key: "name_serial",
+										key: "nameSerial",
 										name: "Seri",
 									},
 								].map((x, i) => (
@@ -306,11 +306,11 @@ const AddProduct = ({
 								</motion.div>
 								{[
 									{
-										key: "guarantee_period",
+										key: "guaranteePeriod",
 										name: "Bảo hành (tháng)",
 									},
 									{
-										key: "quantity_pr",
+										key: "quantityPr",
 										name: "Còn lại (sản phẩm)",
 									},
 								].map((x, i) => (
@@ -339,13 +339,13 @@ const AddProduct = ({
 										Doanh mục
 									</label>
 									<select
-										id='category_id'
+										id='categoryId'
 										onChange={handleProductValueChange}
 									>
 										<option>Chọn doanh mục</option>
 										{category.map((x, i) => (
-											<option key={i} value={x.category_id}>
-												{x.category_name}
+											<option key={i} value={x.categoryId}>
+												{x.categoryName}
 											</option>
 										))}
 									</select>
@@ -356,13 +356,13 @@ const AddProduct = ({
 										Nhà cung cấp
 									</label>
 									<select
-										id='supplier_id'
+										id='supplierId'
 										onChange={handleProductValueChange}
 									>
 										<option>Chọn nhà cung cấp</option>
 										{supplier.map((x, i) => (
-											<option key={i} value={x.supplier_id}>
-												{x.supplier_name}
+											<option key={i} value={x.supplierId}>
+												{x.supplierName}
 											</option>
 										))}
 									</select>

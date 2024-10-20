@@ -1,8 +1,10 @@
 import { axiosClient } from "./axiosClient"
 
 export const handleSupplier = {
-	getAllSupplier: async () =>
-		await axiosClient.get("/Supplier"),
+	getAllSupplier: async (token) =>
+		await axiosClient.get("/Supplier", {
+			headers: { Authorization: `Bearer ${token}` },
+		}),
 	addSupplier: async (data) =>
 		axiosClient.post("/Supplier", data, {
 			headers: { "Content-Type": "application/json" },

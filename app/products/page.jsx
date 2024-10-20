@@ -76,10 +76,7 @@ export default function Page({ searchParams }) {
 				onFilterChange={setFilter}
 				filter={filter}
 			/>
-			<div
-				onClick={() => 
-				className='flex justify-center'
-			>
+			<div className='flex justify-center'>
 				<div className='grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
 					{list?.map((x, i) => (
 						<ProductItem

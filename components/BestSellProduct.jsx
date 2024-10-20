@@ -23,7 +23,7 @@ const BestSellProduct = () => {
 		const result = await handleAdmin.GetTopSellerProduct(
 			debounce
 		)
-		console.log("GetTopSellerProduct ", result)
+
 		setList(result)
 	}
 

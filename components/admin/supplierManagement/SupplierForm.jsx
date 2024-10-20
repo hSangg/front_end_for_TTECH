@@ -17,7 +17,6 @@ const SupplierForm = ({
 				supplier_name: currentSupplierClicked.supplier_name,
 			}
 			const res = await handleSupplier.addSupplier(newSupplier)
-			console.log(res)
 		} else {
 			const updatedSupplier = {
 				supplier_id: currentSupplierClicked.supplier_id,
@@ -26,7 +25,6 @@ const SupplierForm = ({
 			const res = await handleSupplier.updateSupplier(
 				updatedSupplier
 			)
-			console.log(res)
 		}
 		setTriggerGetData((pre) => !pre)
 	}

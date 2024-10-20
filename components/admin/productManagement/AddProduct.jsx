@@ -39,8 +39,6 @@ const AddProduct = ({
 		[]
 	)
 
-	console.log("category:: ", category)
-
 	const addNewProduct = async (e) => {
 		if (isErrorForm(error)) {
 			alert("Error")
@@ -98,9 +96,7 @@ const AddProduct = ({
 			setFileImage([])
 			setImageListDisplay([])
 			setShow(false)
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}
 
 	const handleProductValueChange = (e) => {
@@ -121,7 +117,6 @@ const AddProduct = ({
 				id === "guaranteePeriod" ||
 				id === "quantityPr"
 			) {
-				console.log("run")
 				if (isNaN(value)) {
 					setError((pre) => ({
 						...pre,

@@ -20,12 +20,13 @@ const SearchBar = () => {
 	//
 
 	const getProductBySearchParam = async () => {
-		const result =
-			await handleProduct.getProductBySearchParam(
-				debouncedValue
-			)
-		console.log("search: ", result)
-		setFilteredProducts(result)
+		const result = await handleProduct.getProduct({
+			searchKey: debouncedValue,
+		})
+
+		if (result && Array.isArray(result.products)) {
+			setFilteredProducts(result.products || [])
+		}
 	}
 
 	useEffect(() => {
@@ -108,16 +109,14 @@ const SearchBar = () => {
 									{filteredProducts?.slice(0, 6)?.map((x, i) => (
 										<motion.h1
 											onClick={() => {
-												router.push(
-													"/products/" + x?.product?.product_id
-												)
+												router.push("/products/" + x?.productId)
 												setShowSearchPage(false)
 											}}
 											whileHover={{ color: "#dc2626" }}
 											key={i}
 											className='text-black text-[2rem] font-[700] cursor-pointer'
 										>
-											{x?.product?.name_pr}
+											{x?.namePr}
 										</motion.h1>
 									))}
 								</div>

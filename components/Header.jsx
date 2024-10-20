@@ -18,11 +18,9 @@ const Header = () => {
 	const getAllCategory = async () => {
 		try {
 			const result = await handleCategory.getAllCategories()
-			console.log(result)
+
 			setCategory(result)
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}
 
 	const handleOnClick = () => {

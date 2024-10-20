@@ -8,7 +8,6 @@ const CategoryRenderList = ({
 	currentCategoryClicked,
 	setMode,
 }) => {
-	console.log("categoryList:: ", categoryList)
 	return (
 		<table className='w-full border-spacing-1 border-separate table-auto text-xl bg-white relative'>
 			<thead className=' text-black uppercase sticky top-2'>

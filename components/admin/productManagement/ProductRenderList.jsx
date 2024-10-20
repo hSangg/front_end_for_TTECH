@@ -12,7 +12,6 @@ const ProductRenderList = ({
 	list,
 	setList,
 }) => {
-	console.log("list::", list)
 	return (
 		<ul className='w-[25%] customScrollBar divide-y py-2 flex flex-col gap-2 h-[350px] overflow-y-scroll p-2'>
 			{list.map((x, i) => (

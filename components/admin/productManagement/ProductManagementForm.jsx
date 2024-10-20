@@ -94,14 +94,6 @@ const ProductManagementForm = ({
 		try {
 			const sure = prompt("are you sure? type 1")
 			if (sure === "1") {
-				//delete
-				console.log(
-					"delete image :",
-					x.file_name,
-					" of product whose id: ",
-					x.productId
-				)
-
 				await handleProduct.deleteImageOfProduct(
 					x.productId,
 					x.file_name
@@ -128,13 +120,6 @@ const ProductManagementForm = ({
 
 	const handleSubmit = async () => {
 		const productId = currentProductChoose.product.productId
-		console.log(
-			"currentProductChoose: ",
-			currentProductChoose
-		)
-
-		// handle add new image
-
 		const imageList = [...imageFile]
 
 		if (imageList.length !== 0) {

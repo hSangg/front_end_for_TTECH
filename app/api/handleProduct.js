@@ -17,23 +17,11 @@ export const handleProduct = {
 		),
 	getProduct: async (filter) =>
 		await axiosClient.post("/Product/filter", filter),
-	getProductBySearchParam: async (searchParam) =>
-		await axiosClient.post(
-			"/Product/GetProductBySearchQuery",
-			searchParam,
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		),
 	getProductById: async (id) =>
 		await axiosClient.get("/Product/" + id),
 
 	getAllImageOfProduct: async (id) =>
-		await axiosClient.get(
-			`/Product/${id}/images`
-		),
+		await axiosClient.get(`/Product/${id}/images`),
 	updateProduct: async (data) =>
 		await axiosClient.put("/Product", data, {
 			headers: {
@@ -41,11 +29,7 @@ export const handleProduct = {
 			},
 		}),
 	deleteProduct: async (product_id) =>
-		await axiosClient.delete(
-			"/Product/" + product_id
-		),
+		await axiosClient.delete("/Product/" + product_id),
 	deleteImageOfProduct: async (product_id, file_name) =>
-		await axiosClient.delete(
-			`/Product/${product_id}/images`
-		),
+		await axiosClient.delete(`/Product/${product_id}/images`),
 }

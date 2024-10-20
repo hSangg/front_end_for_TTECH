@@ -20,7 +20,6 @@ const CategoryForm = ({
 				category_name: currentCategoryClicked.category_name,
 			}
 			const res = await handleCategory.addCategory(newCategory)
-			console.log(res)
 		} else {
 			const updatedCategory = {
 				category_id: currentCategoryClicked.category_id,
@@ -29,7 +28,6 @@ const CategoryForm = ({
 			const res = await handleCategory.updateCategory(
 				updatedCategory
 			)
-			console.log(res)
 		}
 
 		// clear

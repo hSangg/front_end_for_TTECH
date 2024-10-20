@@ -85,9 +85,7 @@ const UserOrder = () => {
 				token
 			)
 			setOrderList(result)
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}
 
 	function copy(text) {

@@ -68,9 +68,9 @@ const UserDataForm = () => {
 			email: formData?.email,
 			name: formData?.name,
 		}
-		console.log("updatedUser: ", updatedUser)
+
 		const result = await handleUser.updateUser(updatedUser)
-		console.log("result updated: ", result)
+
 		if (result?.user) setUser(result.user)
 
 		setLoading(false)

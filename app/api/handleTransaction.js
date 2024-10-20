@@ -34,9 +34,7 @@ axiosClient.interceptors.response.use(
 
 		return response
 	},
-	(error) => {
-		console.log(error.message)
-	}
+	(error) => {}
 )
 
 export const handleTransaction = {

@@ -37,8 +37,9 @@ const LoginForm = () => {
 	const verify = (id, value) => {
 		let errorMessage = ""
 		if (!value.trim()) {
-			errorMessage = `Vui lòng nhập ${id == "phone" ? "số điện thoại" : "mật khẩu"
-				}`
+			errorMessage = `Vui lòng nhập ${
+				id == "phone" ? "số điện thoại" : "mật khẩu"
+			}`
 		} else if (id === "phone" && !isValidPhoneNumber(value))
 			errorMessage = "Sai định dạng số điện thoại"
 
@@ -62,13 +63,10 @@ const LoginForm = () => {
 				verify("phone", data.phone) &&
 				verify("password", data.password)
 
-			console.log("isOke ", isOke)
-
 			if (!isOke) return
 
 			setLoading(true)
 			const res = await handleAuth.login(data)
-			console.log(res)
 
 			if (res?.token) {
 				const { token } = res
@@ -84,9 +82,7 @@ const LoginForm = () => {
 			}
 
 			setLoading(false)
-		} catch (error) {
-			console.log(error)
-		}
+		} catch (error) {}
 	}
 
 	return (

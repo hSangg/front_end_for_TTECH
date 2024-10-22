@@ -35,7 +35,7 @@ const OrderBill = ({ cart, setCart }) => {
 	}, [cart])
 
 	const getCurrentDiscount = async () => {
-		const date = new Date().toLocaleString()
+		const date = new Date().toISOString().split('T')[0]
 
 		const response = await handleDiscount.getCurrentDiscount(
 			date

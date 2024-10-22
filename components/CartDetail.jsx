@@ -10,7 +10,7 @@ const CartDetail = ({ cart, setCart }) => {
 
 	const handleDecreaseQuantity = async (productId) => {
 		const productIndex = cart.findIndex(
-			(item) => item.product.product_id === productId
+			(item) => item.product.productId === productId
 		)
 		const product = cart[productIndex]
 
@@ -23,8 +23,8 @@ const CartDetail = ({ cart, setCart }) => {
 
 		await handleCart.UpdateQuantity(
 			{
-				user_id: user.user_id,
-				product_id: updatedProduct.product.product_id,
+				// user_id: user.user_id,
+				product_id: updatedProduct.product.productId,
 				quantity: newQuantity,
 			},
 			token
@@ -47,7 +47,7 @@ const CartDetail = ({ cart, setCart }) => {
 
 	const handleIncreaseQuantity = async (productId) => {
 		const productIndex = cart.findIndex(
-			(item) => item.product.product_id === productId
+			(item) => item.product.productId === productId
 		)
 		const product = cart[productIndex]
 
@@ -66,8 +66,8 @@ const CartDetail = ({ cart, setCart }) => {
 
 		await handleCart.UpdateQuantity(
 			{
-				user_id: user.id,
-				product_id: updatedProduct.product.product_id,
+				// user_id: user.id,
+				product_id: updatedProduct.product.productId,
 				quantity: newQuantity,
 			},
 			token
@@ -86,12 +86,12 @@ const CartDetail = ({ cart, setCart }) => {
 					>
 						<div className='w-[200px] h-[200px] rounded-3xl select-none'>
 							<img
-								src={x?.image?.image_href}
+								src={x?.image?.imageHref}
 								className='w-full h-full object-cover p-4 rounded-2xl'
 							/>
 						</div>
 						<h2 className='text-[1.6rem] select-none w-[100px] text-center text-ellipsis font-semibold '>
-							{x?.product?.name_pr || "Loading..."}
+							{x?.product?.namePr || "Loading..."}
 						</h2>
 
 						<h3 className='text-[1.4rem] mt-4 select-none text-black/80 font-semibold '>
@@ -102,7 +102,7 @@ const CartDetail = ({ cart, setCart }) => {
 							<div
 								className='cursor-pointer'
 								onClick={() =>
-									handleDecreaseQuantity(x.product.product_id)
+									handleDecreaseQuantity(x.product.productId)
 								}
 							>
 								<CiCircleMinus size={25} />
@@ -111,7 +111,7 @@ const CartDetail = ({ cart, setCart }) => {
 							<div
 								className='cursor-pointer'
 								onClick={() =>
-									handleIncreaseQuantity(x.product.product_id)
+									handleIncreaseQuantity(x.product.productId)
 								}
 							>
 								<CiCirclePlus size={25} />

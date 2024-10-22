@@ -81,7 +81,7 @@ const UserOrder = () => {
 	const getALlOrder = async () => {
 		try {
 			const result = await handleOrder.getOrderByUserId(
-				user.user_id,
+				user.userId,
 				token
 			)
 			setOrderList(result)

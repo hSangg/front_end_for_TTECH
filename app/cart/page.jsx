@@ -9,8 +9,8 @@ import { handleDiscount } from "../api/handleDiscount."
 const Page = () => {
 	const [cart, setCart] = useState([1, 1, 1, 1, 1])
 
-	const getCurrentProductInCart = async (id, token) => {
-		const result = await handleCart.GetCartProduct(id, token)
+	const getCurrentProductInCart = async (token) => {
+		const result = await handleCart.GetCartProduct(token)
 		setCart(result)
 	}
 
@@ -18,8 +18,8 @@ const Page = () => {
 		try {
 			const user = JSON.parse(localStorage.getItem("user"))
 			const token = JSON.parse(localStorage.getItem("token"))
-			if (user?.user_id) {
-				getCurrentProductInCart(user.user_id, token)
+			if (user?.userId) {
+				getCurrentProductInCart(token)
 			}
 		} catch (error) {}
 	}, [])

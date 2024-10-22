@@ -27,7 +27,7 @@ const ProductItem = ({
 
 	const addToCart = async (product_id) => {
 		const data = {
-			user_id: user?.user_id,
+			// user_id: user?.user_id,
 			product_id: product_id,
 			quantity: 1,
 		}

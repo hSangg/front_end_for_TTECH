@@ -26,7 +26,8 @@ const UserRenderList = ({ userList, setUserList }) => {
 				{userList?.map((x, i) => (
 					<tr key={i}>
 						<th className='px-4 py-2 flex-1 font-[400] shrink-0 text-center'>
-							{x.user_id}
+							{/* {x.user_id} */}
+							{x.userId}
 						</th>
 						<th className='px-4 py-2 flex-1 font-[400] shrink-0 text-center'>
 							{x.name}

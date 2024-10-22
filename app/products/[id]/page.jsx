@@ -61,7 +61,6 @@ export default function Page({ params }) {
 
 	const handleOnClick = async () => {
 		const data = {
-			user_id: user?.userId,
 			product_id: product_id,
 			quantity: 1,
 		}

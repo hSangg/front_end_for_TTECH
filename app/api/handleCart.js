@@ -14,8 +14,8 @@ export const handleCart = {
 			}
 		),
 
-	GetCartProduct: async (user_id, token) =>
-		await axiosClient.post("/Cart/GetCartProduct", user_id, {
+	GetCartProduct: async (token) =>
+		await axiosClient.post("/Cart/GetCartProduct", {}, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",
@@ -39,7 +39,7 @@ export const handleCart = {
 		}),
 	EmptyCartUser: async (userId, token) =>
 		await axiosClient.delete(
-			"/Cart/EmptyCart?user_id=" + userId,
+			"/Cart/EmptyCart",
 			{ headers: { Authorization: `Bearer ${token}` } }
 		),
 }

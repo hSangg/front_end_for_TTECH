@@ -111,7 +111,7 @@ const OrderFormData = ({
 			detailOrder,
 			token
 		)
-		await handleCart.EmptyCartUser(user.user_id, token)
+		await handleCart.EmptyCartUser(token)
 		setCart([])
 		setLoading(false)
 

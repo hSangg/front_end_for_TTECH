@@ -5,7 +5,7 @@ export const handleOrder = {
 	getOrderByUserId: async (userId, token) =>
 		await axiosClient.post(
 			"/Order/GetOrderByUserId",
-			userId,
+			`"${userId}"`,
 			{
 				headers: {
 					"Content-Type": "application/json",
@@ -25,9 +25,9 @@ export const handleOrder = {
 	updateStateOrder: async (order_id, state) =>
 		await axiosClient.put(
 			"/Order/UpdateStateOrder?orderId=" +
-				order_id +
-				"&state=" +
-				state
+			order_id +
+			"&state=" +
+			state
 		),
 	getExcelFile: async () =>
 		await axiosClient.get("/Order/GetExcelFileData"),

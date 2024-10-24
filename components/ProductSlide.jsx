@@ -34,6 +34,7 @@ const ProductSlide = ({
 			pageSize: 999,
 		})
 		const { products, ...rest } = result
+		console.log(products)
 		setList(products)
 		setLoading(false)
 	}
@@ -48,12 +49,11 @@ const ProductSlide = ({
 
 	const handleBuyClick = async (product_id) => {
 		const data = {
-			// user_id: user?.user_id,
 			product_id: product_id,
 			quantity: 1,
 		}
 
-		const result = await handleCart.AddToCart(data, token)
+		await handleCart.AddToCart(data, token)
 
 		setNotifications(true)
 	}
@@ -163,7 +163,7 @@ const ProductSlide = ({
 									<CircleLoader />
 								) : (
 									<img
-										src={x?.image?.image_href}
+										src={x?.images?.[0]}
 										style={{
 											objectFit: "cover",
 											borderRadius: "32px",
@@ -179,13 +179,13 @@ const ProductSlide = ({
               items-center text-[1.3rem] mt-[auto] flex-1'
 							>
 								<div className='font-[600] text-[2.2rem] max-w-[85%] overflow-hidden whitespace-nowrap overflow-ellipsis'>
-									{x?.product?.name_pr || "Loading..."}
+									{x?.namePr || "Loading..."}
 								</div>
 
 								<div className='font-[300]'>
 									Từ{" "}
 									<span className='font-[500]'>
-										{x?.product?.price.toLocaleString("it-IT", {
+										{x?.price?.toLocaleString("it-IT", {
 											style: "currency",
 											currency: "VND",
 										}) || "Loading..."}
@@ -193,7 +193,7 @@ const ProductSlide = ({
 								</div>
 								<div
 									onClick={() => {
-										handleBuyClick(x?.product?.product_id)
+										handleBuyClick(x?.productId)
 									}}
 									className='px-[11px] cursor-pointer
                  py-2 bg-blue-500 rounded-full text-white'
@@ -203,7 +203,7 @@ const ProductSlide = ({
 								<div
 									href=''
 									onClick={() => {
-										router.push("/products/" + x?.product?.product_id)
+										router.push("/products/" + x?.productId)
 									}}
 									className='text-blue-500 flex items-center gap-1 pb-4 mt-4 cursor-pointer'
 								>

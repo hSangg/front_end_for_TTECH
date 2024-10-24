@@ -23,23 +23,21 @@ export const productListAbs = [
 		title:
 			"<div class='text-[2rem] leading-[22px]'><strong>To rõ</strong>, <strong>trầm ấm</strong> & <strong>trong trẻo</strong> </br> Tai nghe nhẹ nhàng khẳng định chất âm </div>",
 
-		imageHref:
-			"/images/product_images/headphone-review.png",
+		imageHref: "/images/product_images/headphone-review.png",
 		styleForImage: undefined,
-		categoryId: "4dEfG6zIjvp7oP8q",
+		categoryId: "COMP001",
 	},
 
 	{
 		title:
 			"<div class='text-[2rem] leading-[22px] mx-auto'>Hiệu năng <strong>không tưởng</strong>, </br> <strong>không cần lo lắp đặt</strong> với đội ngũ tư vấn linh kiện </div>",
 
-		imageHref:
-			"/images/product_images/pccase-review.png",
+		imageHref: "/images/product_images/pccase-review.png",
 		styleForImage: {
 			scale: 1.2,
 			marginTop: "50px",
 		},
-		categoryId: "9dEfGhIjKp6mN7oP",
+		categoryId: "AUDIO003",
 	},
 
 	{
@@ -53,7 +51,7 @@ export const productListAbs = [
 			marginTop: "80px",
 		},
 
-		categoryId: "0PbC1aL2mN3oPqRs",
+		categoryId: "GAME004",
 	},
 
 	{
@@ -67,6 +65,6 @@ export const productListAbs = [
 			marginTop: "40px",
 		},
 
-		categoryId: "4d2fG9zIjv37oP8q",
+		categoryId: "MOBIL002",
 	},
 ]

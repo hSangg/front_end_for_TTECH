@@ -11,7 +11,7 @@ import {
 	GoChevronLeft,
 	GoChevronRight,
 } from "react-icons/go"
-import { smoothScrollHorizotal } from "../utils/until"
+import { smoothScrollHorizotal } from "../../utils/until"
 import CircleLoader from "./CircleLoader"
 import Notification from "./Notification"
 

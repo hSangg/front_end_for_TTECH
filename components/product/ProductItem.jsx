@@ -6,8 +6,8 @@ import { convertToVND } from "@/utils/until"
 import { AnimatePresence, motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import CircleLoader from "./CircleLoader"
-import Notification from "./Notification"
+import CircleLoader from "../uncategory/CircleLoader"
+import Notification from "../uncategory/Notification"
 
 const ProductItem = ({
 	product_id,

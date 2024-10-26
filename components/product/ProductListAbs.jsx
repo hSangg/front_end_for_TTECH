@@ -1,4 +1,4 @@
-import ProductSlide from "./ProductSlide"
+import ProductSlide from "../uncategory/ProductSlide"
 
 const ProductListAbs = () => {
 	return (

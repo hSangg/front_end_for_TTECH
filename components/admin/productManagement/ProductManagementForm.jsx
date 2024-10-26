@@ -1,7 +1,7 @@
 "use client"
 import { handleProduct } from "@/app/api/handleProduct"
 import { handleProductCategory } from "@/app/api/handleProductCategory"
-import Notification from "@/components/Notification"
+import Notification from "@/components/uncategory/Notification"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { CiCircleRemove } from "react-icons/ci"

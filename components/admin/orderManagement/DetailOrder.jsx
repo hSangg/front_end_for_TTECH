@@ -1,6 +1,6 @@
 import { handleDetailOrder } from "@/app/api/handleDetailOrder"
 import { handleOrder } from "@/app/api/handleOrder"
-import Notification from "@/components/Notification"
+import Notification from "@/components/uncategory/Notification"
 import { useEffect, useState } from "react"
 import { CiMinimize1 } from "react-icons/ci"
 

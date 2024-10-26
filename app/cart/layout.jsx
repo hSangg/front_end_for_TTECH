@@ -1,6 +1,6 @@
-import Footer from "@/components/Footer"
-import Header from "@/components/Header"
-import Navigator from "@/components/Navigator"
+import Footer from "@/components/uncategory/Footer"
+import Header from "@/components/uncategory/Header"
+import Navigator from "@/components/uncategory/Navigator"
 
 export default function DashboardLayout({
 	children,

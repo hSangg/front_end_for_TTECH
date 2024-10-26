@@ -4,7 +4,7 @@ import { useState } from "react"
 import { CiSearch } from "react-icons/ci"
 import AddProduct from "./AddProduct"
 import { handleProduct } from "@/app/api/handleProduct"
-import Notification from "@/components/Notification"
+import Notification from "@/components/uncategory/Notification"
 
 const ProductAction = ({
 	filter,

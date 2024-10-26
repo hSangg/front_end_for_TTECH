@@ -20,7 +20,7 @@ import {
 } from "react"
 import { BiMessageSquare } from "react-icons/bi"
 import { CiMinimize1, CiPaperplane } from "react-icons/ci"
-import { db } from "../firebaseConfig"
+import { db } from "../../firebaseConfig"
 import { UserAuth } from "@/context/AuthContext"
 
 const RealTimeMessage = () => {

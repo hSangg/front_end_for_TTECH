@@ -7,7 +7,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { CiUser } from "react-icons/ci"
-import Cart from "./Cart"
+import Cart from "../cart/Cart"
 import CategoryPhone from "./CategoryPhone"
 import SearchBar from "./SearchBar"
 const Header = () => {

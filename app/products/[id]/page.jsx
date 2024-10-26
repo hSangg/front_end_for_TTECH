@@ -2,8 +2,8 @@
 
 import { handleCart } from "@/app/api/handleCart"
 import { handleProduct } from "@/app/api/handleProduct"
-import CircleLoader from "@/components/CircleLoader"
-import Notification from "@/components/Notification"
+import CircleLoader from "@/components/uncategory/CircleLoader"
+import Notification from "@/components/uncategory/Notification"
 import { UserAuth } from "@/context/AuthContext"
 import { convertToVND, getCurrentDate } from "@/utils/until"
 import { AnimatePresence } from "framer-motion"

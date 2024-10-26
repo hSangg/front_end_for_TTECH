@@ -1,5 +1,5 @@
 import { handleCategory } from "@/app/api/handleCategory"
-import caterogyDataExample from "../data"
+import caterogyDataExample from "../../data"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"

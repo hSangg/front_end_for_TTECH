@@ -12,7 +12,7 @@ import {
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useRef, useState } from "react"
-import CircleLoader from "./CircleLoader"
+import CircleLoader from "../uncategory/CircleLoader"
 import { handleTransaction } from "@/app/api/handleTransaction"
 
 const OrderFormData = ({

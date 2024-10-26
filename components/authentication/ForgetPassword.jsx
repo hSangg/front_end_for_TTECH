@@ -3,9 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 import { CiMinimize1 } from "react-icons/ci"
-import Notification from "./Notification"
+import Notification from "../uncategory/Notification"
 import { handleUser } from "@/app/api/handleUser"
-import CircleLoader from "./CircleLoader"
+import CircleLoader from "../uncategory/CircleLoader"
 
 const ForgetPassword = () => {
 	const [show, setShow] = useState(false)

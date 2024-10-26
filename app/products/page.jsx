@@ -1,8 +1,8 @@
 "use client"
 
-import FilterProduct from "@/components/FilterProduct"
-import PaginationControls from "@/components/PaginationControls"
-import ProductItem from "@/components/ProductItem"
+import FilterProduct from "@/components/product/FilterProduct"
+import PaginationControls from "@/components/uncategory/PaginationControls"
+import ProductItem from "@/components/product/ProductItem"
 import { useEffect, useState } from "react"
 import { handleProduct } from "../api/handleProduct"
 import { useRouter } from "next/navigation"

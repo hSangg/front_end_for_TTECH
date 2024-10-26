@@ -1,10 +1,10 @@
 "use client"
 import { CiShoppingBasket, CiUser } from "react-icons/ci"
-import BestSellProduct from "../BestSellProduct"
+import BestSellProduct from "../product/BestSellProduct"
 import AdminRevenueChart from "./AdminRevenueChart"
 import AdminVisitorChart from "./AdminVisitorChart"
 import CompareRevenue from "./CompareRevenue"
-import CountingInfor from "../CountingInfor"
+import CountingInfor from "../uncategory/CountingInfor"
 
 const AdminDashboard = () => {
 	return (

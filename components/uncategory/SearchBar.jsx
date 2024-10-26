@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { CiMinimize1, CiSearch } from "react-icons/ci"
-import useDebounce from "../customHook/useDeboune"
+import useDebounce from "../../customHook/useDeboune"
 
 const SearchBar = () => {
 	const [showSearchPage, setShowSearchPage] = useState(false)

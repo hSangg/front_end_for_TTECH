@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { CiGlobe } from "react-icons/ci"
 import { v4 as uuidv4 } from "uuid"
-import useDebounce from "../customHook/useDeboune"
-import { isValidEmail } from "../utils/until"
+import useDebounce from "../../customHook/useDeboune"
+import { isValidEmail } from "../../utils/until"
 import { UserAuth } from "@/context/AuthContext"
-import CircleLoader from "./CircleLoader"
+import CircleLoader from "../uncategory/CircleLoader"
 const PopupRegister = () => {
 	const [showPopup, setShowPopup] = useState(false)
 	const { user, setUser, token, setToken } = UserAuth()

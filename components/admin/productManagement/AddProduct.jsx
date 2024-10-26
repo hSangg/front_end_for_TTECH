@@ -1,7 +1,7 @@
 "use client"
 import { handleProduct } from "@/app/api/handleProduct"
 import { handleProductCategory } from "@/app/api/handleProductCategory"
-import CircleLoader from "@/components/CircleLoader"
+import CircleLoader from "@/components/uncategory/CircleLoader"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import {

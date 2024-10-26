@@ -1,7 +1,7 @@
 "use client"
 
-import CartDetail from "@/components/CartDetail"
-import OrderBill from "@/components/OrderBill"
+import CartDetail from "@/components/cart/CartDetail"
+import OrderBill from "@/components/order/OrderBill"
 import { useEffect, useState } from "react"
 import { handleCart } from "../api/handleCart"
 import { handleDiscount } from "../api/handleDiscount."

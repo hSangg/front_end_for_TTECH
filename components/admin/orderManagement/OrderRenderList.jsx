@@ -122,7 +122,7 @@ const OrderRenderList = ({
 							{x.orderInfor.note}
 						</th>
 						<th className='px-4 py-2 flex-1 font-[400] shrink-0 text-center'>
-							{x.discountInfor.discountCode}
+							{x.orderInfor.discountId}
 						</th>
 						<th className='px-4 py-2 flex-1 font-[400] shrink-0 text-center'>
 							{x.orderInfor.deliveryFee}

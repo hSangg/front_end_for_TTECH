@@ -1,5 +1,6 @@
 import { handleDiscount } from "@/app/api/handleDiscount."
 import { handleSupplier } from "@/app/api/handleSupplier"
+import { UserAuth } from "@/context/AuthContext"
 import { motion } from "framer-motion"
 import { v4 as uuidv4 } from "uuid"
 
@@ -17,17 +18,19 @@ const DiscountForm = ({
 	triggerGetData,
 	setTriggerGetData,
 }) => {
+
+	const {token} = UserAuth()
+
 	const handleSubmit = async (e) => {
 		if (mode === "add") {
 			const newDiscount = {
-				discountId: uuidv4(),
 				discountCode: currentDiscountClicked.discountCode,
 				discountAmount: currentDiscountClicked.discountAmount,
 				discountDateFrom:
 					currentDiscountClicked.discountDateFrom,
 				discountDateTo: currentDiscountClicked.discountDateTo,
 			}
-			const res = await handleDiscount.addDiscount(newDiscount)
+			const res = await handleDiscount.addDiscount(newDiscount, token)
 		} else {
 			const updatedDiscount = {
 				discountId: currentDiscountClicked.discountId,
@@ -38,7 +41,8 @@ const DiscountForm = ({
 				discountDateTo: currentDiscountClicked.discountDateTo,
 			}
 			const res = await handleDiscount.updateDiscount(
-				updatedDiscount
+				updatedDiscount, 
+				token
 			)
 		}
 		setTriggerGetData((pre) => !pre)
@@ -48,7 +52,8 @@ const DiscountForm = ({
 		const isSure = prompt("Nhập vào '1' để xóa")
 		if (isSure == "1") {
 			await handleDiscount.deleteDiscount(
-				currentDiscountClicked?.discountId
+				currentDiscountClicked?.discountId,
+				token
 			)
 
 			setCurrentDiscountClicked({

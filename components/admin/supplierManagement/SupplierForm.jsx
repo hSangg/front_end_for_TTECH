@@ -1,4 +1,5 @@
 import { handleSupplier } from "@/app/api/handleSupplier"
+import { UserAuth } from "@/context/AuthContext"
 import { motion } from "framer-motion"
 import { v4 as uuidv4 } from "uuid"
 
@@ -10,20 +11,24 @@ const SupplierForm = ({
 	triggerGetData,
 	setTriggerGetData,
 }) => {
+
+	const {token} = UserAuth()
+	
 	const handleSubmit = async (e) => {
 		if (mode === "add") {
 			const newSupplier = {
-				supplier_id: uuidv4(),
-				supplier_name: currentSupplierClicked.supplier_name,
+				supplierId: uuidv4(),
+				supplierName: currentSupplierClicked.supplierName,
 			}
-			const res = await handleSupplier.addSupplier(newSupplier)
+			const res = await handleSupplier.addSupplier(newSupplier, token)
 		} else {
 			const updatedSupplier = {
-				supplier_id: currentSupplierClicked.supplier_id,
-				supplier_name: currentSupplierClicked.supplier_name,
+				supplierId: currentSupplierClicked.supplierId,
+				supplierName: currentSupplierClicked.supplierName,
 			}
 			const res = await handleSupplier.updateSupplier(
-				updatedSupplier
+				updatedSupplier,
+				token
 			)
 		}
 		setTriggerGetData((pre) => !pre)
@@ -33,13 +38,14 @@ const SupplierForm = ({
 		const isSure = prompt("Nhập vào '1' để xóa")
 		if (isSure == "1") {
 			await handleSupplier.deleteSupplier(
-				currentSupplierClicked.supplier_id
+				currentSupplierClicked.supplierId,
+				token
 			)
 
 			alert("deleted")
 			setCurrentSupplierClicked({
-				supplier_name: "",
-				supplier_id: "",
+				supplierName: "",
+				supplierId: "",
 			})
 			setTriggerGetData((pre) => !pre)
 		}
@@ -53,8 +59,8 @@ const SupplierForm = ({
 						setMode("add")
 						// clearinput
 						setCurrentSupplierClicked({
-							supplier_name: "",
-							supplier_id: "",
+							supplierName: "",
+							supplierId: "",
 						})
 					}}
 					className='px-4 cursor-pointer py-2 border border-b-4 rounded-md text-xl font-bold border-blue-500 border-b-blue-500 bg-white flex-1 shrink-0 text-center'
@@ -74,7 +80,7 @@ const SupplierForm = ({
 					Mã nhà cung cấp
 				</h2>
 				<input
-					value={currentSupplierClicked?.supplier_id}
+					value={currentSupplierClicked?.supplierId}
 					className='outline-none border border-black/50 text-black/50 p-4 rounded-2xl w-full text-2xl font-[500] mb-4'
 					placeholder='Mã danh mục'
 				/>
@@ -84,10 +90,10 @@ const SupplierForm = ({
 					onChange={(e) =>
 						setCurrentSupplierClicked((pre) => ({
 							...pre,
-							supplier_name: e.target.value,
+							supplierName: e.target.value,
 						}))
 					}
-					value={currentSupplierClicked?.supplier_name}
+					value={currentSupplierClicked?.supplierName}
 					className='outline-none border border-black/50 p-4 rounded-2xl w-full text-2xl font-[500]'
 					placeholder='Nhập tên nhà cung cấp'
 				/>

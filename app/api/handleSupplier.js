@@ -5,16 +5,26 @@ export const handleSupplier = {
 		await axiosClient.get("/Supplier", {
 			headers: { Authorization: `Bearer ${token}` },
 		}),
-	addSupplier: async (data) =>
+	addSupplier: async (data, token) =>
 		axiosClient.post("/Supplier", data, {
-			headers: { "Content-Type": "application/json" },
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
 		}),
-	updateSupplier: async (data) =>
-		await axiosClient.put("/Supplier/Update", data, {
-			headers: { "Content-Type": "application/json" },
+	updateSupplier: async (data, token) =>
+		await axiosClient.put(`/Supplier?id=${data.supplierId}`, data, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
 		}),
-	deleteSupplier: async (id) =>
+	deleteSupplier: async (id, token) =>
 		await axiosClient.delete(
-			"/Supplier/DeleteSupplier?id=" + id
-		),
+			"/Supplier?id=" + id, {
+				headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			}
+		}),
 }

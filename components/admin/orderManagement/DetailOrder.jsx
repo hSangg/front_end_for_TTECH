@@ -104,12 +104,12 @@ const DetailOrder = ({
 						>
 							<div className='w-[200px] h-[200px]'>
 								<img
-									src={x.image.image_href}
+									src={x.image.imageHref}
 									className='w-full h-full object-cover'
 								/>
 							</div>
 							<h1 className='w-[150px] overflow-ellipsis whitespace-nowrap text-center'>
-								{x.product.name_pr.slice(0, 20)}...
+								{x.product.namePr.slice(0, 20)}...
 							</h1>
 							<h2 className='px-2 text-white bg-blue-500 font-bold'>
 								{x.quantity}

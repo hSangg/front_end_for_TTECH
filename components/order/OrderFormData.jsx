@@ -89,21 +89,21 @@ const OrderFormData = ({
 
 		const order = {
 			orderId,
-			userId: user.user_id,
+			userId: user.userId,
 			// createOrderAt: new Date().getTime(),
 			...data,
 			state: "pending",
 			note: data.note || "",
 			total: Math.ceil(totalPrice),
-			discount: discount.discountId,
+			discountId: discount.discountId,
 			deliveryFee: 0,
 		}
 
 		const detailOrder = [...cart].map((x) => ({
 			orderId,
-			productId: x.product.product_id,
-			pricePr: x.product.price,
-			quantityPr: x.quantity,
+			productId: x.product.productId,
+			price: x.product.price,
+			quantity: x.quantity,
 		}))
 
 		await handleOrder.addNewOrder(order, token)

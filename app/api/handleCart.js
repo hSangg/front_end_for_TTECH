@@ -37,7 +37,7 @@ export const handleCart = {
 				"Content-Type": "application/json",
 			},
 		}),
-	EmptyCartUser: async (userId, token) =>
+	EmptyCartUser: async (token) =>
 		await axiosClient.delete(
 			"/Cart/EmptyCart",
 			{ headers: { Authorization: `Bearer ${token}` } }

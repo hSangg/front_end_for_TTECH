@@ -62,7 +62,7 @@ const BestSellProduct = () => {
 						<div key={i} className='flex gap-4 '>
 							<div className='flex-1 p-2 flex items-center justify-center'>
 								<img
-									src={x.image.image_href}
+									src={x.image.imageHref}
 									alt=''
 									width={70}
 									height={70}

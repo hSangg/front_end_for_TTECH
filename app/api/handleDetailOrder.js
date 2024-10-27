@@ -14,6 +14,6 @@ export const handleDetailOrder = {
 		),
 	getOrderDetailByOrderId: async (orderId) =>
 		axiosClient.get(
-			"/DetailOrder/GetOderDetailByOrderId?order_id=" + orderId
+			"/DetailOrder/GetOderDetailByOrderId?id=" + orderId
 		),
 }

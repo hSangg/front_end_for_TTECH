@@ -6,14 +6,26 @@ export const handleCategory = {
 		await axiosClient.get("/Category"),
 	getCategoryById: async (id) =>
 		await axiosClient.get("/Category/" + id),
-	updateCategory: async (id, caterogy_name) =>
+	updateCategory: async (data, token) =>
 		await axiosClient.put(
-			`/Category/${id}?updatedCategoryName=${caterogy_name}`
-		),
-	addCategory: async (data) =>
-		await axiosClient.post("/Category", data, {
-			headers: { "Content-Type": "application/json" },
+			`/Category/${data.categoryId}`, data.categoryName, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
 		}),
-	deleteCategory: async (id) =>
-		await axiosClient.delete(`/Category/${id}`),
+	addCategory: async (data, token) =>
+		await axiosClient.post("/Category", data, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		}),
+	deleteCategory: async (id, token) =>
+		await axiosClient.delete(`/Category/${id}`, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		}),
 }

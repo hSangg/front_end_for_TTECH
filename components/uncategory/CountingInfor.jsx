@@ -10,14 +10,15 @@ const CountingInfor = () => {
 
 	const getTotalInfor = async () => {
 		try {
-			const user = await handleAdmin.GetTotalCustomer()
-			const order = await handleAdmin.GetTotalOrder()
-			const totalOrder = order?.data || 0
+			let user = await handleAdmin.GetTotalCustomer()
+			let order = await handleAdmin.GetTotalOrder()
+			user = user.data === 0 ? user.data : user	
+			order = order.data === 0 ? order.data : order
 
 			setInfor({
 				user,
-				totalOrder,
-			})
+				order,
+			})		
 		} catch (error) {}
 	}
 	useEffect(() => {

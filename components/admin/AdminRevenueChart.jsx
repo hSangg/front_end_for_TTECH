@@ -80,7 +80,7 @@ const AdminRevenueChart = () => {
 	const getRevenueByYear = async () => {
 		try {
 			const { labels, revenues } =
-				await handleAdmin.GetRevenueByYear(2023)
+				await handleAdmin.GetRevenueByYear(2024)
 			const data_year = {
 				labels,
 				datasets: [

@@ -23,7 +23,7 @@ const Page = () => {
 
 		// if (user.role !== "1") return router.push("/")
 		if (user?.userId) setUser(user)
-	}, [])
+	}, [setUser])
 
 	return (
 		<div className='container mx-auto'>

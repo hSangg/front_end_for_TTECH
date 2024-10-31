@@ -10,6 +10,8 @@ import {
 	CiMinimize1,
 } from "react-icons/ci"
 import { v4 as uuidv4 } from "uuid"
+import { CldUploadWidget } from "next-cloudinary";
+import { IoCloseCircle } from "react-icons/io5";
 
 const AddProduct = ({
 	show,
@@ -35,18 +37,31 @@ const AddProduct = ({
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState({})
 	const [fileImage, setFileImage] = useState([])
-	const [imageListDisplay, setImageListDisplay] = useState(
-		[]
-	)
+	const [imageListDisplay, setImageListDisplay] = useState([])
+
+
+	const handleUploadComplete = (imageData) => {
+		const imageUrl = imageData.info
+		console.log(imageUrl)
+		setImageListDisplay((prev) => [...prev, { url: imageUrl.secure_url, name: imageUrl.original_filename }]);
+	};
+
+	const handleRemoveImage = (index, fromInitialImages = false) => {
+		if (fromInitialImages) {
+			setAllImageOfProduct((prev) => prev.filter((_, i) => i !== index));
+		} else {
+			setImageListDisplay((prev) => prev.filter((_, i) => i !== index));
+		}
+	};
 
 	const addNewProduct = async (e) => {
+		e.preventDefault(); // Prevent default form submission
 		if (isErrorForm(error)) {
 			alert("Error")
 			return
 		}
 		try {
 			const productId = uuidv4()
-			const imageList = [...fileImage]
 
 			const productDetail = {
 				productId: productId,
@@ -56,32 +71,14 @@ const AddProduct = ({
 				price: Number.parseInt(data.price),
 				quantityPr: Number.parseInt(data.quantityPr),
 				guaranteePeriod: Number.parseInt(data.guaranteePeriod),
-				supplierId: data.supplierId,
+				SupplierId: data.supplierId,
+				CategoryId: data.categoryId,
 			}
 
-			const productCategory = [
-				{
-					productId: productId,
-					categoryId: data.categoryId,
-				},
-			]
-
-			const formData = new FormData()
-
-			for (let i = 0; i < imageList.length; i++) {
-				formData.append(
-					"formFileCollection",
-					imageList[i],
-					imageList[i].name
-				)
-			}
-
-			await handleProduct.addNewProduct(productDetail)
-			await handleProduct.addImage(formData, productId)
-			await handleProductCategory.addNewProductCategory(
-				productCategory
-			)
-
+			await handleProduct.addNewProduct(productDetail);
+			const imageUrls = imageListDisplay.map(img => img.url);
+			console.log(imageUrls)
+			await handleProduct.addImage( imageUrls, productId)
 			setTrigger((pre) => !pre)
 
 			setData({
@@ -96,7 +93,9 @@ const AddProduct = ({
 			setFileImage([])
 			setImageListDisplay([])
 			setShow(false)
-		} catch (error) {}
+		} catch (error) {
+			console.error("Error adding new product:", error);
+		}
 	}
 
 	const handleProductValueChange = (e) => {
@@ -176,53 +175,15 @@ const AddProduct = ({
 								Hình ảnh sản phẩm
 							</h1>
 
-							<form className='bg-blue-500 w-1/2 mx-auto relative rounded-2xl h-[30px]'>
-								<div className='absolute inset-0 z-0 flex items-center text-white justify-center gap-2'>
-									<CiImageOn size={25} color='white' />{" "}
-									<h1 className='text-2xl'>Thêm ảnh sản phẩm</h1>
-								</div>
-
-								<input
-									onChange={async (e) => {
-										setLoading(true)
-										const files = e.target.files
-										setFileImage(files)
-
-										// Promisify the FileReader operation
-										const readImageFile = (file) => {
-											return new Promise((resolve, reject) => {
-												const reader = new FileReader()
-
-												reader.onload = () => {
-													const imageUrl = reader.result
-													resolve(imageUrl)
-												}
-
-												reader.onerror = reject
-												reader.readAsDataURL(file)
-											})
-										}
-
-										// Process each file using Promise.all
-										try {
-											const imageDataUrls = await Promise.all(
-												Array.from(files).map((file) =>
-													readImageFile(file)
-												)
-											)
-
-											setImageListDisplay(imageDataUrls)
-											setLoading(false)
-										} catch (error) {
-											console.error(error)
-										}
-									}}
-									required
-									type='file'
-									multiple
-									className='absolute inset-0 opacity-0 z-[1]'
-								/>
-							</form>
+							<CldUploadWidget uploadPreset={"wdxleeuq"} onSuccess={(result) => handleUploadComplete(result)}>
+								{({ open }) => {
+									return (
+										<button onClick={() => open()} className="text-center bg-blue-500 text-white text-[1.4rem] font-[600] py-2 px-3 rounded-2xl">
+											Thêm ảnh
+										</button>
+									);
+								}}
+							</CldUploadWidget>
 
 							{Array.isArray(imageListDisplay) && (
 								<div className='flex flex-col items-center justify-center'>
@@ -233,13 +194,19 @@ const AddProduct = ({
 										>
 											{loading ? (
 												<CircleLoader />
-											) : (
-												<img
-													src={x}
-													key={i}
-													className='w-full h-full object-cover rounded-3xl'
-												/>
+											) : (<>
+													<IoCloseCircle
+														className="absolute top-1 right-1 text-white text-[1.6rem] cursor-pointer"
+														onClick={() => handleRemoveImage(i)}
+													/>
+													<img
+														src={x.url}
+														key={i}
+														className='w-full h-full object-cover rounded-3xl'
+													/>
+												</>
 											)}
+											
 										</div>
 									))}
 								</div>
@@ -355,7 +322,7 @@ const AddProduct = ({
 										onChange={handleProductValueChange}
 									>
 										<option>Chọn nhà cung cấp</option>
-										{supplier.map((x, i) => (
+										{supplier?.map((x, i) => (
 											<option key={i} value={x.supplierId}>
 												{x.supplierName}
 											</option>

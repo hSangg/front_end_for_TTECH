@@ -62,17 +62,17 @@ const BestSellProduct = () => {
 						<div key={i} className='flex gap-4 '>
 							<div className='flex-1 p-2 flex items-center justify-center'>
 								<img
-									src={x.image.image_href}
+									src={x?.image[0]?.imageHref}
 									alt=''
 									width={70}
 									height={70}
 								/>
 							</div>
 							<div className='flex-1 p-2 flex text-xl items-center justify-center text-center'>
-								{x.productName}
+								{x?.productName}
 							</div>
 							<div className='flex-1 p-2 flex text-xl items-center justify-center'>
-								{x.totalQuantitySold}
+								{x?.totalQuantitySold}
 							</div>
 						</div>
 					)

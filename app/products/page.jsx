@@ -1,8 +1,8 @@
 "use client"
 
-import FilterProduct from "@/components/FilterProduct"
-import PaginationControls from "@/components/PaginationControls"
-import ProductItem from "@/components/ProductItem"
+import FilterProduct from "@/components/product/FilterProduct"
+import PaginationControls from "@/components/uncategory/PaginationControls"
+import ProductItem from "@/components/product/ProductItem"
 import { useEffect, useState } from "react"
 import { handleProduct } from "../api/handleProduct"
 import { useRouter } from "next/navigation"
@@ -43,8 +43,8 @@ export default function Page({ searchParams }) {
 			...searchParams,
 			IsDescending:
 				searchParams.IsDescending === "true" ? true : false,
-			pageNumber: 0,
-			pageSize: 0
+			pageNumber: filter.pageNumber || 1,
+			pageSize: 12
 		}
 		const result = await handleProduct.getProduct(newFilter)
 		const products = result?.products
@@ -53,7 +53,6 @@ export default function Page({ searchParams }) {
 		setCurrentPage(pageNumber)
 		setTotalPages(totalPages)
 		setList(products)
-
 		setLoading(false)
 	}
 
@@ -70,7 +69,7 @@ export default function Page({ searchParams }) {
 
 	useEffect(() => {
 		getProduct()
-	}, [searchParams])
+	}, [filter])
 
 	return (
 		<div className='mt-20' suppressHydrationWarning={true}>

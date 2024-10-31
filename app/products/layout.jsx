@@ -1,5 +1,5 @@
-import Header from "@/components/Header"
-import Navigator from "@/components/Navigator"
+import Header from "@/components/uncategory/Header"
+import Navigator from "@/components/uncategory/Navigator"
 
 export default function LoginLayout({ children }) {
 	return (

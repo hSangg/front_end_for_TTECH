@@ -202,7 +202,7 @@ const UserOrder = () => {
 													/>
 												</div>
 												<div className='flex-[2] flex items-center text-center justify-center'>
-													{y.product.name_pr}
+													{y.product.namePr}
 												</div>
 												<div className='flex-[2] flex items-center text-center justify-center'>
 													{" "}

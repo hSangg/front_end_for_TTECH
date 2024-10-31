@@ -1,6 +1,6 @@
 "use client"
 
-import { imageSlideList } from "../data"
+import { imageSlideList } from "../../data"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 const ImageSlide = () => {

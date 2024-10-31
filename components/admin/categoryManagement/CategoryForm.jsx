@@ -1,4 +1,5 @@
 import { handleCategory } from "@/app/api/handleCategory"
+import { UserAuth } from "@/context/AuthContext"
 import { motion } from "framer-motion"
 import { v4 as uuidv4 } from "uuid"
 
@@ -13,27 +14,31 @@ const CategoryForm = ({
 	triggerGetData,
 	setTriggerGetData,
 }) => {
+
+	const {token} = UserAuth()
+
 	const handleSubmit = async (e) => {
 		if (mode === "add") {
 			const newCategory = {
-				category_id: uuidv4(),
-				category_name: currentCategoryClicked.category_name,
+				categoryId: uuidv4(),
+				categoryName: currentCategoryClicked.categoryName,
 			}
-			const res = await handleCategory.addCategory(newCategory)
+			const res = await handleCategory.addCategory(newCategory, token)
 		} else {
 			const updatedCategory = {
-				category_id: currentCategoryClicked.category_id,
-				category_name: currentCategoryClicked.category_name,
+				categoryId: currentCategoryClicked.categoryId,
+				categoryName: currentCategoryClicked.categoryName,
 			}
 			const res = await handleCategory.updateCategory(
-				updatedCategory
+				updatedCategory,
+				token
 			)
 		}
 
 		// clear
 		setCurrentCategoryClicked({
-			category_name: "",
-			category_id: "",
+			categoryName: "",
+			categoryId: "",
 		})
 		setTriggerGetData((pre) => !pre)
 	}
@@ -42,12 +47,13 @@ const CategoryForm = ({
 		const isSure = prompt("Nhập vào '1' để xóa")
 		if (isSure == "1") {
 			await handleCategory.deleteCategory(
-				currentCategoryClicked.category_id
+				currentCategoryClicked.categoryId,
+				token
 			)
 
 			setCurrentCategoryClicked({
-				category_name: "",
-				category_id: "",
+				categoryName: "",
+				categoryId: "",
 			})
 			alert("deleted")
 			setTriggerGetData((pre) => !pre)
@@ -62,8 +68,8 @@ const CategoryForm = ({
 						setMode("add")
 						// clear input
 						setCurrentCategoryClicked({
-							category_name: "",
-							category_id: "",
+							categoryName: "",
+							categoryId: "",
 						})
 					}}
 					className='px-4 cursor-pointer py-2 border border-b-4 rounded-md text-xl font-bold border-blue-500 border-b-blue-500 bg-white flex-1 shrink-0 text-center'
@@ -83,7 +89,7 @@ const CategoryForm = ({
 					Mã danh mục
 				</h2>
 				<input
-					value={currentCategoryClicked?.category_id}
+					value={currentCategoryClicked?.categoryId}
 					className='outline-none border border-black/50 text-black/50 p-4 rounded-2xl w-full text-2xl font-[500] mb-4'
 					placeholder='Mã danh mục'
 				/>
@@ -93,10 +99,10 @@ const CategoryForm = ({
 					onChange={(e) =>
 						setCurrentCategoryClicked((pre) => ({
 							...pre,
-							category_name: e.target.value,
+							categoryName: e.target.value,
 						}))
 					}
-					value={currentCategoryClicked?.category_name}
+					value={currentCategoryClicked?.categoryName}
 					className='outline-none border border-black/50 p-4 rounded-2xl w-full text-2xl font-[500]'
 					placeholder='Nhập tên danh mục'
 				/>

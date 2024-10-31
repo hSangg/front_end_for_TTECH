@@ -1,7 +1,7 @@
-import Header from "../components/Header"
-import Navigator from "../components/Navigator"
-import MainContent from "../components/MainContent"
-import Footer from "@/components/Footer"
+import Header from "../components/uncategory/Header"
+import Navigator from "../components/uncategory/Navigator"
+import MainContent from "../components/uncategory/MainContent"
+import Footer from "@/components/uncategory/Footer"
 
 export default function Home() {
 	return (

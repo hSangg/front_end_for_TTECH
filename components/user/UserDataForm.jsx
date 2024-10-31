@@ -1,11 +1,11 @@
 "use client"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import { isValidEmail, isValidPhone } from "../utils/until"
+import { isValidEmail, isValidPhone } from "../../utils/until"
 import { UserAuth } from "@/context/AuthContext"
 import { handleUser } from "@/app/api/handleUser"
-import Notification from "./Notification"
-import CircleLoader from "./CircleLoader"
+import Notification from "../uncategory/Notification"
+import CircleLoader from "../uncategory/CircleLoader"
 
 const UserDataForm = () => {
 	const buttonRef = useRef()

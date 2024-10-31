@@ -12,6 +12,9 @@ const ProductRenderList = ({
 	list,
 	setList,
 }) => {
+	const handleClick = (x) => {
+		setCurrentProductChoose(x)
+	}
 	return (
 		<ul className='w-[25%] customScrollBar divide-y py-2 flex flex-col gap-2 h-[350px] overflow-y-scroll p-2'>
 			{list.map((x, i) => (
@@ -20,12 +23,12 @@ const ProductRenderList = ({
 					variants={variants}
 					initial='initial'
 					animate={
-						currentProductChoose?.product?.productId ===
+						currentProductChoose?.productId ===
 						x?.productId
 							? "animate"
 							: "initial"
 					}
-					onClick={() => setCurrentProductChoose(x)}
+					onClick={() => handleClick(x)}
 					className='flex items-start gap-2 p-2 cursor-pointer rounded-2xl'
 				>
 					<div className='w-12 h-12 shrink-0 rounded-xl bg-sky-300'>

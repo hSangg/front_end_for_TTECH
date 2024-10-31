@@ -32,7 +32,7 @@ const AdminProductManagement = () => {
 	const getAllImage = async () => {
 		try {
 			const result = await handleProduct.getAllImageOfProduct(
-				currentProductChoose?.product?.productId
+				currentProductChoose?.productId
 			)
 			setAllImageOfProduct(result)
 		} catch (error) {}
@@ -100,7 +100,6 @@ const AdminProductManagement = () => {
 					<div className=''>
 						<ProductManagementForm
 							setTrigger={setTrigger}
-							setCurrentProductChoose={setCurrentProductChoose}
 							currentProductChoose={currentProductChoose}
 							category={category}
 							setCategory={setCategory}

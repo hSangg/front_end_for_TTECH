@@ -1,11 +1,12 @@
-"use client"
-import { handleProduct } from "@/app/api/handleProduct"
-import { handleProductCategory } from "@/app/api/handleProductCategory"
-import Notification from "@/components/uncategory/Notification"
-import { AnimatePresence, motion } from "framer-motion"
-import { useEffect, useState } from "react"
-import { CiCircleRemove } from "react-icons/ci"
-import { IoCopyOutline } from "react-icons/io5"
+"use client";
+import { handleProduct } from "@/app/api/handleProduct";
+import { handleProductCategory } from "@/app/api/handleProductCategory";
+import Notification from "@/components/uncategory/Notification";
+import { AnimatePresence, motion } from "framer-motion";
+import { CldUploadWidget } from "next-cloudinary";
+import { useEffect, useState } from "react";
+import { IoCopyOutline } from "react-icons/io5";
+import { IoCloseCircle } from "react-icons/io5";
 
 const ProductManagementForm = ({
 	currentProductChoose,
@@ -20,11 +21,8 @@ const ProductManagementForm = ({
 	triggerImage,
 	setTriggerImage,
 }) => {
-	const [imageFile, setImageFile] = useState([])
-	const [error, setError] = useState({})
-	const [imageListDisplay, setImageListDisplay] = useState(
-		[]
-	)
+	const [error, setError] = useState({});
+	const [imageListDisplay, setImageListDisplay] = useState([]);
 	const [data, setData] = useState({
 		productId: currentProductChoose?.productId,
 		namePr: currentProductChoose?.namePr,
@@ -33,49 +31,37 @@ const ProductManagementForm = ({
 		price: currentProductChoose?.price,
 		quantityPr: currentProductChoose?.quantityPr,
 		guaranteePeriod: currentProductChoose?.guaranteePeriod,
-		supplierId: currentProductChoose?.supplier?.supplierId,
-		categoryId:
-			currentProductChoose?.category?.[0]?.categoryId,
-	})
-	const [notifications, setNotifications] = useState(false)
-
+		supplierId: currentProductChoose?.supplierId,
+		categoryId: currentProductChoose?.categoryId,
+	});
+	const [notifications, setNotifications] = useState(false);
 	const handleProductValueChange = (e) => {
-		const { value, id } = e.target
-		console.log("data: ", data)
-		console.log("id: ", id)
-		console.log("value: ", value)
-		if (
-			id === "namePr" ||
-			id === "price" ||
-			id === "nameSerial" ||
-			id === "detail" ||
-			id === "guaranteePeriod" ||
-			id === "quantityPr" ||
-			id === "categoryId"
-		) {
-			if (
-				id === "price" ||
-				id === "guaranteePeriod" ||
-				id === "quantityPr"
-			) {
-				console.log("run")
-				if (isNaN(value)) {
-					setError((pre) => ({
-						...pre,
-						[id]: "Vui lòng nhập một số",
-					}))
-				} else {
-					setError((pre) => ({ ...pre, [id]: "" }))
-				}
+		const { value, id } = e.target;
+		if (["namePr", "price", "nameSerial", "detail", "guaranteePeriod", "quantityPr", "categoryId"].includes(id)) {
+			if (["price", "guaranteePeriod", "quantityPr"].includes(id) && isNaN(value)) {
+				setError((prev) => ({ ...prev, [id]: "Vui lòng nhập một số" }));
+			} else {
+				setError((prev) => ({ ...prev, [id]: "" }));
+				setData((prev) => ({ ...prev, [id]: value }));
 			}
-			setData((pre) => ({ ...pre, [id]: value }))
-			console.log("error: ", error)
 		}
-	}
+	};
+
+	const handleUploadComplete = (imageData) => {
+		const imageUrl = imageData.info
+		setImageListDisplay((prev) => [...prev, { url: imageUrl.secure_url, name: imageUrl.original_filename }]);
+	};
+
+	const handleRemoveImage = (index, fromInitialImages = false) => {
+		if (fromInitialImages) {
+			setAllImageOfProduct((prev) => prev.filter((_, i) => i !== index));
+		} else {
+			setImageListDisplay((prev) => prev.filter((_, i) => i !== index));
+		}
+	};
 
 	useEffect(() => {
-		console.log("data in use effect run:", data)
-		setError({})
+		setError({});
 		setData({
 			productId: currentProductChoose?.productId,
 			namePr: currentProductChoose?.namePr,
@@ -84,107 +70,46 @@ const ProductManagementForm = ({
 			price: currentProductChoose?.price,
 			quantityPr: currentProductChoose?.quantityPr,
 			guaranteePeriod: currentProductChoose?.guaranteePeriod,
-			supplierId: currentProductChoose?.supplier?.supplierId,
-			categoryId:
-				currentProductChoose?.category?.[0]?.categoryId,
-		})
-	}, [currentProductChoose])
-
-	const handleRemoveImageOld = async (x) => {
-		try {
-			const sure = prompt("are you sure? type 1")
-			if (sure === "1") {
-				await handleProduct.deleteImageOfProduct(
-					x.productId,
-					x.file_name
-				)
-				setTriggerImage((pre) => !pre)
-			}
-		} catch (error) {}
-	}
-	const handleRemoveImageNew = async (x) => {
-		// remove this file from file List
-
-		setImageListDisplay((pre) => {
-			const newList = [...pre].filter((z) => z.name != x.name)
-			return newList
-		})
-
-		// remove this file from image file List
-		setImageFile((pre) => {
-			const newList = [...pre].filter((y) => y.name !== x.name)
-
-			return newList
-		})
-	}
+			supplierId: currentProductChoose?.supplierId,
+			categoryId: currentProductChoose?.categoryId,
+		});
+	}, [currentProductChoose]);
 
 	const handleSubmit = async () => {
-		const productId = currentProductChoose.product.productId
-		const imageList = [...imageFile]
-
-		if (imageList.length !== 0) {
-			console.log("udpate image")
-			const formData = new FormData()
-
-			for (let i = 0; i < imageList.length; i++) {
-				formData.append(
-					"formFileCollection",
-					imageList[i],
-					imageList[i].name
-				)
-			}
-			await handleProduct.addImage(formData, productId)
-			setImageListDisplay([])
-			setImageFile([])
-			setTriggerImage((pre) => !pre)
-		}
-
-		const price = Number.parseInt(data.price)
-		const quantityPr = Number.parseInt(data.quantityPr)
-		const guaranteePeriod = Number.parseInt(
-			data.guaranteePeriod
-		)
-
+		const productId = currentProductChoose.productId;
+		const price = Number.parseInt(data.price);
+		const quantityPr = Number.parseInt(data.quantityPr);
+		const guaranteePeriod = Number.parseInt(data.guaranteePeriod);
 		const updatedProduct = {
-			productId: productId,
+			productId,
 			namePr: data.namePr,
 			nameSerial: data.nameSerial,
 			detail: data.detail,
 			price,
 			quantityPr,
 			guaranteePeriod,
-			supplierId: data.supplierId,
+			SupplierId: data.supplierId,
+			CategoryId: data.categoryId
+		};
+		console.log(imageListDisplay)
+		if (Object.values(error).every((x) => x === "")) {
+			await handleProduct.updateProduct(updatedProduct);
+			const imageUrls = imageListDisplay.map(img => img.url);
+			await handleProduct.addImage( imageUrls, updatedProduct.productId);
+			setNotifications(true);
+			setTrigger((prev) => !prev);
+		} else {
+			alert("Lỗi cập nhật sản phẩm");
 		}
-
-		const running = Object.values(error).every(
-			(x) => x === ""
-		)
-
-		if (running) {
-			const resultUpdateCategory =
-				await handleProductCategory.updateProductCategory(
-					{
-						productId: productId,
-						categoryId:
-							currentProductChoose?.category?.[0]?.categoryId,
-					},
-					data.categoryId
-				)
-			const resultUpdateProduct =
-				await handleProduct.updateProduct(updatedProduct)
-
-			setNotifications(true)
-			setTrigger((pre) => !pre)
-		} else alert("Lỗi cập nhật sản phẩm")
-	}
+	};
 
 	return (
 		<motion.div
 			key={currentProductChoose?.productId}
 			initial={{ opacity: 0, x: 10 }}
-			whileInView={{ opacity: 1, x: 0 }}
+			animate={{ opacity: 1, x: 0 }}
 			exit={{ opacity: 0, x: 10 }}
-			className='flex-1 flex gap-3 w-full'
+			className="flex-1 flex gap-3 w-full"
 		>
 			{notifications && (
 				<Notification
@@ -196,236 +121,120 @@ const ProductManagementForm = ({
 					notifications={notifications}
 				/>
 			)}
-			<div className='flex flex-col gap-2 justify-start items-center  mr-4 mb-4'>
+			<div className="flex flex-col gap-2 justify-start items-center mr-4 mb-4">
 				{allImageOfProduct?.map((x, i) => (
-					<div
-						key={i}
-						className='w-44 h-44 bg-blue-300 rounded-[10px] shrink-0 relative'
-					>
-						<div
-							onClick={() => {
-								handleRemoveImageOld(x)
-							}}
-							className='absolute cursor-pointer bg-red-500/70 w-6 h-6 text-xl leading-8 right-0 top-0 text-white flex items-center justify-center rounded-full'
-						>
-							x
-						</div>
-						<img
-							src={x?.image_href}
-							className='w-full h-full object-cover rounded-[10px]'
+					<div key={i} className="w-44 h-44 bg-blue-300 rounded-[10px] relative">
+						<img src={x?.imageHref} className="w-full h-full object-cover rounded-[10px]" />
+					</div>
+				))}
+
+				{imageListDisplay?.map((image, i) => (
+					<div key={i} className="relative w-44 h-44 bg-blue-300 rounded-[10px]">
+						<img src={image.url} className="w-full h-full object-cover rounded-[10px]" />
+						<IoCloseCircle
+							className="absolute top-1 right-1 text-white text-[1.6rem] cursor-pointer"
+							onClick={() => handleRemoveImage(i)}
 						/>
 					</div>
 				))}
 
-				{imageListDisplay?.map((x, i) => (
-					<div
-						key={i}
-						className='w-44 h-44 bg-blue-300 rounded-[10px] shrink-0 relative'
-					>
-						<div
-							onClick={() => handleRemoveImageNew(x)}
-							className='absolute cursor-pointer bg-red-500/70 w-6 h-6 text-xl leading-8 right-0 top-0 text-white flex items-center justify-center rounded-full'
-						>
-							x
-						</div>
-						<img
-							src={x.dataUrl}
-							className='w-full h-full object-cover rounded-[10px]'
-						/>
-					</div>
-				))}
-
-				<div className='text-center relative bg-blue-500 text-white text-[1.4rem] font-[600] py-2 px-3 rounded-2xl'>
-					<input
-						multiple
-						onChange={async (e) => {
-							const files = e.target.files
-							setImageFile(files)
-
-							// Promisify the FileReader operation
-							const readImageFile = (file) => {
-								return new Promise((resolve, reject) => {
-									const reader = new FileReader()
-
-									reader.onload = () => {
-										const imageData = {
-											name: file.name,
-											dataUrl: reader.result,
-										}
-										resolve(imageData)
-									}
-
-									reader.onerror = reject
-									reader.readAsDataURL(file)
-								})
-							}
-
-							try {
-								const imageDataList = await Promise.all(
-									Array.from(files).map((file) =>
-										readImageFile(file)
-									)
-								)
-
-								setImageListDisplay(imageDataList)
-							} catch (error) {
-								console.error(error)
-							}
-						}}
-						type='file'
-						className='inset-0 opacity-0 absolute'
-					/>
-					<h1 className=''>Thêm ảnh</h1>
-				</div>
+				<CldUploadWidget uploadPreset={"wdxleeuq"} onSuccess={(result) => handleUploadComplete(result)}>
+					{({ open }) => {
+						return (
+							<button onClick={() => open()} className="text-center bg-blue-500 text-white text-[1.4rem] font-[600] py-2 px-3 rounded-2xl">
+								Thêm ảnh
+							</button>
+						);
+					}}
+				</CldUploadWidget>
 			</div>
 
-			<form
-				onSubmit={(e) => e.preventDefault()}
-				className='text-[2rem] flex flex-col gap-2 w-full'
-			>
+			<form onSubmit={(e) => e.preventDefault()} className="text-[2rem] flex flex-col gap-2 w-full">
 				{[
-					{
-						key: "productId",
-						name: "Mã sản phẩm",
-					},
-					{
-						key: "namePr",
-						name: "Tên sản phẩm",
-					},
-					{
-						key: "price",
-						name: "Giá sản phẩm",
-					},
-					{
-						key: "nameSerial",
-						name: "Seri",
-					},
-				].map((x, i) => (
+					{ key: "productId", name: "Mã sản phẩm", disabled: true },
+					{ key: "namePr", name: "Tên sản phẩm" },
+					{ key: "price", name: "Giá sản phẩm" },
+					{ key: "nameSerial", name: "Seri" },
+				].map((field, i) => (
 					<div key={i}>
-						<motion.div className='flex gap-2 w-full'>
-							<motion.label
-								whileTap={{ color: "red" }}
-								className='min-w-[170px] flex items-center gap-2 text-black/50'
-							>
-								{x.name}
-								{x.key === "productId" && (
+						<div className="flex gap-2 w-full">
+							<label className="min-w-[170px] flex items-center gap-2 text-black/50">
+								{field.name}
+								{field.key === "productId" && (
 									<IoCopyOutline
 										size={20}
-										onClick={() => {
-											navigator.clipboard.writeText(
-												currentProductChoose?.productId
-											)
-										}}
+										onClick={() => navigator.clipboard.writeText(currentProductChoose?.productId)}
 									/>
 								)}
-							</motion.label>
-							<motion.input
-								disabled={x.key === "productId"}
-								id={x.key}
-								value={data[x.key]}
+							</label>
+							<input
+								id={field.key}
+								value={data[field.key]}
 								onChange={handleProductValueChange}
-								className='outline-none border-b font-semibold border-black/20 w-full'
+								disabled={field.disabled}
+								className="outline-none border-b font-semibold border-black/20 w-full"
 							/>
-						</motion.div>
-						<h2 className='text-red-500 text-2xl'>
-							{error[x.key]}
-						</h2>
+						</div>
+						<h2 className="text-red-500 text-2xl">{error[field.key]}</h2>
 					</div>
 				))}
-				<motion.div className='flex gap-2 w-full'>
-					<label className='min-w-[170px] text-black/50'>
-						Mô tả sản phẩm
-					</label>
-					<motion.textarea
-						id={"detail"}
+
+				<div className="flex gap-2 w-full">
+					<label className="min-w-[170px] text-black/50">Mô tả sản phẩm</label>
+					<textarea
+						id="detail"
 						value={data.detail}
 						onChange={handleProductValueChange}
-						className='outline-none border-b font-semibold border-black/20 w-full'
+						className="outline-none border-b font-semibold border-black/20 w-full"
 					/>
-				</motion.div>
+				</div>
 
 				{[
-					{
-						key: "guaranteePeriod",
-						name: "Bảo hành (tháng)",
-					},
-					{
-						key: "quantityPr",
-						name: "Còn lại (sản phẩm)",
-					},
-				].map((x, i) => (
+					{ key: "guaranteePeriod", name: "Bảo hành (tháng)" },
+					{ key: "quantityPr", name: "Còn lại (sản phẩm)" },
+				].map((field, i) => (
 					<div key={i}>
-						<motion.div className='flex gap-2 w-full'>
-							<label className='min-w-[170px] text-black/50'>
-								{x.name}
-							</label>
-							<motion.input
-								id={x.key}
-								value={data[x.key]}
+						<div className="flex gap-2 w-full">
+							<label className="min-w-[170px] text-black/50">{field.name}</label>
+							<input
+								id={field.key}
+								value={data[field.key]}
 								onChange={handleProductValueChange}
-								className='outline-none border-b border-black/20 font-semibold w-full'
+								className="outline-none border-b border-black/20 font-semibold w-full"
 							/>
-						</motion.div>
-						<h2 className='text-red-500 text-2xl'>
-							{error[x.key]}
-						</h2>
+						</div>
+						<h2 className="text-red-500 text-2xl">{error[field.key]}</h2>
 					</div>
 				))}
 
-				<motion.div className='flex gap-2 w-full'>
-					<label className='min-w-[170px] text-black/50'>
-						Doanh mục
-					</label>
-					<select
-						id='categoryId'
-						onChange={handleProductValueChange}
-					>
-						{category.map((x, i) => (
-							<option
-								selected={
-									currentProductChoose?.category?.[0]?.categoryId ===
-									x.categoryId
-								}
-								key={i}
-								value={x.categoryId}
-							>
-								{x.categoryName}
+				<div className="flex gap-2 w-full">
+					<label className="min-w-[170px] text-black/50">Doanh mục</label>
+					<select id="categoryId" onChange={handleProductValueChange} value={data.categoryId}>
+						{category?.map((cat) => (
+							<option key={cat.categoryId} value={cat.categoryId}>
+								{cat.categoryName}
 							</option>
 						))}
 					</select>
-				</motion.div>
+				</div>
 
-				<motion.div className='flex gap-2 w-full'>
-					<label className='min-w-[170px] text-black/50'>
-						Nhà cung cấp
-					</label>
-					<select
-						id='supplierId'
-						onChange={handleProductValueChange}
-					>
-						{supplier.map((x, i) => (
-							<option
-								selected={
-									currentProductChoose?.supplier?.supplierId ===
-									x.supplierId
-								}
-								key={i}
-								value={x.supplierId}
-							>
-								{x.supplierName}
+				<div className="flex gap-2 w-full">
+					<label className="min-w-[170px] text-black/50">Nhà cung cấp</label>
+					<select id="supplierId" onChange={handleProductValueChange} value={data.supplierId}>
+						{supplier?.map((sup) => (
+							<option key={sup.supplierId} value={sup.supplierId}>
+								{sup.supplierName}
 							</option>
 						))}
 					</select>
-				</motion.div>
-				<button
-					onClick={handleSubmit}
-					className='bg-blue-500 mt-8 rounded-full text-white font-[600] p-1'
-				>
-					Hoàn tất chỉnh sửa
+				</div>
+
+				<button onClick={handleSubmit} className="text-white bg-blue-500 text-[1.4rem] font-semibold py-2 rounded-lg">
+					Cập nhật
 				</button>
 			</form>
 		</motion.div>
-	)
-}
+	);
+};
 
-export default ProductManagementForm
+export default ProductManagementForm;

@@ -9,7 +9,7 @@ import CircleLoader from "../uncategory/CircleLoader"
 
 const UserDataForm = () => {
 	const buttonRef = useRef()
-	const { user, setUser } = UserAuth()
+	const { token, user, setUser } = UserAuth()
 
 	useEffect(() => {
 		setFormData(user)
@@ -69,7 +69,7 @@ const UserDataForm = () => {
 			name: formData?.name,
 		}
 
-		const result = await handleUser.updateUser(updatedUser)
+		const result = await handleUser.updateUser(updatedUser, token)
 
 		if (result?.user) setUser(result.user)
 

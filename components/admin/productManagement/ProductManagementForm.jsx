@@ -37,7 +37,7 @@ const ProductManagementForm = ({
 	const [notifications, setNotifications] = useState(false);
 	const handleProductValueChange = (e) => {
 		const { value, id } = e.target;
-		if (["namePr", "price", "nameSerial", "detail", "guaranteePeriod", "quantityPr", "categoryId"].includes(id)) {
+		if (["namePr", "price", "nameSerial", "detail", "guaranteePeriod", "quantityPr", "categoryId", "supplierId"].includes(id)) {
 			if (["price", "guaranteePeriod", "quantityPr"].includes(id) && isNaN(value)) {
 				setError((prev) => ({ ...prev, [id]: "Vui lòng nhập một số" }));
 			} else {

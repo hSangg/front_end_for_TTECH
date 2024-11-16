@@ -6,16 +6,18 @@ import { CiMinimize1 } from "react-icons/ci"
 import Notification from "../uncategory/Notification"
 import { handleUser } from "@/app/api/handleUser"
 import CircleLoader from "../uncategory/CircleLoader"
+import { UserAuth } from "@/context/AuthContext"
 
 const ForgetPassword = () => {
 	const [show, setShow] = useState(false)
 	const [notifications, setNotifications] = useState(false)
 	const [data, setData] = useState("")
 	const [loading, setLoading] = useState(false)
+	const {token} = UserAuth()
 
 	const handleSubmit = async () => {
 		setLoading(true)
-		const result = await handleUser.forgetPassword(data)
+		const result = await handleUser.forgetPassword(data, token)
 
 		setLoading(false)
 		setNotifications(true)

@@ -21,7 +21,7 @@ const Page = () => {
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem("user"))
 
-		// if (user.role !== "1") return router.push("/")
+		if (user.role !== "ADMIN") return router.push("/")
 		if (user?.userId) setUser(user)
 	}, [setUser])
 

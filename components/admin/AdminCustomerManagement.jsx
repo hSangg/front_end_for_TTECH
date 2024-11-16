@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react"
 import UserRenderList from "./customerManagement/UserRenderList"
 import { handleUser } from "@/app/api/handleUser"
+import { UserAuth } from "@/context/AuthContext"
 
 const AdminCustomerManagement = () => {
+	const { token } = UserAuth()
 	const [userList, setUserList] = useState([
 		{
 			user_id: "bdf9bc14-719c-481a-8da1-5d0b8446b2e0",
@@ -18,7 +20,7 @@ const AdminCustomerManagement = () => {
 		},
 	])
 	const getData = async () => {
-		const result = await handleUser.getAllUser()
+		const result = await handleUser.getAllUser(token)
 		setUserList(result)
 	}
 

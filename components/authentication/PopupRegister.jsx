@@ -9,6 +9,40 @@ import useDebounce from "../../customHook/useDeboune"
 import { isValidEmail } from "../../utils/until"
 import { UserAuth } from "@/context/AuthContext"
 import CircleLoader from "../uncategory/CircleLoader"
+
+// Password validation function
+const validatePassword = (password) => {
+	const minLength = 8
+	const hasUpperCase = /[A-Z]/.test(password)
+	const hasLowerCase = /[a-z]/.test(password)
+	const hasNumbers = /\d/.test(password)
+	const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(
+		password
+	)
+
+	const errors = []
+
+	if (password.length < minLength) {
+		errors.push("Mật khẩu phải có ít nhất 8 ký tự")
+	}
+	if (!hasUpperCase) {
+		errors.push("Phải có ít nhất 1 chữ hoa")
+	}
+	if (!hasLowerCase) {
+		errors.push("Phải có ít nhất 1 chữ thường")
+	}
+	if (!hasNumbers) {
+		errors.push("Phải có ít nhất 1 số")
+	}
+	if (!hasSpecialChar) {
+		errors.push(
+			'Phải có ít nhất 1 ký tự đặc biệt (!@#$%^&*(),.?":{}|<>)'
+		)
+	}
+
+	return errors
+}
+
 const PopupRegister = () => {
 	const [showPopup, setShowPopup] = useState(false)
 	const { user, setUser, token, setToken } = UserAuth()
@@ -66,17 +100,6 @@ const PopupRegister = () => {
 		setLoading(false)
 	}
 
-	/**
- * "user_id": "string",
-  "name": "string",
-  "email": "string",
-  "phone": "string",
-  "password": "string",
-  "isAdmin": "s",
-  "create_at": "2023-10-28T09:48:38.559Z"
- *  
- */
-
 	const handleInputChange = (e) => {
 		const { value, id } = e.target
 
@@ -96,8 +119,14 @@ const PopupRegister = () => {
 			data.password.trim() !== value.trim()
 		) {
 			errorMessage = "Mật khẩu không trùng khớp"
-		} else if (id === "email" && !isValidEmail(value))
+		} else if (id === "email" && !isValidEmail(value)) {
 			errorMessage = "Sai định dạng email"
+		} else if (id === "password") {
+			const passwordErrors = validatePassword(value)
+			if (passwordErrors.length > 0) {
+				errorMessage = passwordErrors.join(", ")
+			}
+		}
 
 		setData((pre) => ({ ...pre, [id]: value }))
 		setVerifyInput((pre) => ({
@@ -173,7 +202,7 @@ const PopupRegister = () => {
 												placeholder={x}
 												className='w-full border-b-2 outline-none text-[2.5rem] font-[600] px-2'
 											/>
-											<h2 className='text-red-500 text-[1.2rem] '>
+											<h2 className='text-red-500 text-[1.2rem] whitespace-pre-wrap'>
 												{verifyInput[x]}
 											</h2>
 										</div>
